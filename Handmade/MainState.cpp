@@ -1,5 +1,6 @@
 #include "DebugManager.h"
 #include "EndState.h"
+#include "StartState.h"	// Remove later
 #include "InputManager.h"
 #include "Game.h"
 #include "MainState.h"
@@ -55,8 +56,11 @@ bool MainState::Update()
 		TheGame::Instance()->ChangeState(new EndState(this));
 	}
 
-	//ADD YOUR CODE HERE...
-	//...
+	if (keyState[SDL_SCANCODE_SPACE])
+	{
+		m_isActive = false;	// We'll keep things in memory 
+		TheGame::Instance()->ChangeState(new StartState(this));
+	}
 
 	return true;
 
