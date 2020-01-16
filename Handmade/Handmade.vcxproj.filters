@@ -64,6 +64,9 @@
     <Filter Include="Source Files\Components\Core">
       <UniqueIdentifier>{d3e431f9-3a0f-4a6b-b6ca-3576f11f387e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObjects\Custom Objects">
+      <UniqueIdentifier>{ab68a621-abda-4c5b-89e8-a97fab2e5313}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Main.frag">
@@ -155,6 +158,12 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Components\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Planet.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">
@@ -237,6 +246,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Components\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
