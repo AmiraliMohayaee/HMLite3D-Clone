@@ -59,6 +59,8 @@
 #include <SDL.h>
 #include "Singleton.h"
 
+typedef const Uint8* KeyState;
+
 class InputManager
 {
 
@@ -106,7 +108,7 @@ private :
 
 	bool m_isXClicked;
 	bool m_isKeyPressed;
-	const Uint8* m_keyStates;
+	KeyState m_keyStates;
 
 	SDL_Cursor* m_cursor;
 
