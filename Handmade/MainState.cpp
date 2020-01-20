@@ -6,6 +6,7 @@
 #include "MainState.h"
 #include "PipelineManager.h"
 #include "ScreenManager.h"
+#include "Utility.h"
 
 //------------------------------------------------------------------------------------------------------
 //constructor that assigns all default values
@@ -24,6 +25,7 @@ MainState::MainState(GameState* state) : GameState(state)
 bool MainState::OnEnter()
 {
 	m_player = new Player();
+	m_enemy = new Enemy();
 
 	//create the main camera to control the main view
 	m_mainCamera = new MainCamera();
@@ -65,10 +67,24 @@ bool MainState::Update()
 
 
 	m_player->Update();
+	m_enemy->Update();
+
+	// To-Do: Output log info into files
+	Utility::Log("Updating Main State");
+
+	double radian = 4.0;
+	double degree = 180.0;
+
+	Utility::Log(Utility::DegToRad(degree), "Degree is");
+	Utility::Log(Utility::RadToDeg(radian), "Rad is");
+	Utility::Log(Utility::LineDistance(0, 0, 5, 3), "The Pythagorem results are ");
+
+	Utility::Log(m_player->GetPosX(), "Player's X Value is: ");
+	Utility::Log(m_player->GetPosY(), "Player's Y Value is: ");
 
 	return true;
-
 }
+
 //------------------------------------------------------------------------------------------------------
 //function that displays all active and visible game objects in game state
 //------------------------------------------------------------------------------------------------------
@@ -105,7 +121,7 @@ bool MainState::Draw()
 
 #endif
 	m_player->Draw();
-
+	m_enemy->Draw();
 
 
 	//GameObject::SetIdentity();
@@ -155,4 +171,5 @@ void MainState::OnExit()
 	delete m_HUDCamera;
 	delete m_mainCamera;
 	delete m_player;
+	delete m_enemy;
 }

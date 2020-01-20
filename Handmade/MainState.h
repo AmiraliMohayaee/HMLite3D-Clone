@@ -40,6 +40,8 @@
 #include "HUDCamera.h"
 #include "MainCamera.h"
 #include "Player.h"
+#include "Enemy.h"
+
 
 class MainState : public GameState
 {
@@ -63,6 +65,7 @@ private :
 	MainCamera* m_mainCamera;
 
     Player* m_player;
+    Enemy* m_enemy;
 };
 
 #endif

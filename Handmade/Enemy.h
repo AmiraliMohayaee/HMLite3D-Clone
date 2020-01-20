@@ -1,24 +1,20 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
-#include "DebugManager.h"
 #include "GameObject.h"
+#include "DebugManager.h"
 #include "InputManager.h"
 
 
-class Player : public GameObject
+class Enemy : public GameObject
 {
 public:
-	Player();
+	Enemy();
 
 	virtual bool Create();
 	virtual void Update();
 	virtual void Draw();
 	virtual void Destroy();
-
-	float GetPosX();
-	float GetPosY();
-	float GetPosZ();
 
 
 private:

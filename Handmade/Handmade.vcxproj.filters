@@ -67,6 +67,12 @@
     <Filter Include="Header Files\GameObjects\Custom Objects">
       <UniqueIdentifier>{ab68a621-abda-4c5b-89e8-a97fab2e5313}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\Core\Maths">
+      <UniqueIdentifier>{1f3b98fb-1872-4025-8124-228a60b0e2c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Core\MyMaths">
+      <UniqueIdentifier>{80be22d5-3512-4e4e-9867-299c6c5c4bf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Main.frag">
@@ -99,9 +105,6 @@
       <Filter>Header Files\Main</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>Header Files\Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools.h">
       <Filter>Header Files\Main</Filter>
     </ClInclude>
     <ClInclude Include="AudioManager.h">
@@ -164,6 +167,15 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMath.h">
+      <Filter>Header Files\Components\Core\MyMaths</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">
@@ -182,9 +194,6 @@
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Main</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools.cpp">
       <Filter>Source Files\Main</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -248,6 +257,15 @@
       <Filter>Source Files\Components\Core</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyMath.cpp">
+      <Filter>Source Files\Components\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
