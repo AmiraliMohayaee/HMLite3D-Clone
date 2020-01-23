@@ -41,6 +41,7 @@
 #include "MainCamera.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Planet.h"
 
 
 class MainState : public GameState
@@ -66,6 +67,7 @@ private :
 
     Player* m_player;
     Enemy* m_enemy;
+    Planet* m_planet;
 };
 
 #endif

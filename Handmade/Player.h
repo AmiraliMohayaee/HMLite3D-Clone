@@ -4,6 +4,7 @@
 #include "DebugManager.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include <glm.hpp>
 
 
 class Player : public GameObject
@@ -16,16 +17,8 @@ public:
 	virtual void Draw();
 	virtual void Destroy();
 
-	float GetPosX();
-	float GetPosY();
-	float GetPosZ();
-
 
 private:
-	float m_xPos;
-	float m_yPos;
-	float m_zPos;
-
 	float m_xRot;
 	float m_yRot;
 	float m_zRot;

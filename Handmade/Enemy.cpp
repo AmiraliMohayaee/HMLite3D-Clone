@@ -3,9 +3,7 @@
 
 Enemy::Enemy()
 {
-	m_xPos = 0.0f;
-	m_yPos = 0.0f;
-	m_zPos = 0.0f;
+	m_pos = glm::vec3(0.0f);
 
 	m_xRot = 0.0f;
 	m_yRot = 0.0f;
@@ -29,7 +27,8 @@ void Enemy::Update()
 void Enemy::Draw()
 {
 	GameObject::SetIdentity();
-	GameObject::Translate(m_xRot * (3.0f + m_xPos), 1.0f + m_yPos, 0.0f + m_zPos);
+	GameObject::Translate(m_xRot * (3.0f + m_pos.x), 1.0f + m_pos.y, 
+		0.0f + m_pos.z);
 	//GameObject::Rotate(m_XAngle, 1, 0, 0);
 	TheDebug::Instance()->DrawSphere3D(1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
 }

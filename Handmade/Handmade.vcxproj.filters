@@ -73,6 +73,9 @@
     <Filter Include="Header Files\Components\Core\MyMaths">
       <UniqueIdentifier>{80be22d5-3512-4e4e-9867-299c6c5c4bf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameObjects\Costum Objects">
+      <UniqueIdentifier>{27da3466-191f-42be-834b-1a815c7cd907}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Main.frag">
@@ -174,7 +177,10 @@
       <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3.h">
+      <Filter>Source Files\Components\Core\Maths</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -256,17 +262,20 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Components\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MyMath.cpp">
       <Filter>Source Files\Components\Core\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Planet.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

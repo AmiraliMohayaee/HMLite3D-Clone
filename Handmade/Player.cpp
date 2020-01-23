@@ -4,9 +4,7 @@
 
 Player::Player()
 {
-	m_xPos = 0.0f;
-	m_yPos = 0.0f;
-	m_zPos = 0.0f;
+	m_pos = glm::vec3(0.0f);
 
 	m_xRot = 0.0f;
 	m_yRot = 0.0f;
@@ -28,19 +26,19 @@ void Player::Update()
 
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		m_zPos += 0.05f;
+		m_pos.z += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
-		m_zPos -= 0.05f;
+		m_pos.z -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
-		m_xPos += 0.05f;
+		m_pos.x += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		m_xPos -= 0.05f;
+		m_pos.x -= 0.05f;
 	}
 
 	if (keyState[SDL_SCANCODE_J])
@@ -63,11 +61,11 @@ void Player::Update()
 
 	if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
 	{
-		m_yPos += 0.05f;
+		m_pos.y += 0.05f;
 	}
 	else if (TheInput::Instance()->GetRightButtonState() == InputManager::DOWN)
 	{
-		m_yPos -= 0.05f;
+		m_pos.y -= 0.05f;
 	}
 
 	glm::vec2 motion = TheInput::Instance()->GetMouseMotion();
@@ -86,16 +84,16 @@ void Player::Draw()
 
 	GameObject::SetIdentity();
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
-	GameObject::Translate(0.5f + m_xPos, 0.0f + m_yPos, 0.0f + m_zPos);
+	GameObject::Translate(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z);
 	TheDebug::Instance()->DrawSphere3D(0.3f, 100, 90, 100, 0.5f);
 
 	GameObject::SetIdentity();
-	GameObject::Translate(-0.5f + m_xPos, 0.0f + m_yPos, 0.0f + m_zPos);
+	GameObject::Translate(-0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z);
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
 	TheDebug::Instance()->DrawSphere3D(0.3f, 100, 90, 100, 0.5f);
 
 	GameObject::SetIdentity();
-	GameObject::Translate(0.0f + m_xPos, 0.5f + m_yPos, 0.0f + m_zPos);
+	GameObject::Translate(0.0f + m_pos.x, 0.5f + m_pos.y, 0.0f + m_pos.z);
 	GameObject::Rotate(m_XAngle, 1, 0, 0);
 	GameObject::Rotate(m_YAngle, 0, 1, 0);
 	TheDebug::Instance()->DrawCube3D(0.5f, 1.0f, 0.5f, 100.0f, 100.0f, 100.0f, 0.5f);
@@ -106,17 +104,3 @@ void Player::Destroy()
 
 }
 
-float Player::GetPosX()
-{
-	return m_xPos;
-}
-
-float Player::GetPosY()
-{
-	return m_yPos;
-}
-
-float Player::GetPosZ()
-{
-	return m_zPos;
-}

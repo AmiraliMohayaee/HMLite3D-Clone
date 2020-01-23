@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "DebugManager.h"
 #include "InputManager.h"
+#include <glm.hpp>
 
 
 class Enemy : public GameObject
@@ -18,10 +19,6 @@ public:
 
 
 private:
-	float m_xPos;
-	float m_yPos;
-	float m_zPos;
-
 	float m_xRot;
 	float m_yRot;
 	float m_zRot;

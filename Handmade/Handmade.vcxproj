@@ -166,6 +166,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utility.h" />
+    <ClInclude Include="Vec3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MyMath.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
+    <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="SplashScreen.cpp" />

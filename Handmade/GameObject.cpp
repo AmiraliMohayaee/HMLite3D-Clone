@@ -118,6 +118,8 @@ GameObject::GameObject()
 	m_tag = "";
 	m_priority = 0;	
 
+	m_pos = glm::vec3(0.0f);
+
 	//add the initial model transformation into the vector so that
 	//there is always at least one transformation present and only  
 	//do this if vector is empty (the first game object to be created)
@@ -127,6 +129,12 @@ GameObject::GameObject()
 	}
 
 }
+
+GameObject::GameObject(float x, float y, float z)
+{
+	m_pos = glm::vec3(x, y, z);
+}
+
 //------------------------------------------------------------------------------------------------------
 //predicate function that returns flag reference
 //------------------------------------------------------------------------------------------------------
@@ -190,6 +198,11 @@ unsigned int GameObject::GetPriority()
 	return m_priority;
 
 }
+const glm::vec3& GameObject::GetPos() const
+{
+	return m_pos;
+}
+
 //------------------------------------------------------------------------------------------------------
 //setter function that assigns game object's tag variable
 //------------------------------------------------------------------------------------------------------
