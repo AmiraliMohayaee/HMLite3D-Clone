@@ -179,8 +179,11 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
     <ClInclude Include="Vec3.h">
-      <Filter>Source Files\Components\Core\Maths</Filter>
+      <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +278,9 @@
       <Filter>Source Files\Main</Filter>
     </ClCompile>
     <ClCompile Include="Planet.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
   </ItemGroup>

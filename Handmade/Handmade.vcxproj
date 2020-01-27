@@ -163,6 +163,7 @@
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StartState.h" />
+    <ClInclude Include="TestObject.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Utility.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StartState.cpp" />
+    <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utility.cpp" />

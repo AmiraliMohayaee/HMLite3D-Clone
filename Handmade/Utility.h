@@ -20,6 +20,8 @@ namespace Utility
 	float LineDistance(const glm::vec3& vec1, const glm::vec3& vec2);
 
 	glm::vec3 Normalize(const glm::vec3& vector);
+
+
 }
 
 
