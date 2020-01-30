@@ -59,6 +59,7 @@
 #include <string>
 #include <vector>
 #include <glm.hpp>
+#include "Vec3.h"
 
 class GameObject 
 {
@@ -99,9 +100,13 @@ public :
 
 	std::string GetTag();
 	unsigned int GetPriority();
-    const glm::vec3& GetPos() const;
+    const Vec3<float>& GetPos() const;
+    void SetPos(const Vec3<float>& pos);
 	void SetTag(std::string tag);
 	void SetPriority(unsigned int priority);
+
+public:
+
 
 public:
 
@@ -121,7 +126,7 @@ protected :
 	std::string m_tag;
 	unsigned int m_priority;
 
-    glm::vec3 m_pos;
+    Vec3<float> m_pos;
 
 };
 

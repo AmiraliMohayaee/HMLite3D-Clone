@@ -118,7 +118,7 @@ GameObject::GameObject()
 	m_tag = "";
 	m_priority = 0;	
 
-	m_pos = glm::vec3(0.0f);
+	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
 
 	//add the initial model transformation into the vector so that
 	//there is always at least one transformation present and only  
@@ -132,7 +132,7 @@ GameObject::GameObject()
 
 GameObject::GameObject(float x, float y, float z)
 {
-	m_pos = glm::vec3(x, y, z);
+	m_pos = Vec3<float>(x, y, z);
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -198,9 +198,16 @@ unsigned int GameObject::GetPriority()
 	return m_priority;
 
 }
-const glm::vec3& GameObject::GetPos() const
+const Vec3<float>& GameObject::GetPos() const
 {
 	return m_pos;
+}
+
+void GameObject::SetPos(const Vec3<float>& pos)
+{
+	m_pos.x = pos.x;
+	m_pos.y = pos.y;
+	m_pos.z = pos.z;
 }
 
 //------------------------------------------------------------------------------------------------------

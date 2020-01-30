@@ -11,6 +11,7 @@ class Enemy : public GameObject
 {
 public:
 	Enemy();
+	Enemy(float x, float y, float z);
 
 	virtual bool Create();
 	virtual void Update();

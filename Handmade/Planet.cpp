@@ -8,7 +8,7 @@ Planet::Planet()
 Planet::Planet(float x, float y, float z)
 {
 	m_angle = 0.0f;
-	m_pos = (glm::vec3(x, y, z));
+	m_pos = Vec3<float>(x, y, z);
 }
 
 bool Planet::Create()
@@ -27,10 +27,12 @@ void Planet::Draw()
 {
 	GameObject::SetIdentity();
 
-	glm::vec3 finalPos = m_pos + m_orbitalPos;
+	Vec3<float> finalPos = m_pos + m_orbitalPos;
 	GameObject::Translate(finalPos.x, finalPos.y, finalPos.z);
 
 	TheDebug::Instance()->DrawSphere3D(1.0f, 200.0f, 300.0f, 100.0f, 1.0f);
+
+	GameObject::SetIdentity();
 }
 
 

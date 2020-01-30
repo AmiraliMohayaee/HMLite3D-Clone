@@ -1,18 +1,26 @@
 #include "Player.h"
 #include <iostream>
+#include <math.h>
+#include "Utility.h"
 
 
 Player::Player()
 {
-	m_pos = glm::vec3(0.0f);
+	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
+	m_vel = 0.01f;
 
-	m_xRot = 0.0f;
-	m_yRot = 0.0f;
-	m_zRot = 0.0f;
+	m_forward = Vec3<float>(0.0f, 0.0f, -1.0f);
+	m_up = Vec3<float>(0.0f, 1.0f, 0.0f);
+	m_right = Vec3<float>(1.0f, 0.0f, 0.0f);
 
-	m_XAngle = 0.0f;
-	m_YAngle = 0.0f;
-	m_ZAngle = 0.0f;
+
+	m_rotationVec = Vec3<float>(0.0f, 0.0f, 0.0f);
+	m_angle = 0.0f;
+}
+
+Player::Player(float x, float y, float z)
+{
+	m_pos = Vec3<float>(x, y, z);
 }
 
 bool Player::Create()
@@ -24,39 +32,52 @@ void Player::Update()
 {
 	KeyState keyState = TheInput::Instance()->GetKeyStates();
 
+	m_right.x = cos(Utility::DegToRad(m_angle));
+	m_right.y = 0.0f;
+	m_right.z = sin(Utility::DegToRad(m_angle));
+
+	m_forward = Utility::CrossProduct(m_right, m_up);
+
+
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		m_pos.z += 0.05f;
+		m_direction = m_forward;
+		//m_pos.z += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
-		m_pos.z -= 0.05f;
+		m_direction = -m_forward;
+		//m_pos.z -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
-		m_pos.x += 0.05f;
+		m_direction = -m_right;
+		//m_pos.x += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		m_pos.x -= 0.05f;
+		m_direction = m_right;
+		//m_pos.x -= 0.05f;
 	}
 
 	if (keyState[SDL_SCANCODE_J])
 	{
-		m_XAngle -= 5.0f;
+		m_angle -= 5.0f;
 	}
 	else if (keyState[SDL_SCANCODE_I])
 	{
-		m_YAngle += 5.0f;
+		m_angle += 5.0f;
 	}
 	else if (keyState[SDL_SCANCODE_K])
 	{
-		m_YAngle -= 5.0f;
+		m_angle -= 5.0f;
 	}
 	else if (keyState[SDL_SCANCODE_L])
 	{
-		m_XAngle += 5.0f;
+		m_angle += 5.0f;
 	}
+
+	m_pos += m_direction * m_vel;
 
 
 	if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
@@ -78,6 +99,7 @@ void Player::Update()
 	//m_yRot = motion.y;
 }
 
+
 void Player::Draw()
 {
 	//GameObject::Translate(m_xPos, m_yPos, m_zPos);
@@ -94,10 +116,20 @@ void Player::Draw()
 
 	GameObject::SetIdentity();
 	GameObject::Translate(0.0f + m_pos.x, 0.5f + m_pos.y, 0.0f + m_pos.z);
-	GameObject::Rotate(m_XAngle, 1, 0, 0);
-	GameObject::Rotate(m_YAngle, 0, 1, 0);
+	GameObject::Rotate(m_angle, 1, 0, 0);
+	GameObject::Rotate(m_angle, 0, 1, 0);
 	TheDebug::Instance()->DrawCube3D(0.5f, 1.0f, 0.5f, 100.0f, 100.0f, 100.0f, 0.5f);
+
+	GameObject::SetIdentity();
+	GameObject::Translate(m_pos.x, m_pos.y, m_pos.z);
+	TheDebug::Instance()->DrawVector3D(m_up.x * 4, m_up.y * 4, m_up.z * 4, 
+		2.0f, 1.0f, 0.0f, 0.0f);
+	TheDebug::Instance()->DrawVector3D(m_right.x * 4, m_right.y * 4, m_right.z * 4,
+		2.0f, 0.0f, 1.0f, 0.0f);
+	TheDebug::Instance()->DrawVector3D(m_forward.x * 4, m_forward.y * 4, m_forward.z * 4,
+		2.0f, 0.0f, 0.0f, 1.0f);
 }
+
 
 void Player::Destroy()
 {

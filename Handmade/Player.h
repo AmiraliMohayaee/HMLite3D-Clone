@@ -11,6 +11,7 @@ class Player : public GameObject
 {
 public:
 	Player();
+	Player(float x, float y, float z);
 
 	virtual bool Create();
 	virtual void Update();
@@ -19,13 +20,20 @@ public:
 
 
 private:
-	float m_xRot;
-	float m_yRot;
-	float m_zRot;
+	float m_vel;
 
-	float m_XAngle;
-	float m_YAngle;
-	float m_ZAngle;
+	Vec3<float> m_drone;
+
+	Vec3<float> m_direction;
+
+	Vec3<float> m_up;
+	Vec3<float> m_forward;
+	Vec3<float> m_right;
+
+	float m_angle;
+
+	Vec3<float> m_rotationVec;
+
 };
 
 

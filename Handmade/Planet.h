@@ -19,8 +19,7 @@ public:
 
 
 private:
-	glm::vec3 m_pos;
-	glm::vec3 m_orbitalPos;
+	Vec3<float> m_orbitalPos;
 	float m_angle;
 };
 

@@ -52,7 +52,7 @@ public:
 		z += rhs.z;
 		return *this;
 	}
-	Vec3& operator+ (const T& rhs) const
+	Vec3& operator+ (const Vec3& rhs) const
 	{
 		return Vec3(x + rhs.x, y + rhs.y, z + rhs.y);
 	}
@@ -70,7 +70,7 @@ public:
 	// Essential for Cross-Product
 	Vec3& operator* (const T& rhs) const
 	{
-		return Vec3(x * rhs.x, y * rhs.y, z * rhs.z);
+		return Vec3(x * rhs, y * rhs, z * rhs);
 	}
 	Vec3& operator*= (const Vec3& rhs)
 	{
@@ -125,6 +125,27 @@ public:
 		return result;
 	}
 
+	Vec3& Lerp(const Vec3& start, const Vec3& end, float delta)
+	{
+		if (Distance(start, end) < 0.02)
+		{
+			break;
+		}
+
+		Vec3 result = (((1 - delta) * start) +
+			(end * delta));
+
+		return result;
+	}
+
+	T DotProduct(const Vec3& vec1, const Vec3& vec2)
+	{
+		T result = ((vec1.x * vec2.x) +
+			(vec1.y * vec2.y) +
+			(vec1.z * vec2.z));
+
+		return result;
+	}
 
 };
 

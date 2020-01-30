@@ -30,16 +30,16 @@ namespace Utility
 		std::cout << x << ", " << y << ", " << z << std::endl;
 	}
 
-	double DegToRad(double degree)
+	float DegToRad(float degree)
 	{
-		double result = (degree / 180.0) * PI;
+		float result = (degree / 180.0f) * PI;
 
 		return result;
 	}
 
-	double RadToDeg(double radian)
+	float RadToDeg(float radian)
 	{
-		double result = (radian / PI) * 180.0;
+		float result = (radian / PI) * 180.0f;
 
 		return result;
 	}
@@ -60,15 +60,17 @@ namespace Utility
 			(result.z * result.z));
 	}
 
-	glm::vec3 Normalize(const glm::vec3& vector)
+	const Vec3<float>& Utility::CrossProduct(const Vec3<float>& vec1, const Vec3<float>& vec2)
 	{
-		float length = sqrt((vector.x * vector.x) +
-			(vector.y * vector.y) +
-			(vector.z * vector.z));
+		{
+			Vec3<float> result(((vec1.y * vec2.z) - (vec1.z * vec2.y)),
+				((vec1.z * vec2.x) - (vec1.x * vec2.z)),
+				((vec1.x * vec2.y) - (vec1.y * vec2.x)));
 
-		glm::vec3 product(vector.x / length, vector.y / length,
-			vector.z / length);
-
-		return product;
+			return result;
+		}
 	}
+
+
+
 }

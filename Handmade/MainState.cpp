@@ -21,13 +21,14 @@ MainState::MainState(GameState* state) : GameState(state)
 	m_enemy = nullptr;
 	m_player = nullptr;
 }
+
 //------------------------------------------------------------------------------------------------------
 //function that creates the cameras and HUD objects
 //------------------------------------------------------------------------------------------------------
 bool MainState::OnEnter()
 {
-	m_player = new Player();
-	m_enemy = new Enemy();
+	m_player = new Player(2.0f, 0.0f, -2.0f);
+	m_enemy = new Enemy(3.0f, 2.0f, 0.0f);
 	m_planet = new Planet(1.0f, 1.0f, 1.0f);
 
 	//create the main camera to control the main view
@@ -41,8 +42,8 @@ bool MainState::OnEnter()
 	m_HUD->Create();
 
 	return true;
-
 }
+
 //------------------------------------------------------------------------------------------------------
 //function that updates all active game objects in game state
 //------------------------------------------------------------------------------------------------------
@@ -70,8 +71,10 @@ bool MainState::Update()
 
 
 	m_player->Update();
-	//m_enemy->Update();
+	m_enemy->Update();
 	m_planet->Update();
+
+
 
 
 	// To-Do: Output log info into files
@@ -84,12 +87,12 @@ bool MainState::Update()
 	//Utility::Log(Utility::RadToDeg(radian), "Rad is");
 	//Utility::Log(Utility::LineDistance(0, 0, 5, 3), "The Pythagorem results are ");
 
-	//Utility::Log(m_player->GetPos().x, "Player's X Value is: ");
-	//Utility::Log(m_player->GetPos().y, "Player's Y Value is: ");
+	Utility::Log(m_player->GetPos().x, "Player's X Value is: ");
+	Utility::Log(m_player->GetPos().y, "Player's Y Value is: ");
 
 	// Checking vector distance between two GOs
-	Utility::Log(Utility::LineDistance(m_player->GetPos(), m_enemy->GetPos()), 
-		"Distance between the player and enemy is: ");
+	//Utility::Log(Utility::LineDistance(m_player->GetPos(), m_enemy->GetPos()), 
+	//	"Distance between the player and enemy is: ");
 
 
 	
@@ -132,7 +135,7 @@ bool MainState::Draw()
 
 #endif
 	m_player->Draw();
-	//m_enemy->Draw();
+	m_enemy->Draw();
 	m_planet->Draw();
 
 
@@ -157,7 +160,6 @@ bool MainState::Draw()
 	//GameObject::Translate(2.0f, 0.0f, 0.0f);
 	//TheDebug::Instance()->DrawSphere3D(2.0f, 1.0f, 1.0f, 1.0f, 0.5f);
 
-	//glm::cos(2.0f);
 
 
 #ifdef DEBUG
