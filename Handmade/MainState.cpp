@@ -88,8 +88,8 @@ bool MainState::Update()
 	//Utility::Log(m_player->GetPos().y, "Player's Y Value is: ");
 
 	// Checking vector distance between two GOs
-	Utility::Log(Utility::LineDistance(m_player->GetPos(), m_enemy->GetPos()), 
-		"Distance between the player and enemy is: ");
+	//Utility::Log(Utility::LineDistance(m_player->GetPos(), m_enemy->GetPos()), 
+	//	"Distance between the player and enemy is: ");
 
 
 	
