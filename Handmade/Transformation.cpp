@@ -2,5 +2,4 @@
 
 Transformation::Transformation()
 {
-
 }
