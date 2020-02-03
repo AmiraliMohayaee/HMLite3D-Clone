@@ -8,6 +8,10 @@
 #include "ScreenManager.h"
 #include "Utility.h"
 
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+
+
 //------------------------------------------------------------------------------------------------------
 //constructor that assigns all default values
 //------------------------------------------------------------------------------------------------------
@@ -74,27 +78,26 @@ bool MainState::Update()
 	m_enemy->Update();
 	m_planet->Update();
 
+	//// Contructing a 4x4 matrix
+	//glm::mat4 translationMatrix = glm::mat4(1.0f); // Setting the matrix to identity
+
+	//translationMatrix = glm::translate(translationMatrix, glm::vec3(1.0f, 2.0f, 3.0f));
+
+	//glm::mat4 rotation = glm::mat4(1.0f);
+	//rotation = glm::rotate(rotation, Utility::DegToRad(35.0f), glm::vec3(1, 0, 0));
+
+	//glm::mat4 scale = glm::mat4(1.0f);
+	//scale = glm::scale(scale, glm::vec3(2, 0.5f, 0.25f));
+	//// Alternatively, one matrix can be used and the different matrix procedures applied to it
+
 
 
 
 	// To-Do: Output log info into files
 	Utility::Log("Updating Main State");
 
-	double radian = 4.0;
-	double degree = 180.0;
-
-	//Utility::Log(Utility::DegToRad(degree), "Degree is");
-	//Utility::Log(Utility::RadToDeg(radian), "Rad is");
-	//Utility::Log(Utility::LineDistance(0, 0, 5, 3), "The Pythagorem results are ");
-
 	Utility::Log(m_player->GetPos().x, "Player's X Value is: ");
 	Utility::Log(m_player->GetPos().y, "Player's Y Value is: ");
-
-	// Checking vector distance between two GOs
-	//Utility::Log(Utility::LineDistance(m_player->GetPos(), m_enemy->GetPos()), 
-	//	"Distance between the player and enemy is: ");
-
-
 	
 	return true;
 }

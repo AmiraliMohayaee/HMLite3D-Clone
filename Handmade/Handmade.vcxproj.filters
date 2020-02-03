@@ -185,6 +185,9 @@
     <ClInclude Include="Vec3.h">
       <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
+    <ClInclude Include="Transformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">
@@ -282,6 +285,9 @@
     </ClCompile>
     <ClCompile Include="TestObject.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Transformation.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
