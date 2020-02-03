@@ -186,7 +186,7 @@
       <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
     <ClInclude Include="Transformation.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,7 +287,7 @@
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
     <ClCompile Include="Transformation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components\Core\Maths</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

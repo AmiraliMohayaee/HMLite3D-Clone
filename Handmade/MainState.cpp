@@ -78,19 +78,6 @@ bool MainState::Update()
 	m_enemy->Update();
 	m_planet->Update();
 
-	//// Contructing a 4x4 matrix
-	//glm::mat4 translationMatrix = glm::mat4(1.0f); // Setting the matrix to identity
-
-	//translationMatrix = glm::translate(translationMatrix, glm::vec3(1.0f, 2.0f, 3.0f));
-
-	//glm::mat4 rotation = glm::mat4(1.0f);
-	//rotation = glm::rotate(rotation, Utility::DegToRad(35.0f), glm::vec3(1, 0, 0));
-
-	//glm::mat4 scale = glm::mat4(1.0f);
-	//scale = glm::scale(scale, glm::vec3(2, 0.5f, 0.25f));
-	//// Alternatively, one matrix can be used and the different matrix procedures applied to it
-
-
 
 
 	// To-Do: Output log info into files
@@ -142,26 +129,18 @@ bool MainState::Draw()
 	m_planet->Draw();
 
 
-	//GameObject::SetIdentity();
 
-	//static float xMove = 0.01f;
-	//static float zMove = 0.01f;
+	//// Contructing a 4x4 matrix
+	//glm::mat4 translationMatrix = glm::mat4(1.0f); // Setting the matrix to identity
 
-	//xMove += 0.001f;
-	//zMove -= 0.001f;
+	//translationMatrix = glm::translate(translationMatrix, glm::vec3(1.0f, 2.0f, 3.0f));
 
-	//GameObject::Translate(xMove, 0.0f, zMove);
-	//GameObject::Rotate(45.0f, 0.0, 1.0, 0.0);
-	//TheDebug::Instance()->DrawCube3D(2.0f, 2.0f, 2.0f, 10.0f, 10.0f, 10.0f, 0.5f);
+	//glm::mat4 rotation = glm::mat4(1.0f);
+	//rotation = glm::rotate(rotation, Utility::DegToRad(35.0f), glm::vec3(1, 0, 0));
 
-	//GameObject::SetIdentity();	// Resetting the matrix to identity
-
-	//static float angle = 0;
-	//angle += 5.0f;
-
-	//GameObject::Rotate(angle, 0.0f, 1.0f, 1.0f);
-	//GameObject::Translate(2.0f, 0.0f, 0.0f);
-	//TheDebug::Instance()->DrawSphere3D(2.0f, 1.0f, 1.0f, 1.0f, 0.5f);
+	//glm::mat4 scale = glm::mat4(1.0f);
+	//scale = glm::scale(scale, glm::vec3(2, 0.5f, 0.25f));
+	//// Alternatively, one matrix can be used and the different matrix procedures applied to it
 
 
 
@@ -190,3 +169,35 @@ void MainState::OnExit()
 	delete m_player;
 	delete m_enemy;
 }
+
+
+
+
+
+
+
+
+
+//// Some backups 
+
+
+	//GameObject::SetIdentity();
+
+	//static float xMove = 0.01f;
+	//static float zMove = 0.01f;
+
+	//xMove += 0.001f;
+	//zMove -= 0.001f;
+
+	//GameObject::Translate(xMove, 0.0f, zMove);
+	//GameObject::Rotate(45.0f, 0.0, 1.0, 0.0);
+	//TheDebug::Instance()->DrawCube3D(2.0f, 2.0f, 2.0f, 10.0f, 10.0f, 10.0f, 0.5f);
+
+	//GameObject::SetIdentity();	// Resetting the matrix to identity
+
+	//static float angle = 0;
+	//angle += 5.0f;
+
+	//GameObject::Rotate(angle, 0.0f, 1.0f, 1.0f);
+	//GameObject::Translate(2.0f, 0.0f, 0.0f);
+	//TheDebug::Instance()->DrawSphere3D(2.0f, 1.0f, 1.0f, 1.0f, 0.5f);
