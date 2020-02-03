@@ -4,6 +4,10 @@
 
 class Transformation
 {
+public:
+	Transformation();
+
+
 
 };
 
