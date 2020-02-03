@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Development Libraries\GLM\include;..\Development Libraries\GLEW\include;..\Development Libraries\SDL\include;..\Development Libraries\FMOD\include;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Development Libraries\GLM\include;..\Development Libraries\GLEW\include;..\Development Libraries\SDL\include;..\Development Libraries\FMOD\include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;..\Development Libraries\GLEW\lib;..\Development Libraries\SDL\lib;..\Development Libraries\FMOD\lib;</LibraryPath>
     <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
     <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
