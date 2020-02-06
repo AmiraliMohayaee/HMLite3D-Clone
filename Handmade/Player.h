@@ -34,6 +34,8 @@ private:
 
 	Vec3<float> m_rotationVec;
 
+	glm::mat4 m_transform;
+
 };
 
 

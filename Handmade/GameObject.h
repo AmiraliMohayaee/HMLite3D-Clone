@@ -76,6 +76,10 @@ public:
 	static void Scale(GLfloat x, GLfloat y, GLfloat z);
 	static void ScaleUV(GLfloat x, GLfloat y);
 
+    static void SetMatrix(glm::mat4& matrix);
+
+
+
 private:
 
 	static glm::mat3 s_normalMatrix;

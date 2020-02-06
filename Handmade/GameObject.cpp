@@ -103,6 +103,10 @@ void GameObject::ScaleUV(GLfloat x, GLfloat y)
 	s_textureMatrix = glm::scale(s_textureMatrix, glm::vec3(x, y, 1.0f));
 
 }
+void GameObject::SetMatrix(glm::mat4& matrix)
+{
+	s_modelMatrix.back() = matrix;
+}
 //------------------------------------------------------------------------------------------------------
 //constructor that assigns all defaults 
 //------------------------------------------------------------------------------------------------------
