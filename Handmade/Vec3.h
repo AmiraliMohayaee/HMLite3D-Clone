@@ -5,13 +5,26 @@
 
 const double PI = 3.14159265359;
 
-
 template <class T>
+
 
 class Vec3
 {
 public:
 	T x, y, z;
+
+	//Vec3::Backward<T> = Vec3<float>;
+	//Vec3::Right<T> = Vec3(1.0f, 0.0f, 0.0f);
+	//Vec3::Left<T> = Vec3(-1.0f, 0.0f, 0.0f);
+	//Vec3::Up<T> = Vec3(0.0f, 1.0f, 0.0f);
+	//Vec3::Down<T> = Vec3(0.0f, -1.0f, 0.0f);
+
+	//static const Vec3<float> Forward(0.0f, 0.0f, -1.0f);
+	//static const Vec3<float> Backward(0.0f, 0.0f, 1.0f);
+	//static const Vec3<float> Right(1.0f, 0.0f, 0.0f);
+	//static const Vec3<float> Left(-1.0f, 0.0f, 0.0f);
+	//static const Vec3<float> Up(0.0f, 1.0f, 0.0f);
+	//static const Vec3<float> Down(0.0f, -1.0f, 0.0f);
 
 	Vec3() {}
 	Vec3(T xVal, T yVal, T zVal) : x(xVal), y(yVal), z(zVal) {}
@@ -148,6 +161,9 @@ public:
 	}
 
 };
+
+
+
 
 
 #endif

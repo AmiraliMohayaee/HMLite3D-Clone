@@ -4,6 +4,7 @@
 #include "DebugManager.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "Matrix4x4.h"
 #include <glm.hpp>
 
 
@@ -34,7 +35,7 @@ private:
 
 	Vec3<float> m_rotationVec;
 
-	glm::mat4 m_transform;
+	Mat4x4<float> m_transform;
 
 };
 

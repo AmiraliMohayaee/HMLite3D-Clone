@@ -188,6 +188,12 @@
     <ClInclude Include="Transformation.h">
       <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
+    <ClInclude Include="Vec4.h">
+      <Filter>Header Files\Components\Core\MyMaths</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>Header Files\Components\Core\MyMaths</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">

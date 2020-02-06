@@ -1,9 +1,7 @@
 #ifndef TRANSFORMATION_H
 #define TRANSFORMATION_H
 
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-
+#include "Matrix4x4.h"
 
 
 class Transformation
@@ -11,9 +9,9 @@ class Transformation
 public:
 	Transformation();
 
-	glm::mat4 Translation(glm::mat4 mat, glm::vec3& vec);
-	glm::mat4 Rotation();
-	glm::mat4 Scale();
+	Mat4x4 Translation(Mat4x4 mat, Vec3<float>& vec);
+	Mat4x4 Rotation();
+	Mat4x4 Scale();
 
 
 	

@@ -153,6 +153,7 @@
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="MainState.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="PipelineManager.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Transformation.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Vec3.h" />
+    <ClInclude Include="Vec4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />

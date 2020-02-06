@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include "Utility.h"
+#include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 
 Player::Player()
