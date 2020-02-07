@@ -18,7 +18,8 @@ Player::Player()
 	m_rotationVec = Vec3<float>(0.0f, 0.0f, 0.0f);
 	m_angle = 0.0f;
 
-	m_transform = glm::mat4(1.0f);
+	m_transform = Mat4x4<float>();
+	m_transform.SetIdentity();
 }
 
 Player::Player(float x, float y, float z)
