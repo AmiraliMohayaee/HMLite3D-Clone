@@ -59,6 +59,7 @@
 #include <string>
 #include <vector>
 #include <glm.hpp>
+#include "Matrix4x4.h"
 #include "Vec3.h"
 
 class GameObject 
@@ -77,6 +78,7 @@ public:
 	static void ScaleUV(GLfloat x, GLfloat y);
 
     static void SetMatrix(glm::mat4& matrix);
+    static void SetMatrix(Mat4x4<float>& matrix);
 
 
 
@@ -85,6 +87,7 @@ private:
 	static glm::mat3 s_normalMatrix;
 	static glm::mat4 s_textureMatrix;
 	static std::vector<glm::mat4> s_modelMatrix;
+    static std::vector<Mat4x4<float>> s_myModelMatrix;
 
 public :
 

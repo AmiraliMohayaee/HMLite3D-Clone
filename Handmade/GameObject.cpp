@@ -6,6 +6,8 @@
 glm::mat3 GameObject::s_normalMatrix;
 glm::mat4 GameObject::s_textureMatrix;
 std::vector<glm::mat4> GameObject::s_modelMatrix;
+std::vector<Mat4x4<float>> GameObject::s_myModelMatrix;
+
 
 //------------------------------------------------------------------------------------------------------
 //static setter function that resets model matrix to the identity 
@@ -55,7 +57,7 @@ void GameObject::SendToShader(bool isLit, bool isTextured)
 	s_normalMatrix = glm::inverse(glm::mat3(s_modelMatrix.back()));
 
 	//send model matrix to vertex shader
-	ThePipeline::Instance()->SendUniformData("modelMatrix", s_modelMatrix.back());
+	ThePipeline::Instance()->SendUniformData("modelMatrix", s_myModelMatrix.back());
 
 	//send normal matrix to vertex shader (transposed)
 	ThePipeline::Instance()->SendUniformData("normMatrix", s_normalMatrix, true);
@@ -106,6 +108,11 @@ void GameObject::ScaleUV(GLfloat x, GLfloat y)
 void GameObject::SetMatrix(glm::mat4& matrix)
 {
 	s_modelMatrix.back() = matrix;
+}
+
+void GameObject::SetMatrix(Mat4x4<float>& matrix)
+{
+	s_myModelMatrix.back() = matrix;
 }
 //------------------------------------------------------------------------------------------------------
 //constructor that assigns all defaults 

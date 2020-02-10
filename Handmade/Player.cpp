@@ -4,6 +4,9 @@
 #include "Utility.h"
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
+#include "Transformation.h"
+//#include "Matrix4x4.h"
+
 
 Player::Player()
 {
@@ -18,8 +21,11 @@ Player::Player()
 	m_rotationVec = Vec3<float>(0.0f, 0.0f, 0.0f);
 	m_angle = 0.0f;
 
-	m_transform = Mat4x4<float>();
+	
 	m_transform.SetIdentity();
+
+	m_model.LoadModel("Assets/Models/Spaceship.obj", "SPACESHIP");
+	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
 }
 
 Player::Player(float x, float y, float z)
@@ -109,9 +115,17 @@ void Player::Draw()
 	//GameObject::Translate(m_xPos, m_yPos, m_zPos);
 
 	//GameObject::SetIdentity();
-	m_transform = glm::translate(glm::mat4(1.0f), m_pos);
+	GameObject::SetMatrix(m_transform);
+	m_transform = Transformation::Translation(m_transform, m_pos);
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
 	GameObject::Translate(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z);
+
+	// Required when loading costum objs
+
+	GameObject::SendToShader(false, true);
+	m_model.SetColor(1, 1, 1, 1);
+	m_model.Draw();
+
 	TheDebug::Instance()->DrawSphere3D(0.3f, 100, 90, 100, 0.5f);
 
 	GameObject::SetIdentity();

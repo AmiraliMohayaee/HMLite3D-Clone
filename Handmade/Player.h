@@ -6,6 +6,8 @@
 #include "InputManager.h"
 #include "Matrix4x4.h"
 #include <glm.hpp>
+#include "Model.h"
+#include "Transformation.h"
 
 
 class Player : public GameObject
@@ -22,6 +24,7 @@ public:
 
 private:
 	float m_vel;
+	float m_angle;
 
 	Vec3<float> m_drone;
 
@@ -31,12 +34,11 @@ private:
 	Vec3<float> m_forward;
 	Vec3<float> m_right;
 
-	float m_angle;
 
 	Vec3<float> m_rotationVec;
-
 	Mat4x4<float> m_transform;
 
+	Model m_model;
 };
 
 

@@ -116,6 +116,18 @@ bool PipelineManager::SendUniformData(const std::string& uniform,
 	return true;
 
 }
+
+// My Version
+bool PipelineManager::SendUniformData(const std::string& uniform,
+	const Mat4x4<float>& matrix4x4, bool transposed)
+{
+
+	glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, uniform.c_str()), 1,
+		(GLboolean)transposed, &matrix4x4.mat[0]);
+	return true;
+
+}
+
 //------------------------------------------------------------------------------------------------------
 //function that sends attribute data to vertex shader (FLOAT)
 //------------------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-//#include "Vec3.h"
+#include "Vec3.h"
 //#include "Vec4.h"
 
 
@@ -20,7 +20,30 @@ public:
 	// Plain Array Method
 	float mat[16] = { 0.0f };
 
-	Mat4x4() {}
+	// Sets everything to zero by default
+	// Make sure you set to identity before using
+	Mat4x4() 
+	{
+		mat[0] = 0.0f;
+		mat[4] = 0.0f;
+		mat[8] = 0.0f;
+		mat[12] = 0.0f;
+
+		mat[1] = 0.0f;
+		mat[5] = 0.0f;
+		mat[9] = 0.0f;
+		mat[13] = 0.0f;
+
+		mat[2] = 0.0f;
+		mat[6] = 0.0f; 
+		mat[10] = 0.0f; 
+		mat[14] = 0.0f;
+
+		mat[3] = 0.0f;
+		mat[7] = 0.0f;
+		mat[10] = 0.0f;
+		mat[15] = 0.0f;
+	}
 	Mat4x4(float m0, float m4, float m8, float m12,
 		float m1, float m5, float m9, float m13,
 		float m2, float m6, float m10, float m14,
@@ -69,6 +92,10 @@ public:
 		std::cout << mat[1] << ", " << mat[5] << ", " << mat[9] << ", " << mat[13] << std::endl;
 		std::cout << mat[2] << ", " << mat[6] << ", " << mat[10] << ", " << mat[14] << std::endl;
 		std::cout << mat[3] << ", " << mat[7] << ", " << mat[11] << ", " << mat[15] << "]" << std::endl;
+	}
+	void ZeroTranslate()
+	{
+		mat[12], mat[13], mat[14] = 0.0f;
 	}
 
 	Mat4x4& operator= (const Mat4x4& rhs)
