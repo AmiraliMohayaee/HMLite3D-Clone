@@ -97,6 +97,10 @@ public:
 	{
 		mat[12], mat[13], mat[14] = 0.0f;
 	}
+	void Inverse()
+	{
+
+	}
 
 	Mat4x4& operator= (const Mat4x4& rhs)
 	{

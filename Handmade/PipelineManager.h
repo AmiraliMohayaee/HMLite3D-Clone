@@ -47,6 +47,7 @@
 #include "Singleton.h"
 #include "Matrix4x4.h"
 
+
 class PipelineManager
 {
 
@@ -71,6 +72,7 @@ public:
 	bool SendUniformData(const std::string& uniform, GLfloat floatData);
 	bool SendUniformData(const std::string& uniform, const glm::vec2& vec2Data);
 	bool SendUniformData(const std::string& uniform, const glm::vec3& vec3Data);
+	bool SendUniformData(const std::string& uniform, const Vec3<float>& vec3Data);
 	bool SendUniformData(const std::string& uniform, const glm::vec4& vec4Data);
 	
 	bool SendUniformData(const std::string& uniform, 

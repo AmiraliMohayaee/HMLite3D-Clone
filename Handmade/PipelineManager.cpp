@@ -82,6 +82,12 @@ bool PipelineManager::SendUniformData(const std::string& uniform, const glm::vec
 	return true;
 
 }
+// Taking in costum Vec3 info
+bool PipelineManager::SendUniformData(const std::string& uniform, const Vec3<float>& vec3Data)
+{
+	glUniform3fv(glGetUniformLocation(m_shaderProgramID, uniform.c_str()), 1, &vec3Data.x);
+	return true;
+}
 //------------------------------------------------------------------------------------------------------
 //function that sends uniform data to shader (VEC4)
 //------------------------------------------------------------------------------------------------------
