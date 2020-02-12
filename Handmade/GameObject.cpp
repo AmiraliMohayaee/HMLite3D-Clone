@@ -15,7 +15,7 @@ std::vector<Mat4x4<float>> GameObject::s_myModelMatrix;
 void GameObject::SetIdentity()
 {
 
-	s_modelMatrix.back() = glm::mat4(1.0f);
+	s_myModelMatrix.back() = Mat4x4<float>().SetIdentity;
 
 }
 //------------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ void GameObject::SetIdentity()
 void GameObject::PushMatrix()
 {
 
-	s_modelMatrix.push_back(s_modelMatrix.back());
+	s_myModelMatrix.push_back(s_myModelMatrix.back());
 
 }
 //------------------------------------------------------------------------------------------------------
@@ -35,9 +35,9 @@ void GameObject::PopMatrix()
 
 	//only remove transformation if there are multiple ones available
 	//there always needs to be at least one transformation present!
-	if (s_modelMatrix.size() > 1)
+	if (s_myModelMatrix.size() > 1)
 	{
-		s_modelMatrix.pop_back();
+		s_myModelMatrix.pop_back();
 	}
 
 }
@@ -134,9 +134,9 @@ GameObject::GameObject()
 	//add the initial model transformation into the vector so that
 	//there is always at least one transformation present and only  
 	//do this if vector is empty (the first game object to be created)
-	if (s_modelMatrix.empty())
+	if (s_myModelMatrix.empty())
 	{
-		s_modelMatrix.push_back(glm::mat4(1.0f));
+		s_myModelMatrix.push_back(Mat4x4<float>().SetIdentity);
 	}
 
 }
