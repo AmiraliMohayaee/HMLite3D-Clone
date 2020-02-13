@@ -6,7 +6,7 @@ namespace Transformation
 	{
 		Mat4x4<float> result(mat);
 
-//		result[
+//		
 
 		return result;
 	}

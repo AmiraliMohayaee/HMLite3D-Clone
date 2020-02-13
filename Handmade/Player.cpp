@@ -24,6 +24,11 @@ Player::Player()
 	
 	m_transform.SetIdentity();
 
+	// Initialize?
+	m_translateMat;
+	m_rotateMat;
+	m_scaleMat;
+
 	m_model.LoadModel("Assets/Models/Spaceship.obj", "SPACESHIP");
 	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
 }
@@ -116,12 +121,12 @@ void Player::Draw()
 
 	//GameObject::SetIdentity();
 	GameObject::SetMatrix(m_transform);
+	m_transform.PrintMatrix();
 	m_transform = Transformation::Translation(m_transform, m_pos);
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
 	GameObject::Translate(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z);
 
 	// Required when loading costum objs
-
 	GameObject::SendToShader(false, true);
 	m_model.SetColor(1, 1, 1, 1);
 	m_model.Draw();

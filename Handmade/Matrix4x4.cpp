@@ -4,23 +4,10 @@
 //#include "Vec4.h"
 
 
-
-
-
-
-template<class T>
-Mat4x4<T>& Mat4x4<T>::PrintMatrix()
-{
-	std::cout << "[" << mat[0] << ", " << mat[4] << ", " << mat[8] << ", " << mat[12] << std::endl;
-	std::cout << mat[1] << ", " << mat[5] << ", " << mat[9] << ", " << mat[13] << std::endl;
-	std::cout << mat[2] << ", " << mat[6] << ", " << mat[10] << ", " << mat[14] << std::endl;
-	std::cout << mat[3] << ", " << mat[7] << ", " << mat[11] << ", " << mat[15] << "]" << std::endl;
-}
-
 template<class T>
 Mat4x4<T>& Mat4x4<T>::ZeroTranslate()
 {
-		mat[12], mat[13], mat[14] = 0.0f;
+	mat[12], mat[13], mat[14] = 0.0f;
 }
 
 template<class T>

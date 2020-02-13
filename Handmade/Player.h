@@ -34,9 +34,15 @@ private:
 	Vec3<float> m_forward;
 	Vec3<float> m_right;
 
-
 	Vec3<float> m_rotationVec;
+
+	// Transform will include everything from the 
+	// three other matrices combined (or should 
+	// if you do it right)
 	Mat4x4<float> m_transform;
+	Mat4x4<float> m_translateMat;
+	Mat4x4<float> m_rotateMat;
+	Mat4x4<float> m_scaleMat;
 
 	Model m_model;
 };

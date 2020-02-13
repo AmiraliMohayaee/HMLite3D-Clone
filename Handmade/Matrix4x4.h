@@ -90,7 +90,13 @@ public:
 		mat[10] = 1.0f;
 		mat[15] = 1.0f;
 	}
-	Mat4x4& PrintMatrix();
+	void PrintMatrix()
+	{
+		std::cout << "[" << mat[0] << ", " << mat[4] << ", " << mat[8] << ", " << mat[12] << std::endl;
+		std::cout << mat[1] << ", " << mat[5] << ", " << mat[9] << ", " << mat[13] << std::endl;
+		std::cout << mat[2] << ", " << mat[6] << ", " << mat[10] << ", " << mat[14] << std::endl;
+		std::cout << mat[3] << ", " << mat[7] << ", " << mat[11] << ", " << mat[15] << "]" << std::endl;
+	}
 	Mat4x4& ZeroTranslate();
 	Mat4x4& Inverse();	
 	Mat4x4& ScalarMultiply(const Mat4x4& mat);
