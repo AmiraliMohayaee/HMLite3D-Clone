@@ -46,6 +46,7 @@
 #include <glm.hpp>
 #include "Singleton.h"
 #include "Matrix4x4.h"
+#include "Vec3.h"
 
 
 class PipelineManager
@@ -80,7 +81,7 @@ public:
 	bool SendUniformData(const std::string& uniform, 
 		                 const glm::mat4& matrix4x4, bool transposed = false);
 	bool SendUniformData(const std::string& uniform,
-						const Mat4x4<float>& matrix4x4, bool transposed);
+						const Mat4x4<float>& matrix4x4, bool transposed = false);
 
 	bool SendAttributeData(const std::string& attribute, GLfloat floatData);
 	bool SendAttributeData(const std::string& attribute, const glm::vec2& vec2Data);

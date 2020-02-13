@@ -36,9 +36,9 @@ public:
 		// Setting to float by default 
 		// Might need to cast to double if 
 		// user intents to use doubles
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
+		x = 0;
+		y = 0;
+		z = 0;
 	}
 	Vec3& operator= (const T& rhs)
 	{

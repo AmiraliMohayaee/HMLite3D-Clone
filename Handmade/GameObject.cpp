@@ -14,16 +14,15 @@ std::vector<Mat4x4<float>> GameObject::s_myModelMatrix;
 //------------------------------------------------------------------------------------------------------
 void GameObject::SetIdentity()
 {
-
-	s_myModelMatrix.back() = Mat4x4<float>().SetIdentity;
-
+	s_modelMatrix.back() = glm::mat4(1.0f);
+	s_myModelMatrix.back() = Mat4x4<float>(1.0f);
 }
 //------------------------------------------------------------------------------------------------------
 //static function that adds a new transformation to the matrix stack
 //------------------------------------------------------------------------------------------------------
 void GameObject::PushMatrix()
 {
-
+	s_modelMatrix.push_back(s_modelMatrix.back());
 	s_myModelMatrix.push_back(s_myModelMatrix.back());
 
 }
@@ -32,6 +31,11 @@ void GameObject::PushMatrix()
 //------------------------------------------------------------------------------------------------------
 void GameObject::PopMatrix()
 {
+	if (s_modelMatrix.size() > 1)
+	{
+		s_modelMatrix.pop_back();
+	}
+
 
 	//only remove transformation if there are multiple ones available
 	//there always needs to be at least one transformation present!
@@ -57,7 +61,8 @@ void GameObject::SendToShader(bool isLit, bool isTextured)
 	s_normalMatrix = glm::inverse(glm::mat3(s_modelMatrix.back()));
 
 	//send model matrix to vertex shader
-	ThePipeline::Instance()->SendUniformData("modelMatrix", s_myModelMatrix.back());
+	ThePipeline::Instance()->SendUniformData("modelMatrix", s_modelMatrix.back());
+	ThePipeline::Instance()->SendUniformData("myModelMatrix", s_myModelMatrix.back());
 
 	//send normal matrix to vertex shader (transposed)
 	ThePipeline::Instance()->SendUniformData("normMatrix", s_normalMatrix, true);
@@ -136,14 +141,34 @@ GameObject::GameObject()
 	//do this if vector is empty (the first game object to be created)
 	if (s_myModelMatrix.empty())
 	{
-		s_myModelMatrix.push_back(Mat4x4<float>().SetIdentity);
+		s_myModelMatrix.push_back(Mat4x4<float>(1.0f));
 	}
+
+	if (s_modelMatrix.empty())
+	{
+		s_modelMatrix.push_back(glm::mat4(1.0f));
+	}
+
 
 }
 
 GameObject::GameObject(float x, float y, float z)
 {
+	m_isLit = false;
+	m_isAlive = true;
+	m_isActive = true;
+	m_isVisible = true;
+	m_isTextured = false;
+
+	m_tag = "";
+	m_priority = 0;
+
 	m_pos = Vec3<float>(x, y, z);
+
+	if (s_myModelMatrix.empty())
+	{
+		s_myModelMatrix.push_back(Mat4x4<float>(1.0f));
+	}
 }
 
 //------------------------------------------------------------------------------------------------------

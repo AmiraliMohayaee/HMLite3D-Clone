@@ -295,5 +295,8 @@
     <ClCompile Include="Transformation.cpp">
       <Filter>Source Files\Components\Core\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>Source Files\Components\Core\Maths</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

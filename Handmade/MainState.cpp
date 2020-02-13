@@ -129,34 +129,34 @@ bool MainState::Draw()
 
 
 
-	// Contructing a 4x4 matrix
-	glm::mat4 translationMatrix = glm::mat4(1.0f); // Setting the matrix to identity
+	//// Contructing a 4x4 matrix
+	//glm::mat4 translationMatrix = glm::mat4(1.0f); // Setting the matrix to identity
 
-	translationMatrix = glm::translate(translationMatrix, glm::vec3(1.0f, 2.0f, 3.0f));
+	//translationMatrix = glm::translate(translationMatrix, glm::vec3(1.0f, 2.0f, 3.0f));
 
-	glm::mat4 rotation = glm::mat4(1.0f);
-	rotation = glm::rotate(rotation, Utility::DegToRad(35.0f), glm::vec3(1, 0, 0));
+	//glm::mat4 rotation = glm::mat4(1.0f);
+	//rotation = glm::rotate(rotation, Utility::DegToRad(35.0f), glm::vec3(1, 0, 0));
 
-	glm::mat4 scale = glm::mat4(1.0f);
-	scale = glm::scale(scale, glm::vec3(2, 0.5f, 0.25f));
-	// Alternatively, one matrix can be used and the different matrix procedures applied to it
+	//glm::mat4 scale = glm::mat4(1.0f);
+	//scale = glm::scale(scale, glm::vec3(2, 0.5f, 0.25f));
+	//// Alternatively, one matrix can be used and the different matrix procedures applied to it
 
-	// Homogenous coordination
-	glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(1, 4, -6));
+	//// Homogenous coordination
+	//glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(1, 4, -6));
 
-	glm::vec3 pos = glm::vec3(6, 2, 3);
+	//glm::vec3 pos = glm::vec3(6, 2, 3);
 
-	// Setting the last value to one changes it into a homogenous coord
-	// Changing it 0 would've made it a direction vector instead
-	glm::vec3 result = translation * glm::vec4(pos, 1.0f); 
+	//// Setting the last value to one changes it into a homogenous coord
+	//// Changing it 0 would've made it a direction vector instead
+	//glm::vec3 result = translation * glm::vec4(pos, 1.0f); 
 
 
 
 	// Example of a rotation
-	glm::vec3 axis = glm::vec3(5, 0, 0);
+	//glm::vec3 axis = glm::vec3(5, 0, 0);
 
-	GameObject::SetIdentity();
-	TheDebug::Instance()->DrawVector3D(axis.x, axis.y, axis.z, 5.0f, 1, 1, 1);
+	//GameObject::SetIdentity();
+	//TheDebug::Instance()->DrawVector3D(axis.x, axis.y, axis.z, 5.0f, 1, 1, 1);
 
 
 

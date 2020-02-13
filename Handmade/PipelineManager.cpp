@@ -98,6 +98,11 @@ bool PipelineManager::SendUniformData(const std::string& uniform, const glm::vec
 	return true;
 
 }
+
+////// To-do: Create one for the Vec4
+
+
+
 //------------------------------------------------------------------------------------------------------
 //function that sends uniform data to shader (3x3 MATRIX)
 //------------------------------------------------------------------------------------------------------
