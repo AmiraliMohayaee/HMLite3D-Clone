@@ -8,7 +8,7 @@
 namespace Transformation
 {
 	Mat4x4<float> Translation(Mat4x4<float> mat, Vec3<float>& vec);
-	Mat4x4<float> Rotation(Mat4x4<float> angle, Vec3<float>& vec);
+	Mat4x4<float> Rotation(const float angle, Vec3<float>& vec);
 	Mat4x4<float> Scale(Mat4x4<float> scaleMat, Vec3<float>& vec);
 };
 

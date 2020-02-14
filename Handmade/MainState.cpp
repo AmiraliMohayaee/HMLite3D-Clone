@@ -74,8 +74,8 @@ bool MainState::Update()
 
 
 	m_player->Update();
-	m_enemy->Update();
-	m_planet->Update();
+	//m_enemy->Update();
+	//m_planet->Update();
 
 
 
@@ -101,6 +101,9 @@ bool MainState::Draw()
 #ifdef GAME_3D
 
 	TheScreen::Instance()->Set3DScreen(60.0f, 0.1f, 1000.0f);
+
+	TheDebug::Instance()->DrawGrid3D();
+	TheDebug::Instance()->DrawCoordSystem3D(15.0f);
 
 #ifdef DEBUG
 
