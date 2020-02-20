@@ -15,7 +15,7 @@ MainCamera::MainCamera()
 		m_camera.Position().z = 4;
 		//m_camera.RotateY(-45);
 		m_camera.RotateX(30);
-		//m_camera.SetVelocity(5.0f);
+		//m_camera.SetVelocity(5.0f);	// Turn off when creating full game
 		m_camera.SetSensitivity(0.4f);
 		m_camera.IsFreeFlow() = false;
 
@@ -94,8 +94,8 @@ void MainCamera::Update()
 	}
 
 	//set camera rotation values based on mouse motion values
-	//m_camera.RotateX((short)(TheInput::Instance()->GetMouseMotion().y));
-	//m_camera.RotateY((short)(TheInput::Instance()->GetMouseMotion().x));
+	m_camera.RotateX((short)(TheInput::Instance()->GetMouseMotion().y));
+	m_camera.RotateY((short)(TheInput::Instance()->GetMouseMotion().x));
 
 	//set camera's position and orientation
 	m_camera.Update();

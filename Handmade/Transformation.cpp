@@ -8,10 +8,9 @@ namespace Transformation
 	{
 		Mat4x4<float> result(mat);
 
-		result.mat[3] = mat.mat[0] * vec.x +
-			mat.mat[12] * vec.y +
-			mat.mat[13] * vec.z +
-			mat.mat[14];
+		result.mat[12] = mat.mat[12] * vec.x;
+		result.mat[13] = mat.mat[13] * vec.y;
+		result.mat[14] = mat.mat[14] * vec.z;
 
 		return result;
 	}

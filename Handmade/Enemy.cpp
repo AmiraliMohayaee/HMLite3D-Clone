@@ -4,19 +4,14 @@
 Enemy::Enemy()
 {
 	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
-
-	m_xRot = 0.0f;
-	m_yRot = 0.0f;
-	m_zRot = 0.0f;
-
-	m_XAngle = 0.0f;
-	m_YAngle = 0.0f;
-	m_ZAngle = 0.0f;
 }
 
 Enemy::Enemy(float x, float y, float z)
 {
 	m_pos = Vec3<float>(x, y, z);
+
+	m_model.LoadModel("Assets/Models/Spaceship.obj", "SPACESHIP");
+	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
 }
 
 bool Enemy::Create()
@@ -26,7 +21,7 @@ bool Enemy::Create()
 
 void Enemy::Update()
 {
-	m_xRot = sin(m_xRot) + 0.01f;
+	//m_xRot = sin(m_xRot) + 0.01f;
 }
 
 void Enemy::Draw()

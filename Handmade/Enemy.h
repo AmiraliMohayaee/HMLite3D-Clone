@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "DebugManager.h"
 #include "InputManager.h"
+#include "Model.h"
 #include <glm.hpp>
 
 
@@ -20,13 +21,9 @@ public:
 
 
 private:
-	float m_xRot;
-	float m_yRot;
-	float m_zRot;
+	
+	Model m_model;
 
-	float m_XAngle;
-	float m_YAngle;
-	float m_ZAngle;
 };
 
 

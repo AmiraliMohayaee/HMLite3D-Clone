@@ -24,7 +24,6 @@ void GameObject::PushMatrix()
 {
 	s_modelMatrix.push_back(s_modelMatrix.back());
 	s_myModelMatrix.push_back(s_myModelMatrix.back());
-
 }
 //------------------------------------------------------------------------------------------------------
 //static function that removes last transformation from matrix stack

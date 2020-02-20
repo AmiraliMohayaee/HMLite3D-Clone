@@ -18,6 +18,7 @@ Mat4x4<T>& Mat4x4<T>::Inverse()
 
 
 
+
 template<class T>
 Mat4x4<T>& Mat4x4<T>::operator+(const Mat4x4& rhs)
 {

@@ -102,8 +102,6 @@ bool MainState::Draw()
 
 	TheScreen::Instance()->Set3DScreen(60.0f, 0.1f, 1000.0f);
 
-	TheDebug::Instance()->DrawGrid3D();
-	TheDebug::Instance()->DrawCoordSystem3D(15.0f);
 
 #ifdef DEBUG
 
@@ -127,8 +125,8 @@ bool MainState::Draw()
 
 #endif
 	m_player->Draw();
-	m_enemy->Draw();
-	m_planet->Draw();
+	//m_enemy->Draw();
+	//m_planet->Draw();
 
 
 
@@ -168,8 +166,8 @@ bool MainState::Draw()
 #ifdef DEBUG
 
 	//set the 2D camera and render the heads-up display last
-	m_HUDCamera->Draw();
-	m_HUD->Draw();
+	//m_HUDCamera->Draw();
+	//m_HUD->Draw();
 
 #endif
 
@@ -190,35 +188,3 @@ void MainState::OnExit()
 	delete m_player;
 	delete m_enemy;
 }
-
-
-
-
-
-
-
-
-
-//// Some backups 
-
-
-	//GameObject::SetIdentity();
-
-	//static float xMove = 0.01f;
-	//static float zMove = 0.01f;
-
-	//xMove += 0.001f;
-	//zMove -= 0.001f;
-
-	//GameObject::Translate(xMove, 0.0f, zMove);
-	//GameObject::Rotate(45.0f, 0.0, 1.0, 0.0);
-	//TheDebug::Instance()->DrawCube3D(2.0f, 2.0f, 2.0f, 10.0f, 10.0f, 10.0f, 0.5f);
-
-	//GameObject::SetIdentity();	// Resetting the matrix to identity
-
-	//static float angle = 0;
-	//angle += 5.0f;
-
-	//GameObject::Rotate(angle, 0.0f, 1.0f, 1.0f);
-	//GameObject::Translate(2.0f, 0.0f, 0.0f);
-	//TheDebug::Instance()->DrawSphere3D(2.0f, 1.0f, 1.0f, 1.0f, 0.5f);

@@ -125,19 +125,6 @@ public:
 		return product;
 	}
 
-	T DegreeToRadian(T degree)
-	{
-		T result = (degree / 180.0) * PI;
-
-		return result;
-	}
-	T RadianToDegree(T radian)
-	{
-		T result = (radian / PI) * 180.0;
-
-		return result;
-	}
-
 	Vec3& Lerp(const Vec3& start, const Vec3& end, float delta)
 	{
 		if (Distance(start, end) < 0.02)
