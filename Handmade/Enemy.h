@@ -5,6 +5,7 @@
 #include "DebugManager.h"
 #include "InputManager.h"
 #include "Model.h"
+#include "AABB.h"
 #include <glm.hpp>
 
 
@@ -19,9 +20,12 @@ public:
 	virtual void Draw();
 	virtual void Destroy();
 
+	const AABB& GetCollider() const;
+
+
 
 private:
-	
+	AABB m_collider;
 	Model m_model;
 
 };

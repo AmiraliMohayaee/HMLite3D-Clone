@@ -13,9 +13,9 @@ MainCamera::MainCamera()
 		m_camera.Position().x = 0;
 		m_camera.Position().y = 5;
 		m_camera.Position().z = 4;
-		//m_camera.RotateY(-45);
+		m_camera.RotateY(-45);
 		m_camera.RotateX(30);
-		//m_camera.SetVelocity(5.0f);	// Turn off when creating full game
+		m_camera.SetVelocity(5.0f);	// Turn off when creating full game
 		m_camera.SetSensitivity(0.4f);
 		m_camera.IsFreeFlow() = false;
 

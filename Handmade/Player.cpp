@@ -61,6 +61,9 @@ Player::Player(float x, float y, float z)
 
 	m_model.LoadModel("Assets/Models/Spaceship.obj", "SPACESHIP");
 	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
+
+	m_collider.SetPos(m_pos);
+	m_collider.SetDimension(2.0f, 2.0f, 2.0f);
 }
 
 bool Player::Create()
@@ -137,6 +140,9 @@ void Player::Update()
 	//m_angle += 0.5f;
 	//m_xRot = motion.x;
 	//m_yRot = motion.y;
+
+	m_collider.SetPos(m_pos);
+	m_collider.Update();
 }
 
 
@@ -148,7 +154,7 @@ void Player::Draw()
 	m_transform = Transformation::Translation(m_transform, m_pos);
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
 	GameObject::SetMatrix(m_transform);
-	m_transform.PrintMatrix();	// Testing transform
+	//m_transform.PrintMatrix();	// Testing transform
 
 
 	glm::mat4 result;
@@ -162,6 +168,14 @@ void Player::Draw()
 	m_model.SetColor(1, 1, 1, 1);
 	m_model.Draw();
 
+	result = trans * rot;
+	GameObject::SetMatrix(result);
+
+#ifdef DEBUG
+
+	m_collider.DebugDraw();
+
+#endif
 
 	//vTheDebug::Instance()->DrawSphere3D(0.3f, 100, 90, 100, 0.5f);
 
@@ -190,5 +204,15 @@ void Player::Draw()
 void Player::Destroy()
 {
 
+}
+
+void Player::OnCollision(GameObject* go)
+{
+	Utility::Log("Colliding with " + go->GetTag());
+}
+
+const AABB& Player::GetCollider() const
+{
+	return m_collider;
 }
 

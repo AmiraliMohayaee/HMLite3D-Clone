@@ -26,7 +26,13 @@ public:
 	//static const Vec3<float> Up(0.0f, 1.0f, 0.0f);
 	//static const Vec3<float> Down(0.0f, -1.0f, 0.0f);
 
-	Vec3() {}
+	Vec3() 
+	{
+		x = 0;
+		y = 0;
+		z = 0;
+	}
+
 	Vec3(T xVal, T yVal, T zVal) : x(xVal), y(yVal), z(zVal) {}
 	// Copy Ctor
 	Vec3(const Vec3& vec) : x(vec.x), y(vec.y), z(vec.z) {}
@@ -76,14 +82,25 @@ public:
 		z -= rhs.z;
 		return *this;
 	}
-	Vec3& operator- () const
+	//Vec3& operator- () const
+	//{
+	//	return Vec3(-x, -y, -z);
+	//}
+	Vec3& operator- (const Vec3& rhs) const
 	{
-		return Vec3(-x, -y, -z);
+		x - rhs.x;
+		y - rhs.y;
+		z - rhs.z;
+		return *this;
 	}
 	// Essential for Cross-Product
 	Vec3& operator* (const T& rhs) const
 	{
 		return Vec3(x * rhs, y * rhs, z * rhs);
+	}
+	Vec3& operator* (const Vec3& rhs) const
+	{
+		return Vec3(x * rhs.x, y * rhs.y, z * rhs.z);
 	}
 	Vec3& operator*= (const Vec3& rhs)
 	{

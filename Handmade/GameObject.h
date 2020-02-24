@@ -61,6 +61,7 @@
 #include <glm.hpp>
 #include "Matrix4x4.h"
 #include "Vec3.h"
+#include "AABB.h"
 
 class GameObject 
 {
@@ -121,6 +122,7 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	virtual void Destroy() = 0;
+    virtual void OnCollision(GameObject* go) { }
 
 protected :
 
@@ -135,6 +137,7 @@ protected :
 
     Vec3<float> m_pos;
 
+    AABB m_collider;
 };
 
 #endif

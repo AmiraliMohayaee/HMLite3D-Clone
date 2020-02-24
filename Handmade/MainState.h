@@ -65,8 +65,10 @@ private :
 	HUDCamera* m_HUDCamera;
 	MainCamera* m_mainCamera;
 
+    static const int maxEnemies = 1;
+
     Player* m_player;
-    Enemy* m_enemy;
+    Enemy* m_enemies[maxEnemies];
     Planet* m_planet;
 };
 

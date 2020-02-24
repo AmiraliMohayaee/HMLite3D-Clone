@@ -8,6 +8,7 @@
 #include <glm.hpp>
 #include "Model.h"
 #include "Transformation.h"
+#include "AABB.h"
 
 
 class Player : public GameObject
@@ -20,6 +21,10 @@ public:
 	virtual void Update();
 	virtual void Draw();
 	virtual void Destroy();
+	virtual void OnCollision(GameObject* go);
+
+
+	const AABB& GetCollider() const;
 
 
 private:
@@ -45,6 +50,8 @@ private:
 	Mat4x4<float> m_scaleMat;
 
 	Model m_model;
+
+	AABB m_collider;
 };
 
 

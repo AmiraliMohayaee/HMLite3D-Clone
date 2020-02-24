@@ -76,6 +76,12 @@
     <Filter Include="Source Files\GameObjects\Costum Objects">
       <UniqueIdentifier>{27da3466-191f-42be-834b-1a815c7cd907}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Core\Physics">
+      <UniqueIdentifier>{218e0d46-f649-4b3b-b10e-448b82e60cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Core\Physics">
+      <UniqueIdentifier>{4ad49e08-7ec9-4a0b-98ba-dcd398aad1b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Main.frag">
@@ -194,6 +200,9 @@
     <ClInclude Include="Matrix4x4.h">
       <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Header Files\Components\Core\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">
@@ -297,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="Matrix4x4.cpp">
       <Filter>Source Files\Components\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Source Files\Components\Core\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,9 @@
 #include "Enemy.h"
 #include <math.h>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include "Utility.h"
+
 
 Enemy::Enemy()
 {
@@ -10,8 +14,11 @@ Enemy::Enemy(float x, float y, float z)
 {
 	m_pos = Vec3<float>(x, y, z);
 
-	m_model.LoadModel("Assets/Models/Spaceship.obj", "SPACESHIP");
-	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
+	m_model.LoadModel("Assets/Models/EnemyShip.obj", "ENEMY");
+	m_model.LoadTexture("Assets/Textures/Enemy_Diffuse.png", "ENEMY");
+
+	m_collider.SetPos(m_pos);
+	m_collider.SetDimension(1.0f, 1.0f, 1.0f);
 }
 
 bool Enemy::Create()
@@ -22,6 +29,8 @@ bool Enemy::Create()
 void Enemy::Update()
 {
 	//m_xRot = sin(m_xRot) + 0.01f;
+	m_collider.SetPos(m_pos);
+	m_collider.Update();
 }
 
 void Enemy::Draw()
@@ -31,12 +40,30 @@ void Enemy::Draw()
 	//	0.0f + m_pos.z);
 	GameObject::Translate(m_pos.x, m_pos.y, m_pos.z);
 	//GameObject::Rotate(m_XAngle, 1, 0, 0);
-	TheDebug::Instance()->DrawSphere3D(1.0f, 150.0f, 120.0f, 0.0f, 1.0f);
 
-	GameObject::SetIdentity();
+	glm::mat4 result;
+	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z));
+	glm::mat4 rot = glm::rotate(glm::mat4(), Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1));
+	result = trans * rot * scale;
+	GameObject::SetMatrix(result);
+
+	GameObject::SendToShader(false, true);
+	m_model.SetColor(1, 1, 1, 1);
+	m_model.Draw();
+
+	result = trans;
+	GameObject::SetMatrix(result);
+
+	m_collider.DebugDraw();
 }
 
 void Enemy::Destroy()
 {
 
+}
+
+const AABB& Enemy::GetCollider() const
+{
+	return m_collider;
 }

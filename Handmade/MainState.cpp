@@ -21,8 +21,14 @@ MainState::MainState(GameState* state) : GameState(state)
 	m_mainCamera = nullptr;
 
 	m_player = nullptr;
-	m_enemy = nullptr;
+	
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		m_enemies[i] = nullptr;
+	}
+
 	m_player = nullptr;
+
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -30,8 +36,12 @@ MainState::MainState(GameState* state) : GameState(state)
 //------------------------------------------------------------------------------------------------------
 bool MainState::OnEnter()
 {
-	m_player = new Player(2.0f, 0.0f, -2.0f);
-	m_enemy = new Enemy(3.0f, 2.0f, 0.0f);
+	m_player = new Player(0.0f, 0.0f, 1.0f);
+
+	m_enemies[0] = new Enemy(0.0f, 0.0f, -3.0f);
+	m_enemies[0]->SetTag("Baddie");
+
+
 	m_planet = new Planet(1.0f, 1.0f, 1.0f);
 
 	//create the main camera to control the main view
@@ -74,9 +84,24 @@ bool MainState::Update()
 
 
 	m_player->Update();
-	//m_enemy->Update();
+	
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		m_enemies[i]->Update();
+	}
+	
+
 	//m_planet->Update();
 
+	if (m_player->GetCollider().IsColliding
+		(m_enemies[0]->GetCollider()))
+	{
+		m_player->OnCollision(m_enemies[0]);
+	}
+	else
+	{
+		Utility::Log("Not Colliding");
+	}
 
 
 	// To-Do: Output log info into files
@@ -93,7 +118,6 @@ bool MainState::Update()
 //------------------------------------------------------------------------------------------------------
 bool MainState::Draw()
 {
-
 	//first set up camera which sets the view accordingly
 	//make sure this is called BEFORE displaying the grid
 	m_mainCamera->Draw();
@@ -125,7 +149,13 @@ bool MainState::Draw()
 
 #endif
 	m_player->Draw();
-	//m_enemy->Draw();
+
+
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		m_enemies[i]->Draw();
+	}
+	
 	//m_planet->Draw();
 
 
@@ -166,8 +196,8 @@ bool MainState::Draw()
 #ifdef DEBUG
 
 	//set the 2D camera and render the heads-up display last
-	//m_HUDCamera->Draw();
-	//m_HUD->Draw();
+	m_HUDCamera->Draw();
+	m_HUD->Draw();
 
 #endif
 
@@ -186,5 +216,9 @@ void MainState::OnExit()
 	delete m_HUDCamera;
 	delete m_mainCamera;
 	delete m_player;
-	delete m_enemy;
+
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		delete m_enemies[i];
+	}
 }
