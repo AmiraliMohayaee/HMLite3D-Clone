@@ -25,6 +25,7 @@ public:
 
 
 	const AABB& GetCollider() const;
+	const SphereCollider& GetSphereCollider() const;
 
 
 private:

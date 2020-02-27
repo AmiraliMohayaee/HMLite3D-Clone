@@ -37,6 +37,7 @@ MainState::MainState(GameState* state) : GameState(state)
 bool MainState::OnEnter()
 {
 	m_player = new Player(0.0f, 0.0f, 1.0f);
+	m_player->SetTag("Player");
 
 	m_enemies[0] = new Enemy(0.0f, 0.0f, -3.0f);
 	m_enemies[0]->SetTag("Baddie");
@@ -75,6 +76,7 @@ bool MainState::Update()
 		m_isActive = m_isAlive = false;
 		TheGame::Instance()->ChangeState(new EndState(this));
 	}
+	
 
 	if (keyState[SDL_SCANCODE_SPACE])
 	{
@@ -103,12 +105,20 @@ bool MainState::Update()
 		Utility::Log("Not Colliding");
 	}
 
+	//if (m_player->GetSphereCollider().IsSphereColliding
+	//	(m_enemies[0]->GetSphereCollider()))
+	//{
+	//	m_player->OnCollision(m_enemies[0]);
+	//}
+	//else
+	//{
+	//	Utility::Log("Not Colliding");
+	//}
+
+
 
 	// To-Do: Output log info into files
-	Utility::Log("Updating Main State");
-
-	Utility::Log(m_player->GetPos().x, "Player's X Value is: ");
-	Utility::Log(m_player->GetPos().y, "Player's Y Value is: ");
+	//Utility::Log("Updating Main State");
 	
 	return true;
 }

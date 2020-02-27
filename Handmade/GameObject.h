@@ -62,6 +62,7 @@
 #include "Matrix4x4.h"
 #include "Vec3.h"
 #include "AABB.h"
+#include "SphereCollider.h"
 
 class GameObject 
 {
@@ -110,6 +111,7 @@ public :
 	unsigned int GetPriority();
     const Vec3<float>& GetPos() const;
     void SetPos(const Vec3<float>& pos);
+    void SetPos(const glm::vec3& pos);
 	void SetTag(std::string tag);
 	void SetPriority(unsigned int priority);
 
@@ -136,8 +138,10 @@ protected :
 	unsigned int m_priority;
 
     Vec3<float> m_pos;
+    glm::vec3 m_posGLM;
 
     AABB m_collider;
+    SphereCollider m_sphereCollider;
 };
 
 #endif

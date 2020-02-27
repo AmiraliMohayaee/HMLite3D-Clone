@@ -134,6 +134,7 @@ GameObject::GameObject()
 	m_priority = 0;	
 
 	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
+	m_posGLM = glm::vec3();
 
 	//add the initial model transformation into the vector so that
 	//there is always at least one transformation present and only  
@@ -243,6 +244,13 @@ void GameObject::SetPos(const Vec3<float>& pos)
 	m_pos.x = pos.x;
 	m_pos.y = pos.y;
 	m_pos.z = pos.z;
+}
+
+void GameObject::SetPos(const glm::vec3& pos)
+{
+	m_posGLM.x = pos.x;
+	m_posGLM.y = pos.y;
+	m_posGLM.z = pos.z;
 }
 
 //------------------------------------------------------------------------------------------------------

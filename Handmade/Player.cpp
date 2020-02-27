@@ -38,6 +38,7 @@ Player::Player()
 Player::Player(float x, float y, float z)
 {
 	m_pos = Vec3<float>(x, y, z);
+	m_posGLM = glm::vec3(x, y, z);
 
 	m_vel = 0.1f;
 
@@ -62,8 +63,11 @@ Player::Player(float x, float y, float z)
 	m_model.LoadModel("Assets/Models/Spaceship.obj", "SPACESHIP");
 	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
 
-	m_collider.SetPos(m_pos);
+	m_collider.SetPos(m_posGLM);
 	m_collider.SetDimension(2.0f, 2.0f, 2.0f);
+
+	m_sphereCollider.SetRadius(1.0f);
+	m_sphereCollider.SetScale(0.5f);
 }
 
 bool Player::Create()
@@ -132,17 +136,20 @@ void Player::Update()
 		m_pos.y -= 0.05f;
 	}
 
-	glm::vec2 motion = TheInput::Instance()->GetMouseMotion();
+	//glm::vec2 motion = TheInput::Instance()->GetMouseMotion();
 
-	std::cout << "X motion is " << motion.x << std::endl;
-	std::cout << "Y motion is " << motion.y << std::endl;
+	//std::cout << "X motion is " << motion.x << std::endl;
+	//std::cout << "Y motion is " << motion.y << std::endl;
 
-	//m_angle += 0.5f;
-	//m_xRot = motion.x;
-	//m_yRot = motion.y;
 
-	m_collider.SetPos(m_pos);
+	Utility::Log(m_pos.x, m_pos.y, m_pos.z, "Player's Pos");
+
+	//m_collider.SetPos(m_posGLM);
 	m_collider.Update();
+	Utility::Log(m_posGLM.x, m_posGLM.y, m_posGLM.z, "Player Collider Pos");
+
+	m_sphereCollider.SetPos(m_posGLM);
+	m_sphereCollider.Update();
 }
 
 
@@ -174,6 +181,7 @@ void Player::Draw()
 #ifdef DEBUG
 
 	m_collider.DebugDraw();
+	//m_sphereCollider.DebugDraw();
 
 #endif
 
@@ -216,3 +224,7 @@ const AABB& Player::GetCollider() const
 	return m_collider;
 }
 
+const SphereCollider& Player::GetSphereCollider() const
+{
+	return m_sphereCollider;
+}

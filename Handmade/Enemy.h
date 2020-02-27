@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "Model.h"
 #include "AABB.h"
+#include "SphereCollider.h"
 #include <glm.hpp>
 
 
@@ -21,11 +22,11 @@ public:
 	virtual void Destroy();
 
 	const AABB& GetCollider() const;
+	const SphereCollider& GetSphereCollider() const;
 
 
 
 private:
-	AABB m_collider;
 	Model m_model;
 
 };

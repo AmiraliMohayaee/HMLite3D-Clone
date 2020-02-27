@@ -55,9 +55,11 @@ namespace Utility
 	{
 		glm::vec3 result = start - dest;
 
-		return sqrt((result.x * result.x) +
+		float sqrtResult = sqrt((result.x * result.x) +
 			(result.y * result.y) +
 			(result.z * result.z));
+
+		return sqrtResult;
 	}
 
 	const Vec3<float>& Utility::CrossProduct(const Vec3<float>& vec1, const Vec3<float>& vec2)

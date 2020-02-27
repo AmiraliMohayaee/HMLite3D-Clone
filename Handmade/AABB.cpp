@@ -22,7 +22,7 @@ void AABB::DebugDraw()
 
 void AABB::Update()
 {
-	Vec3<float> halfDim = (m_dimention * m_scale) * 0.5f;
+	glm::vec3 halfDim = (m_dimention * m_scale) * 0.5f;
 
 	m_min.x = (m_pos.x - halfDim.x);
 	m_min.y = (m_pos.y - halfDim.y);
@@ -47,7 +47,7 @@ void AABB::SetDimension(float width, float height, float depth)
 	m_dimention.z = depth;
 }
 
-void AABB::SetPos(const Vec3<float>& pos)
+void AABB::SetPos(const glm::vec3& pos)
 {
 	m_pos = pos;
 }

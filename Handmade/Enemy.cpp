@@ -13,12 +13,17 @@ Enemy::Enemy()
 Enemy::Enemy(float x, float y, float z)
 {
 	m_pos = Vec3<float>(x, y, z);
+	m_posGLM = glm::vec3(x, y, z);
 
 	m_model.LoadModel("Assets/Models/EnemyShip.obj", "ENEMY");
 	m_model.LoadTexture("Assets/Textures/Enemy_Diffuse.png", "ENEMY");
 
-	m_collider.SetPos(m_pos);
+
+	m_collider.SetPos(m_posGLM);
 	m_collider.SetDimension(1.0f, 1.0f, 1.0f);
+
+	m_sphereCollider.SetRadius(1.0f);
+	m_sphereCollider.SetScale(0.5f);
 }
 
 bool Enemy::Create()
@@ -29,8 +34,11 @@ bool Enemy::Create()
 void Enemy::Update()
 {
 	//m_xRot = sin(m_xRot) + 0.01f;
-	m_collider.SetPos(m_pos);
+	m_collider.SetPos(m_posGLM);
 	m_collider.Update();
+
+	m_sphereCollider.SetPos(m_posGLM);
+	m_sphereCollider.Update();
 }
 
 void Enemy::Draw()
@@ -56,6 +64,7 @@ void Enemy::Draw()
 	GameObject::SetMatrix(result);
 
 	m_collider.DebugDraw();
+	//m_sphereCollider.DebugDraw();
 }
 
 void Enemy::Destroy()
@@ -66,4 +75,9 @@ void Enemy::Destroy()
 const AABB& Enemy::GetCollider() const
 {
 	return m_collider;
+}
+
+const SphereCollider& Enemy::GetSphereCollider() const
+{
+	return m_sphereCollider;
 }

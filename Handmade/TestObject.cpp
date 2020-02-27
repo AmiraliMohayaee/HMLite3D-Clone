@@ -5,8 +5,30 @@ TestObject::TestObject()
 	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
 }
 
-Vec3<float> TestObject::GetVec()
+
+TestObject::TestObject(float x, float y, float z)
 {
-	return Vec3<float>();
+
 }
 
+bool TestObject::Create()
+{
+	return false;
+}
+
+void TestObject::Update()
+{
+}
+
+void TestObject::Draw()
+{
+}
+
+void TestObject::Destroy()
+{
+}
+
+void TestObject::OnCollision(GameObject* go)
+{
+
+}
