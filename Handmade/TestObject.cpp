@@ -1,4 +1,6 @@
 #include "TestObject.h"
+#include "DebugManager.h"
+
 
 TestObject::TestObject()
 {
@@ -8,7 +10,9 @@ TestObject::TestObject()
 
 TestObject::TestObject(float x, float y, float z)
 {
-
+	m_pos.x = x;
+	m_pos.y = y;
+	m_pos.z = z;
 }
 
 bool TestObject::Create()
@@ -18,10 +22,12 @@ bool TestObject::Create()
 
 void TestObject::Update()
 {
+
 }
 
 void TestObject::Draw()
 {
+	TheDebug::Instance()->DrawCube3D(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void TestObject::Destroy()

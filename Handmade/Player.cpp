@@ -90,21 +90,25 @@ void Player::Update()
 	{
 		//m_direction = m_forward;
 		m_pos.z += 0.05f;
+		m_posGLM.z += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
 		//m_direction = -m_forward;
 		m_pos.z -= 0.05f;
+		m_posGLM.z -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
 		//m_direction = -m_right;
 		m_pos.x += 0.05f;
+		m_posGLM.x += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_RIGHT])
 	{
 		//m_direction = m_right;
 		m_pos.x -= 0.05f;
+		m_posGLM.x -= 0.05f;
 	}
 
 	if (keyState[SDL_SCANCODE_J])

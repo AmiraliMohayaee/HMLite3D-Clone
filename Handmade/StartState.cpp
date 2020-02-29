@@ -6,6 +6,7 @@
 #include "PipelineManager.h"
 #include "ScreenManager.h"
 #include "StartState.h"
+#include "TestState.h"
 
 //------------------------------------------------------------------------------------------------------
 //constructor that assigns all default values
@@ -98,6 +99,7 @@ bool StartState::Update()
 
 	m_isActive = m_isAlive = false;
 	TheGame::Instance()->ChangeState(new MainState(this));
+	//TheGame::Instance()->ChangeState(new TestState(this));
 
 #endif
 

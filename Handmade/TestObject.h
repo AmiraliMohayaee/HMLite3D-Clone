@@ -2,6 +2,9 @@
 
 #include "Vec3.h"
 #include "GameObject.h"
+#include "Model.h"
+#include "AABB.h"
+#include "SphereCollider.h"
 
 
 class TestObject : public GameObject
@@ -17,10 +20,10 @@ public:
 	virtual void OnCollision(GameObject* go);
 
 
-
-
 private:
-	
+	Model m_model;
 
+	AABB m_collider;
+	SphereCollider m_SphereColl;
 };
 

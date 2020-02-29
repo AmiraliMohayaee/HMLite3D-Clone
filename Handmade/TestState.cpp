@@ -19,6 +19,7 @@ TestState::TestState(GameState* state) : GameState(state)
 	m_HUD = nullptr;
 	m_HUDCamera = nullptr;
 	m_mainCamera = nullptr;
+	m_testObject = nullptr;
 
 }
 
@@ -27,6 +28,9 @@ TestState::TestState(GameState* state) : GameState(state)
 //------------------------------------------------------------------------------------------------------
 bool TestState::OnEnter()
 {
+	m_testObject = new TestObject(0.0f, 0.0f, 0.0f);
+	m_testObject->SetTag("TestObject");
+
 	//create the main camera to control the main view
 	m_mainCamera = new MainCamera();
 
@@ -65,7 +69,7 @@ bool TestState::Update()
 		TheGame::Instance()->ChangeState(new StartState(this));
 	}
 
-
+	m_testObject->Update();
 
 	return true;
 }
@@ -107,6 +111,7 @@ bool TestState::Draw()
 #endif
 	
 	// Make GOs here
+	m_testObject->Draw();
 
 
 #ifdef DEBUG

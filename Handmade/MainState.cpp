@@ -27,8 +27,6 @@ MainState::MainState(GameState* state) : GameState(state)
 		m_enemies[i] = nullptr;
 	}
 
-	m_player = nullptr;
-
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -95,18 +93,8 @@ bool MainState::Update()
 
 	//m_planet->Update();
 
-	if (m_player->GetCollider().IsColliding
-		(m_enemies[0]->GetCollider()))
-	{
-		m_player->OnCollision(m_enemies[0]);
-	}
-	else
-	{
-		Utility::Log("Not Colliding");
-	}
-
-	//if (m_player->GetSphereCollider().IsSphereColliding
-	//	(m_enemies[0]->GetSphereCollider()))
+	//if (m_player->GetCollider().IsColliding
+	//	(m_enemies[0]->GetCollider()))
 	//{
 	//	m_player->OnCollision(m_enemies[0]);
 	//}
@@ -114,6 +102,16 @@ bool MainState::Update()
 	//{
 	//	Utility::Log("Not Colliding");
 	//}
+
+	if (m_player->GetSphereCollider().IsSphereColliding
+		(m_enemies[0]->GetSphereCollider()))
+	{
+		m_player->OnCollision(m_enemies[0]);
+	}
+	else
+	{
+		Utility::Log("Not Colliding");
+	}
 
 
 
