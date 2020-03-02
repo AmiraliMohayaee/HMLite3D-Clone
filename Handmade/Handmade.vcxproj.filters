@@ -209,6 +209,9 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>Header Files\Components\Core\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerShot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">
@@ -321,6 +324,9 @@
     </ClCompile>
     <ClCompile Include="TestState.cpp">
       <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerShot.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

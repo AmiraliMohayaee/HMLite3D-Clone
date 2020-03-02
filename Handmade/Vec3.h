@@ -46,7 +46,7 @@ public:
 		y = 0;
 		z = 0;
 	}
-	Vec3& operator= (const T& rhs)
+	Vec3& operator= (const Vec3& rhs)
 	{
 		x = rhs.x;
 		y = rhs.y;
@@ -71,7 +71,7 @@ public:
 		z += rhs.z;
 		return *this;
 	}
-	Vec3& operator+ (const Vec3& rhs) const
+	Vec3 operator+ (const Vec3& rhs) const
 	{
 		return Vec3(x + rhs.x, y + rhs.y, z + rhs.y);
 	}
@@ -86,17 +86,18 @@ public:
 	//{
 	//	return Vec3(-x, -y, -z);
 	//}
-	Vec3& operator- (const Vec3& rhs) const
+	Vec3 operator- (const Vec3& rhs) const
 	{
-		x - rhs.x;
-		y - rhs.y;
-		z - rhs.z;
-		return *this;
+		return Vec3(x - rhs.x, y - rhs.y, z - rhs.z);
 	}
 	// Essential for Cross-Product
-	Vec3& operator* (const T& rhs) const
+	Vec3 operator* (T& rhs) const
 	{
-		return Vec3(x * rhs, y * rhs, z * rhs);
+		Vec3 result;
+		result.x * rhs;
+		result.y * rhs; 
+		result.z * rhs;
+		return result;
 	}
 	Vec3& operator* (const Vec3& rhs) const
 	{

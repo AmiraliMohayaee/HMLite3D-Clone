@@ -47,6 +47,16 @@ void SphereCollider::SetScale(float radius)
 	m_radius = m_radiusScaled;
 }
 
+const glm::vec3& SphereCollider::GetPos() const
+{
+	return m_pos;
+}
+
+const float SphereCollider::GetRadius() const
+{
+	return m_radius;
+}
+
 bool SphereCollider::IsSphereColliding(const SphereCollider& secondSphere) const
 {
 	float dist = Utility::LineDistance(m_pos, secondSphere.m_pos);

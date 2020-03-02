@@ -2,6 +2,7 @@
 #define AABB_H
 
 #include "Vec3.h"
+#include "SphereCollider.h"
 #include <glm.hpp>
 
 class AABB
@@ -21,7 +22,8 @@ public:
 	void SetDimension(float width, float height, float depth);
 
 	bool IsColliding(const AABB& secondBox) const;
-	//AABB& ReturnBound();
+	bool IsColliding(const SphereCollider& sphere);
+
 
 private:
 	glm::vec3 m_pos;

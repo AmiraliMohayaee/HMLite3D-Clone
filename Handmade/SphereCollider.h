@@ -19,6 +19,9 @@ public:
 	void SetPos(const glm::vec3& pos);
 	void SetScale(float radius);
 
+	const glm::vec3& GetPos() const;
+	const float GetRadius() const;
+
 	bool IsSphereColliding(const SphereCollider& secondSphere) const;
 
 private:

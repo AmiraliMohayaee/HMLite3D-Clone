@@ -1,5 +1,7 @@
 #include "AABB.h"
+#include "Utility.h"
 #include "DebugManager.h"
+
 
 AABB::AABB()
 {
@@ -73,7 +75,30 @@ bool AABB::IsColliding(const AABB& secondBox) const
 	}
 }
 
-//AABB& AABB::ReturnBound()
-//{
-//	//return AABB;
-//}
+bool AABB::IsColliding(const SphereCollider& sphere)
+{
+	// Getting dimentions of the are for checking collision
+	glm::vec3 halfDim = (m_dimention * m_scale) * 0.5f;
+
+	// Getting the distance between sphere and box
+	glm::vec3 dist = this->m_pos - sphere.GetPos();
+
+	//Utility::LineDistance(m_min, m_max);
+
+	// Clamping the value
+	dist = Utility::Clamp(dist, -halfDim, halfDim);
+
+	// Get the pos of the edge on the box
+	glm::vec3 edge = m_pos - dist;
+	float edgeDist = Utility::LineDistance(edge, sphere.GetPos());
+
+
+	if (sphere.GetRadius() >= edgeDist)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
