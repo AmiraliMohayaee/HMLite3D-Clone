@@ -9,6 +9,7 @@
 #include "Model.h"
 #include "Transformation.h"
 #include "AABB.h"
+#include "PlayerShot.h"
 
 
 class Player : public GameObject
@@ -29,6 +30,8 @@ public:
 
 
 private:
+	PlayerShot* m_bullet;
+
 	float m_vel;
 	float m_angle;
 

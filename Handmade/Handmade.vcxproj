@@ -143,6 +143,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyShot.h" />
     <ClInclude Include="HUDCamera.h" />
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="EndState.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Moon.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="Planet.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="PlayerShot.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="Sprite.h" />
@@ -186,6 +189,7 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyShot.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUDCamera.cpp" />
     <ClCompile Include="DebugManager.cpp" />
@@ -201,12 +205,14 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Moon.cpp" />
     <ClCompile Include="MyMath.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerShot.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Sprite.cpp" />

@@ -29,11 +29,15 @@ public:
 private:
 	float m_vel;
 
+	glm::mat4 m_transformMat;
+	glm::mat4 m_rotMat;
+	glm::mat4 m_scaleMat;
 
 
 	Model m_model;
 
 	SphereCollider m_SPcollider;
 };
+
 
 #endif

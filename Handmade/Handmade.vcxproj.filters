@@ -215,6 +215,15 @@
     <ClInclude Include="PlayerShot.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyShot.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Moon.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">
@@ -332,6 +341,15 @@
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
     <ClCompile Include="PlayerShot.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShot.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Moon.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
   </ItemGroup>

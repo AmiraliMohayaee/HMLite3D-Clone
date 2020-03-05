@@ -65,6 +65,7 @@
 #include "AABB.h"
 #include "SphereCollider.h"
 
+
 class GameObject 
 {
 
@@ -129,7 +130,6 @@ public:
     virtual void OnCollision(GameObject* go) { }
 
 protected :
-
 	bool m_isLit;
 	bool m_isAlive;
 	bool m_isActive;

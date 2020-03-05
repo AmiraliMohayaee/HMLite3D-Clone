@@ -1,16 +1,15 @@
-#ifndef PLAYER_SHOT_H
-#define PLAYER_SHOT_H
+#ifndef MOON_H
+#define MOON_H
 
 
 #include "GameObject.h"
 #include "Model.h"
 
 
-class PlayerShot : public GameObject
+class Moon : public GameObject
 {
 public:
-	PlayerShot();
-	~PlayerShot();
+	Moon(float x, float y, float z);
 
 	virtual bool Create();
 	virtual void Update();
@@ -26,7 +25,7 @@ public:
 private:
 	Model m_model;
 
-
 };
+
 
 #endif

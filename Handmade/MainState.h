@@ -42,6 +42,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Planet.h"
+#include "Asteroid.h"
 
 
 class MainState : public GameState

@@ -19,11 +19,10 @@ Player::Player()
 	m_up = Vec3<float>(0.0f, 1.0f, 0.0f);
 	m_right = Vec3<float>(1.0f, 0.0f, 0.0f);
 
-
 	m_rotationVec = Vec3<float>(0.0f, 0.0f, 0.0f);
 	m_angle = 0.0f;
-
 	
+
 	m_transform.SetIdentity();
 
 	// Initialize?

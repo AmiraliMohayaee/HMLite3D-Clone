@@ -26,7 +26,6 @@ MainState::MainState(GameState* state) : GameState(state)
 	{
 		m_enemies[i] = nullptr;
 	}
-
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -76,11 +75,11 @@ bool MainState::Update()
 	}
 	
 
-	if (keyState[SDL_SCANCODE_SPACE])
-	{
-		m_isActive = false;	// We'll keep things in memory 
-		TheGame::Instance()->ChangeState(new StartState(this));
-	}
+	//if (keyState[SDL_SCANCODE_SPACE])
+	//{
+	//	m_isActive = false;	// We'll keep things in memory 
+	//	TheGame::Instance()->ChangeState(new StartState(this));
+	//}
 
 
 	m_player->Update();
@@ -187,7 +186,7 @@ bool MainState::Draw()
 
 	//// Setting the last value to one changes it into a homogenous coord
 	//// Changing it 0 would've made it a direction vector instead
-	//glm::vec3 result = translation * glm::vec4(pos, 1.0f); 
+	//glm::vec3 result = translation * glm::vec4(pos, 1.0f);
 
 
 
