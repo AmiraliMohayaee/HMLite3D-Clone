@@ -209,8 +209,11 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>Header Files\Components\Core\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Asteroid.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerShot.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -325,8 +328,11 @@
     <ClCompile Include="TestState.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
     <ClCompile Include="PlayerShot.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

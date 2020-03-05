@@ -59,6 +59,7 @@
 #include <string>
 #include <vector>
 #include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
 #include "Matrix4x4.h"
 #include "Vec3.h"
 #include "AABB.h"
@@ -110,6 +111,7 @@ public :
 	std::string GetTag();
 	unsigned int GetPriority();
     const Vec3<float>& GetPos() const;
+    //const glm::vec3& GetPos() const;
     void SetPos(const Vec3<float>& pos);
     void SetPos(const glm::vec3& pos);
 	void SetTag(std::string tag);
@@ -139,6 +141,7 @@ protected :
 
     Vec3<float> m_pos;
     glm::vec3 m_posGLM;
+    glm::mat4 m_objMat;
 
     AABB m_collider;
     SphereCollider m_sphereCollider;
