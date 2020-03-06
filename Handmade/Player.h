@@ -10,6 +10,7 @@
 #include "Transformation.h"
 #include "AABB.h"
 #include "PlayerShot.h"
+#include "PlayerShot.h"
 
 
 class Player : public GameObject
@@ -56,6 +57,8 @@ private:
 	Model m_model;
 
 	AABB m_collider;
+
+	PlayerShot* m_playerShot;
 };
 
 

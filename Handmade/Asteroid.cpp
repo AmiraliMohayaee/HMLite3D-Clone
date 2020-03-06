@@ -16,8 +16,8 @@ Asteroid::Asteroid(float x, float y, float z)
 	m_scaleMat = glm::mat4(1.0f);
 
 
-	m_model.LoadModel("Assets/Models/Asteroid_1.obj", "Asteroid");
-	m_model.LoadTexture("Assets/Textures/Asteroid_1_Diffuse.png", "Asteroid");
+	m_model.LoadModel("Assets/Models/Asteroid_1.obj", "ASTEROID");
+	m_model.LoadTexture("Assets/Textures/Asteroid_1_Diffuse.png", "ASTEROID");
 }
 
 bool Asteroid::Create()
@@ -35,12 +35,6 @@ void Asteroid::Update()
 
 void Asteroid::Draw()
 {
-	GameObject::SetIdentity();
-	//GameObject::Translate(m_xRot * (3.0f + m_pos.x), 1.0f + m_pos.y, 
-	//	0.0f + m_pos.z);
-	GameObject::Translate(m_pos.x, m_pos.y, m_pos.z);
-	//GameObject::Rotate(m_XAngle, 1, 0, 0);
-
 	glm::mat4 result;
 	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z));
 	glm::mat4 rot = glm::rotate(glm::mat4(), Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));

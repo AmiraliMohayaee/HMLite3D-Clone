@@ -18,10 +18,6 @@ public:
 	virtual void OnCollision(GameObject* go);
 
 
-	const AABB& GetCollider() const;
-	const SphereCollider& GetSphereCollider() const;
-
-
 private:
 	Model m_model;
 

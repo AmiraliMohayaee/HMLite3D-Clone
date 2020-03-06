@@ -5,7 +5,6 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include "Transformation.h"
-//#include "Matrix4x4.h"
 
 
 Player::Player()
@@ -22,7 +21,8 @@ Player::Player()
 	m_rotationVec = Vec3<float>(0.0f, 0.0f, 0.0f);
 	m_angle = 0.0f;
 	
-
+	// These matrices (mine), are not being fully used
+	// alternatively using the glm matrix
 	m_transform.SetIdentity();
 
 	// Initialize?
@@ -41,15 +41,18 @@ Player::Player(float x, float y, float z)
 
 	m_vel = 0.1f;
 
+	// These vectors are currently disabled until 
+	// the vector classes are reworked
 	m_direction = Vec3<float>(0.0f, 0.0f, 0.0f);
-
 	m_forward = Vec3<float>(0.0f, 0.0f, -1.0f);
 	m_up = Vec3<float>(0.0f, 1.0f, 0.0f);
 	m_right = Vec3<float>(1.0f, 0.0f, 0.0f);
 
-
+	// Disabled until rework
 	m_rotationVec = Vec3<float>(0.0f, 0.0f, 0.0f);
 	m_angle = 0.0f;
+
+
 
 
 	m_transform.SetIdentity();
@@ -67,6 +70,8 @@ Player::Player(float x, float y, float z)
 
 	m_sphereCollider.SetRadius(1.0f);
 	m_sphereCollider.SetScale(0.5f);
+
+	//m_playerShot->
 }
 
 bool Player::Create()
@@ -88,26 +93,32 @@ void Player::Update()
 	if (keyState[SDL_SCANCODE_UP])
 	{
 		//m_direction = m_forward;
-		m_pos.z += 0.05f;
-		m_posGLM.z += 0.05f;
+		m_pos.z -= 0.05f;
+		m_posGLM.z -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
 		//m_direction = -m_forward;
-		m_pos.z -= 0.05f;
-		m_posGLM.z -= 0.05f;
+		m_pos.z += 0.05f;
+		m_posGLM.z += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
 		//m_direction = -m_right;
-		m_pos.x += 0.05f;
-		m_posGLM.x += 0.05f;
+		m_pos.x -= 0.05f;
+		m_posGLM.x -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_RIGHT])
 	{
 		//m_direction = m_right;
-		m_pos.x -= 0.05f;
-		m_posGLM.x -= 0.05f;
+		m_pos.x += 0.05f;
+		m_posGLM.x += 0.05f;
+	}
+
+	if (keyState[SDL_SCANCODE_SPACE])
+	{
+		// Shoot Projectile
+		
 	}
 
 	if (keyState[SDL_SCANCODE_J])
@@ -139,6 +150,7 @@ void Player::Update()
 		m_pos.y -= 0.05f;
 	}
 
+	// For debug use to get mouse motion parameters
 	//glm::vec2 motion = TheInput::Instance()->GetMouseMotion();
 
 	//std::cout << "X motion is " << motion.x << std::endl;
@@ -158,9 +170,6 @@ void Player::Update()
 
 void Player::Draw()
 {
-	//GameObject::Translate();
-
-	
 	m_transform = Transformation::Translation(m_transform, m_pos);
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
 	GameObject::SetMatrix(m_transform);
@@ -188,19 +197,7 @@ void Player::Draw()
 
 #endif
 
-	//vTheDebug::Instance()->DrawSphere3D(0.3f, 100, 90, 100, 0.5f);
-
-	//GameObject::SetIdentity();
-	//GameObject::Translate(-0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z);
-	////GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
-	//TheDebug::Instance()->DrawSphere3D(0.3f, 100, 90, 100, 0.5f);
-
-	//GameObject::SetIdentity();
-	//GameObject::Translate(0.0f + m_pos.x, 0.5f + m_pos.y, 0.0f + m_pos.z);
-	//GameObject::Rotate(m_angle, 1, 0, 0);
-	//GameObject::Rotate(m_angle, 0, 1, 0);
-	//TheDebug::Instance()->DrawCube3D(0.5f, 1.0f, 0.5f, 100.0f, 100.0f, 100.0f, 0.5f);
-
+	// Drawing axis 
 	//GameObject::SetIdentity();
 	//GameObject::Translate(m_pos.x, m_pos.y, m_pos.z);
 	//TheDebug::Instance()->DrawVector3D(m_up.x * 4, m_up.y * 4, m_up.z * 4, 
@@ -214,7 +211,7 @@ void Player::Draw()
 
 void Player::Destroy()
 {
-
+	delete m_playerShot;
 }
 
 void Player::OnCollision(GameObject* go)

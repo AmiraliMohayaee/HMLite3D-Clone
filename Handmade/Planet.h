@@ -4,6 +4,8 @@
 #include "DebugManager.h"
 #include "GameObject.h"
 #include <glm.hpp>
+#include "Model.h"
+#include "Moon.h"
 
 
 class Planet : public GameObject
@@ -21,6 +23,10 @@ public:
 private:
 	Vec3<float> m_orbitalPos;
 	float m_angle;
+
+	Model m_model;
+
+	Moon* m_moon;
 };
 
 

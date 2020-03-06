@@ -234,9 +234,14 @@ unsigned int GameObject::GetPriority()
 	return m_priority;
 
 }
-const Vec3<float>& GameObject::GetPos() const
+//const Vec3<float>& GameObject::GetPos() const
+//{
+//	return m_pos;
+//}
+
+const glm::vec3& GameObject::GetPos() const
 {
-	return m_pos;
+	return m_posGLM;
 }
 
 void GameObject::SetPos(const Vec3<float>& pos)

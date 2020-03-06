@@ -9,6 +9,8 @@
 #include "Utility.h"
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
+#include <stdlib.h>
+#include <time.h>
 
 
 //------------------------------------------------------------------------------------------------------
@@ -26,6 +28,16 @@ MainState::MainState(GameState* state) : GameState(state)
 	{
 		m_enemies[i] = nullptr;
 	}
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		m_asteroids[i] = nullptr;
+	}
+
+	m_skyBox = nullptr;
+
+	m_asteroidSeed = 0.0f;
+	m_enemySeed = 0.0f;
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -37,10 +49,22 @@ bool MainState::OnEnter()
 	m_player->SetTag("Player");
 
 	m_enemies[0] = new Enemy(0.0f, 0.0f, -3.0f);
-	m_enemies[0]->SetTag("Baddie");
+	m_enemies[0]->SetTag("Baddies");
+
+	// Setting up seeds for randomizing asteroid pos
+	//srand(time(NULL));
 
 
-	m_planet = new Planet(1.0f, 1.0f, 1.0f);
+	// To-Do: Add more
+	m_asteroids[0] = new Asteroid(0.0f, 0.0f, -5.0f);	
+	m_asteroids[0]->SetTag("Asteroids");
+
+
+	// Spawning Skybox
+	m_skyBox = new Skybox(0.0f, 0.0f, 0.0f);
+
+	// Spawning Planet 
+	m_planet = new Planet(1.0f, 1.0f, -15.0f);
 
 	//create the main camera to control the main view
 	m_mainCamera = new MainCamera();
@@ -73,13 +97,6 @@ bool MainState::Update()
 		m_isActive = m_isAlive = false;
 		TheGame::Instance()->ChangeState(new EndState(this));
 	}
-	
-
-	//if (keyState[SDL_SCANCODE_SPACE])
-	//{
-	//	m_isActive = false;	// We'll keep things in memory 
-	//	TheGame::Instance()->ChangeState(new StartState(this));
-	//}
 
 
 	m_player->Update();
@@ -88,10 +105,18 @@ bool MainState::Update()
 	{
 		m_enemies[i]->Update();
 	}
-	
 
-	//m_planet->Update();
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		m_asteroids[i]->Update();
+	}
 
+
+	m_planet->Update();
+	m_skyBox->Update();
+
+
+	// Testing Collisions
 	//if (m_player->GetCollider().IsColliding
 	//	(m_enemies[0]->GetCollider()))
 	//{
@@ -162,40 +187,14 @@ bool MainState::Draw()
 	{
 		m_enemies[i]->Draw();
 	}
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		m_asteroids[i]->Draw();
+	}
 	
-	//m_planet->Draw();
-
-
-
-	//// Contructing a 4x4 matrix
-	//glm::mat4 translationMatrix = glm::mat4(1.0f); // Setting the matrix to identity
-
-	//translationMatrix = glm::translate(translationMatrix, glm::vec3(1.0f, 2.0f, 3.0f));
-
-	//glm::mat4 rotation = glm::mat4(1.0f);
-	//rotation = glm::rotate(rotation, Utility::DegToRad(35.0f), glm::vec3(1, 0, 0));
-
-	//glm::mat4 scale = glm::mat4(1.0f);
-	//scale = glm::scale(scale, glm::vec3(2, 0.5f, 0.25f));
-	//// Alternatively, one matrix can be used and the different matrix procedures applied to it
-
-	//// Homogenous coordination
-	//glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(1, 4, -6));
-
-	//glm::vec3 pos = glm::vec3(6, 2, 3);
-
-	//// Setting the last value to one changes it into a homogenous coord
-	//// Changing it 0 would've made it a direction vector instead
-	//glm::vec3 result = translation * glm::vec4(pos, 1.0f);
-
-
-
-	// Example of a rotation
-	//glm::vec3 axis = glm::vec3(5, 0, 0);
-
-	//GameObject::SetIdentity();
-	//TheDebug::Instance()->DrawVector3D(axis.x, axis.y, axis.z, 5.0f, 1, 1, 1);
-
+	m_planet->Draw();
+	m_skyBox->Draw();
 
 
 
@@ -228,4 +227,11 @@ void MainState::OnExit()
 	{
 		delete m_enemies[i];
 	}
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		delete m_asteroids[i];
+	}
+
+	delete m_skyBox;
 }

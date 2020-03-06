@@ -111,12 +111,13 @@ public :
 
 	std::string GetTag();
 	unsigned int GetPriority();
-    const Vec3<float>& GetPos() const;
-    //const glm::vec3& GetPos() const;
+    //const Vec3<float>& GetPos() const;
+    const glm::vec3& GetPos() const;
     void SetPos(const Vec3<float>& pos);
     void SetPos(const glm::vec3& pos);
 	void SetTag(std::string tag);
 	void SetPriority(unsigned int priority);
+
 
 public:
 

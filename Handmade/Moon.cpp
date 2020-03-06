@@ -56,14 +56,5 @@ void Moon::Destroy()
 
 void Moon::OnCollision(GameObject* go)
 {
-}
 
-const AABB& Moon::GetCollider() const
-{
-	return m_collider;
-}
-
-const SphereCollider& Moon::GetSphereCollider() const
-{
-	return m_sphereCollider;
 }
