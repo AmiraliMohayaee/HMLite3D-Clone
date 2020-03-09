@@ -106,7 +106,7 @@ public:
 	{
 		Mat4x4 result;
 
-		result.mat[0] = rhs.mat[0];
+		result.mat[0] = rhs.mat[0]; 
 		result.mat[4] = rhs.mat[4];
 		result.mat[8] = rhs.mat[8];
 		result.mat[12] = rhs.mat[12];

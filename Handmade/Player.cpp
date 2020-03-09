@@ -39,7 +39,8 @@ Player::Player(float x, float y, float z)
 	m_pos = Vec3<float>(x, y, z);
 	m_posGLM = glm::vec3(x, y, z);
 
-	m_vel = 0.1f;
+	m_vel = 0.01f;
+	m_velCap = 0.0f;
 
 	// These vectors are currently disabled until 
 	// the vector classes are reworked
@@ -53,6 +54,12 @@ Player::Player(float x, float y, float z)
 	m_angle = 0.0f;
 
 
+	m_dirGLM = glm::vec3(0.0f);
+
+	m_upGLM = glm::vec3(0.0f, 1.0f, 0.0f);
+	m_forwardGLM = glm::vec3(0.0f, 0.0f, -1.0f);
+	m_rightGLM = glm::vec3(1.0f, 0.0f, 0.0f);
+	m_rotVecGLM = glm::vec3(0.0f);
 
 
 	m_transform.SetIdentity();
@@ -92,15 +99,15 @@ void Player::Update()
 
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		//m_direction = m_forward;
-		m_pos.z -= 0.05f;
-		m_posGLM.z -= 0.05f;
+		m_dirGLM = m_forwardGLM;
+		//m_pos.z -= 0.05f;
+		//m_posGLM.z -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
-		//m_direction = -m_forward;
-		m_pos.z += 0.05f;
-		m_posGLM.z += 0.05f;
+		m_dirGLM = -m_forwardGLM;
+		//m_pos.z += 0.05f;
+		//m_posGLM.z += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
@@ -118,7 +125,8 @@ void Player::Update()
 	if (keyState[SDL_SCANCODE_SPACE])
 	{
 		// Shoot Projectile
-		
+		m_playerShot->IsActive() = true;
+		m_playerShot->Create();
 	}
 
 	if (keyState[SDL_SCANCODE_J])
@@ -138,7 +146,10 @@ void Player::Update()
 		m_angle += 5.0f;
 	}
 
-	m_pos += m_direction * m_vel;
+	m_posGLM += m_dirGLM * m_vel;
+
+	// Set vel cap
+
 
 
 	if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
@@ -157,7 +168,7 @@ void Player::Update()
 	//std::cout << "Y motion is " << motion.y << std::endl;
 
 
-	Utility::Log(m_pos.x, m_pos.y, m_pos.z, "Player's Pos");
+	Utility::Log(m_posGLM.x, m_posGLM.y, m_posGLM.z, "Player's Pos");
 
 	//m_collider.SetPos(m_posGLM);
 	m_collider.Update();
@@ -165,11 +176,15 @@ void Player::Update()
 
 	m_sphereCollider.SetPos(m_posGLM);
 	m_sphereCollider.Update();
+
+	m_playerShot->Update();
 }
 
 
 void Player::Draw()
 {
+	m_playerShot->Draw();
+
 	m_transform = Transformation::Translation(m_transform, m_pos);
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
 	GameObject::SetMatrix(m_transform);
@@ -177,7 +192,7 @@ void Player::Draw()
 
 
 	glm::mat4 result;
-	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z));
+	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_posGLM.x, 0.0f + m_posGLM.y, 0.0f + m_posGLM.z));
 	glm::mat4 rot = glm::rotate(glm::mat4(), Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1));
 	result = trans * rot * scale;
@@ -198,14 +213,13 @@ void Player::Draw()
 #endif
 
 	// Drawing axis 
-	//GameObject::SetIdentity();
-	//GameObject::Translate(m_pos.x, m_pos.y, m_pos.z);
-	//TheDebug::Instance()->DrawVector3D(m_up.x * 4, m_up.y * 4, m_up.z * 4, 
-	//	2.0f, 1.0f, 0.0f, 0.0f);
-	//TheDebug::Instance()->DrawVector3D(m_right.x * 4, m_right.y * 4, m_right.z * 4,
-	//	2.0f, 0.0f, 1.0f, 0.0f);
-	//TheDebug::Instance()->DrawVector3D(m_forward.x * 4, m_forward.y * 4, m_forward.z * 4,
-	//	2.0f, 0.0f, 0.0f, 1.0f);
+	GameObject::Translate(m_posGLM.x, m_posGLM.y, m_posGLM.z);
+	TheDebug::Instance()->DrawVector3D(m_up.x * 4, m_up.y * 4, m_up.z * 4, 
+		2.0f, 1.0f, 0.0f, 0.0f);
+	TheDebug::Instance()->DrawVector3D(m_right.x * 4, m_right.y * 4, m_right.z * 4,
+		2.0f, 0.0f, 1.0f, 0.0f);
+	TheDebug::Instance()->DrawVector3D(-m_forward.x * 4, -m_forward.y * 4, -m_forward.z * 4,
+		2.0f, 0.0f, 0.0f, 1.0f);
 }
 
 

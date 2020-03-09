@@ -123,7 +123,6 @@ void GameObject::SetMatrix(Mat4x4<float>& matrix)
 //------------------------------------------------------------------------------------------------------
 GameObject::GameObject()
 {
-
 	m_isLit = false;
 	m_isAlive = true;
 	m_isActive = true;

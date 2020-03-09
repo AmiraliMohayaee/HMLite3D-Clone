@@ -34,7 +34,9 @@ private:
 	PlayerShot* m_bullet;
 
 	float m_vel;
+	float m_velCap;
 	float m_angle;
+
 
 	Vec3<float> m_drone;
 
@@ -43,8 +45,13 @@ private:
 	Vec3<float> m_up;
 	Vec3<float> m_forward;
 	Vec3<float> m_right;
-
 	Vec3<float> m_rotationVec;
+
+	glm::vec3 m_dirGLM;
+	glm::vec3 m_upGLM;
+	glm::vec3 m_forwardGLM;
+	glm::vec3 m_rightGLM;
+	glm::vec3 m_rotVecGLM;
 
 	// Transform will include everything from the 
 	// three other matrices combined (or should 
