@@ -73,12 +73,12 @@ Player::Player(float x, float y, float z)
 	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
 
 	m_collider.SetPos(m_posGLM);
-	m_collider.SetDimension(2.0f, 2.0f, 2.0f);
+	m_collider.SetDimension(1.0f, 1.0f, 1.0f);
 
 	m_sphereCollider.SetRadius(1.0f);
 	m_sphereCollider.SetScale(0.5f);
 
-	//m_playerShot->
+	//m_bullet->Create();
 }
 
 bool Player::Create()
@@ -89,12 +89,6 @@ bool Player::Create()
 void Player::Update()
 {
 	KeyState keyState = TheInput::Instance()->GetKeyStates();
-
-	//m_right.x = cos(Utility::DegToRad(m_angle));
-	//m_right.y = 0.0f;
-	//m_right.z = sin(Utility::DegToRad(m_angle));
-
-	//m_forward = Utility::CrossProduct(m_right, m_up);
 
 
 	if (keyState[SDL_SCANCODE_UP])
@@ -125,8 +119,9 @@ void Player::Update()
 	if (keyState[SDL_SCANCODE_SPACE])
 	{
 		// Shoot Projectile
-		m_playerShot->IsActive() = true;
-		m_playerShot->Create();
+		m_bullet->IsActive() = true;
+		m_bullet->Create();
+		//m_bullet->Update();
 	}
 
 	if (keyState[SDL_SCANCODE_J])
@@ -177,13 +172,13 @@ void Player::Update()
 	m_sphereCollider.SetPos(m_posGLM);
 	m_sphereCollider.Update();
 
-	m_playerShot->Update();
+
 }
 
 
 void Player::Draw()
 {
-	m_playerShot->Draw();
+	//m_playerShot->Draw();
 
 	m_transform = Transformation::Translation(m_transform, m_pos);
 	//GameObject::Rotate(m_angle, m_xRot, m_yRot, m_zRot);
@@ -225,7 +220,7 @@ void Player::Draw()
 
 void Player::Destroy()
 {
-	delete m_playerShot;
+	delete m_bullet;
 }
 
 void Player::OnCollision(GameObject* go)

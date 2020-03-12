@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "Matrix4x4.h"
 #include <glm.hpp>
+#include "Vec3.h"
 #include "Model.h"
 #include "Transformation.h"
 #include "AABB.h"
@@ -38,14 +39,14 @@ private:
 	float m_angle;
 
 
-	Vec3<float> m_drone;
+	Vec3f m_direction;
+		
+	Vec3f m_up;
+	Vec3f m_forward;
+	Vec3f m_right;
+	Vec3f m_rotationVec;
 
-	Vec3<float> m_direction;
-
-	Vec3<float> m_up;
-	Vec3<float> m_forward;
-	Vec3<float> m_right;
-	Vec3<float> m_rotationVec;
+	
 
 	glm::vec3 m_dirGLM;
 	glm::vec3 m_upGLM;
@@ -64,8 +65,6 @@ private:
 	Model m_model;
 
 	AABB m_collider;
-
-	PlayerShot* m_playerShot;
 };
 
 

@@ -164,6 +164,7 @@
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerShot.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skybox.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerShot.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SphereCollider.cpp" />

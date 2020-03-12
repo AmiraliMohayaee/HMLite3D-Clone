@@ -64,6 +64,7 @@
 #include "Vec3.h"
 #include "AABB.h"
 #include "SphereCollider.h"
+#include "RigidBody.h"
 
 
 class GameObject 
@@ -146,6 +147,8 @@ protected :
 
     AABB m_collider;
     SphereCollider m_sphereCollider;
+
+    RigidBody m_rb;
 };
 
 #endif

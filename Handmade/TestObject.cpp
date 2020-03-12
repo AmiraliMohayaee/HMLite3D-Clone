@@ -4,7 +4,8 @@
 
 TestObject::TestObject()
 {
-	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
+	m_pos = Vec3f(0.0f, 0.0f, 0.0f);
+
 }
 
 
@@ -13,6 +14,9 @@ TestObject::TestObject(float x, float y, float z)
 	m_pos.x = x;
 	m_pos.y = y;
 	m_pos.z = z;
+
+	m_rb.SetAcc(0.0f, 0.0f, 0.0f);
+	m_rb.SetPos(m_posGLM);
 }
 
 bool TestObject::Create()
@@ -32,6 +36,7 @@ void TestObject::Draw()
 
 void TestObject::Destroy()
 {
+
 }
 
 void TestObject::OnCollision(GameObject* go)

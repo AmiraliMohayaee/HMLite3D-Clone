@@ -23,7 +23,5 @@ public:
 private:
 	Model m_model;
 
-	AABB m_collider;
-	SphereCollider m_SphereColl;
 };
 

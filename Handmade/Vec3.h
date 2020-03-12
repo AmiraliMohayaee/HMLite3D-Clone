@@ -6,32 +6,14 @@
 const double PI = 3.14159265359;
 
 template <class T>
-
+	
 
 class Vec3
 {
 public:
 	T x, y, z;
 
-	//Vec3::Backward<T> = Vec3<float>;
-	//Vec3::Right<T> = Vec3(1.0f, 0.0f, 0.0f);
-	//Vec3::Left<T> = Vec3(-1.0f, 0.0f, 0.0f);
-	//Vec3::Up<T> = Vec3(0.0f, 1.0f, 0.0f);
-	//Vec3::Down<T> = Vec3(0.0f, -1.0f, 0.0f);
-
-	//static const Vec3<float> Forward(0.0f, 0.0f, -1.0f);
-	//static const Vec3<float> Backward(0.0f, 0.0f, 1.0f);
-	//static const Vec3<float> Right(1.0f, 0.0f, 0.0f);
-	//static const Vec3<float> Left(-1.0f, 0.0f, 0.0f);
-	//static const Vec3<float> Up(0.0f, 1.0f, 0.0f);
-	//static const Vec3<float> Down(0.0f, -1.0f, 0.0f);
-
-	Vec3() 
-	{
-		x = 0;
-		y = 0;
-		z = 0;
-	}
+	Vec3() = default;
 
 	Vec3(T xVal, T yVal, T zVal) : x(xVal), y(yVal), z(zVal) {}
 	// Copy Ctor
@@ -46,6 +28,8 @@ public:
 		y = 0;
 		z = 0;
 	}
+
+
 	Vec3& operator= (const Vec3& rhs)
 	{
 		x = rhs.x;
@@ -167,7 +151,8 @@ public:
 
 };
 
-
+typedef Vec3<float> Vec3f;
+typedef Vec3<int> Vec3i;
 
 
 

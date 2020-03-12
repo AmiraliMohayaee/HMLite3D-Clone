@@ -224,6 +224,9 @@
     <ClInclude Include="Skybox.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Header Files\Components\Core\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp">
@@ -351,6 +354,9 @@
     </ClCompile>
     <ClCompile Include="Skybox.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files\Components\Core\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
