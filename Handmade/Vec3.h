@@ -15,7 +15,13 @@ public:
 
 	Vec3() = default;
 
-	Vec3(T xVal, T yVal, T zVal) : x(xVal), y(yVal), z(zVal) {}
+	Vec3(T xVal, T yVal, T zVal)
+	{
+		x = xVal;
+		y = yVal;
+		z = zVal;
+	}
+
 	// Copy Ctor
 	Vec3(const Vec3& vec) : x(vec.x), y(vec.y), z(vec.z) {}
 

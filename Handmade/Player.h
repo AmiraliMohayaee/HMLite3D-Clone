@@ -46,7 +46,9 @@ private:
 	Vec3f m_right;
 	Vec3f m_rotationVec;
 
-	
+	glm::vec3 m_velGLM;
+	glm::vec3 m_accGLM;
+
 
 	glm::vec3 m_dirGLM;
 	glm::vec3 m_upGLM;

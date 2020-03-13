@@ -68,8 +68,8 @@ private :
 	HUDCamera* m_HUDCamera;
 	MainCamera* m_mainCamera;
 
-    static const int maxEnemies = 1;
-    static const int maxAsteroids = 1;
+    static const int maxEnemies = 5;
+    static const int maxAsteroids = 5;
 
     Player* m_player;
     Enemy* m_enemies[maxEnemies];
@@ -77,6 +77,7 @@ private :
 
     Asteroid* m_asteroids[maxAsteroids];
     Skybox* m_skyBox;
+
 };
 
 #endif

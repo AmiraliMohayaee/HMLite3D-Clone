@@ -36,7 +36,7 @@ Player::Player()
 
 Player::Player(float x, float y, float z)
 {
-	m_pos = Vec3<float>(x, y, z);
+	m_pos = Vec3f(x, y, z);
 	m_posGLM = glm::vec3(x, y, z);
 
 	m_vel = 0.01f;
@@ -44,22 +44,26 @@ Player::Player(float x, float y, float z)
 
 	// These vectors are currently disabled until 
 	// the vector classes are reworked
-	m_direction = Vec3<float>(0.0f, 0.0f, 0.0f);
-	m_forward = Vec3<float>(0.0f, 0.0f, -1.0f);
-	m_up = Vec3<float>(0.0f, 1.0f, 0.0f);
-	m_right = Vec3<float>(1.0f, 0.0f, 0.0f);
+	m_direction = Vec3f(0.0f, 0.0f, 0.0f);
+	m_forward = Vec3f(0.0f, 0.0f, -1.0f);
+	m_up = Vec3f(0.0f, 1.0f, 0.0f);
+	m_right = Vec3f(1.0f, 0.0f, 0.0f);
 
 	// Disabled until rework
-	m_rotationVec = Vec3<float>(0.0f, 0.0f, 0.0f);
+	m_rotationVec = Vec3<f(0.0f, 0.0f, 0.0f);
 	m_angle = 0.0f;
 
-
+	// Direction Vectors
 	m_dirGLM = glm::vec3(0.0f);
 
 	m_upGLM = glm::vec3(0.0f, 1.0f, 0.0f);
 	m_forwardGLM = glm::vec3(0.0f, 0.0f, -1.0f);
 	m_rightGLM = glm::vec3(1.0f, 0.0f, 0.0f);
 	m_rotVecGLM = glm::vec3(0.0f);
+
+	m_rb.SetPos(m_posGLM);
+	m_rb.SetAcc(m_accGLM);
+	m_rb.SetVel(m_velGLM);
 
 
 	m_transform.SetIdentity();
@@ -78,7 +82,7 @@ Player::Player(float x, float y, float z)
 	m_sphereCollider.SetRadius(1.0f);
 	m_sphereCollider.SetScale(0.5f);
 
-	//m_bullet->Create();
+	m_bullet = new PlayerShot();
 }
 
 bool Player::Create()
@@ -93,26 +97,26 @@ void Player::Update()
 
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		m_dirGLM = m_forwardGLM;
+		//m_dirGLM = m_forwardGLM;
 		//m_pos.z -= 0.05f;
-		//m_posGLM.z -= 0.05f;
+		m_posGLM.z -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
-		m_dirGLM = -m_forwardGLM;
+		//m_dirGLM = -m_forwardGLM;
 		//m_pos.z += 0.05f;
-		//m_posGLM.z += 0.05f;
+		m_posGLM.z += 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
-		//m_direction = -m_right;
-		m_pos.x -= 0.05f;
+		//m_dirGLM = -m_rightGLM;
+		//m_pos.x -= 0.05f;
 		m_posGLM.x -= 0.05f;
 	}
 	else if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		//m_direction = m_right;
-		m_pos.x += 0.05f;
+		//m_dirGLM = m_rightGLM;
+		//m_pos.x += 0.05f;
 		m_posGLM.x += 0.05f;
 	}
 
@@ -120,8 +124,7 @@ void Player::Update()
 	{
 		// Shoot Projectile
 		m_bullet->IsActive() = true;
-		m_bullet->Create();
-		//m_bullet->Update();
+		m_bullet->Update();
 	}
 
 	if (keyState[SDL_SCANCODE_J])
@@ -141,10 +144,16 @@ void Player::Update()
 		m_angle += 5.0f;
 	}
 
-	m_posGLM += m_dirGLM * m_vel;
+	//m_posGLM += m_dirGLM * m_vel;
 
 	// Set vel cap
-
+	Utility::Log(m_rb.GetAcc().x, m_rb.GetAcc().y, 
+		m_rb.GetAcc().z, "RigidBody Accelleration:");
+	Utility::Log(m_rb.GetPos().x, m_rb.GetPos().y,
+		m_rb.GetPos().z, "RigidBody Position:");
+	Utility::Log(m_rb.GetVel().x, m_rb.GetVel().y,
+		m_rb.GetVel().z, "RigidBody Velocity:");
+	m_rb.Update();
 
 
 	if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
@@ -156,18 +165,13 @@ void Player::Update()
 		m_pos.y -= 0.05f;
 	}
 
-	// For debug use to get mouse motion parameters
-	//glm::vec2 motion = TheInput::Instance()->GetMouseMotion();
-
-	//std::cout << "X motion is " << motion.x << std::endl;
-	//std::cout << "Y motion is " << motion.y << std::endl;
 
 
 	Utility::Log(m_posGLM.x, m_posGLM.y, m_posGLM.z, "Player's Pos");
 
-	//m_collider.SetPos(m_posGLM);
+	//m_collider.GetPos(m_posGLM);
 	m_collider.Update();
-	Utility::Log(m_posGLM.x, m_posGLM.y, m_posGLM.z, "Player Collider Pos");
+	//Utility::Log(m_collider., "Player Collider Pos");
 
 	m_sphereCollider.SetPos(m_posGLM);
 	m_sphereCollider.Update();

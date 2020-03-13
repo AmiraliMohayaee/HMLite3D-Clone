@@ -112,9 +112,9 @@ public :
 
 	std::string GetTag();
 	unsigned int GetPriority();
-    //const Vec3<float>& GetPos() const;
+    const Vec3f& GetPos(GameObject& go) const;
     const glm::vec3& GetPos() const;
-    void SetPos(const Vec3<float>& pos);
+    void SetPos(const Vec3f& pos);
     void SetPos(const glm::vec3& pos);
 	void SetTag(std::string tag);
 	void SetPriority(unsigned int priority);
@@ -141,7 +141,7 @@ protected :
 	std::string m_tag;
 	unsigned int m_priority;
 
-    Vec3<float> m_pos;
+    Vec3f m_pos;
     glm::vec3 m_posGLM;
     glm::mat4 m_objMat;
 

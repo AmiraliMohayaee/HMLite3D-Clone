@@ -132,7 +132,7 @@ GameObject::GameObject()
 	m_tag = "";
 	m_priority = 0;	
 
-	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
+	m_pos = Vec3f(0.0f, 0.0f, 0.0f);
 	m_posGLM = glm::vec3();
 
 	//add the initial model transformation into the vector so that
@@ -162,7 +162,8 @@ GameObject::GameObject(float x, float y, float z)
 	m_tag = "";
 	m_priority = 0;
 
-	m_pos = Vec3<float>(x, y, z);
+	m_pos = Vec3f(x, y, z);
+	m_posGLM = glm::vec3(x, y, z);
 
 	if (s_myModelMatrix.empty())
 	{
@@ -233,17 +234,18 @@ unsigned int GameObject::GetPriority()
 	return m_priority;
 
 }
-//const Vec3<float>& GameObject::GetPos() const
-//{
-//	return m_pos;
-//}
+
+const Vec3f& GameObject::GetPos(GameObject& go) const
+{
+	return m_pos;
+}
 
 const glm::vec3& GameObject::GetPos() const
 {
 	return m_posGLM;
 }
 
-void GameObject::SetPos(const Vec3<float>& pos)
+void GameObject::SetPos(const Vec3f& pos)
 {
 	m_pos.x = pos.x;
 	m_pos.y = pos.y;
