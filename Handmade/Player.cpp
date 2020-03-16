@@ -50,7 +50,7 @@ Player::Player(float x, float y, float z)
 	m_right = Vec3f(1.0f, 0.0f, 0.0f);
 
 	// Disabled until rework
-	m_rotationVec = Vec3<f(0.0f, 0.0f, 0.0f);
+	m_rotationVec = Vec3f(0.0f, 0.0f, 0.0f);
 	m_angle = 0.0f;
 
 	// Direction Vectors
@@ -64,7 +64,7 @@ Player::Player(float x, float y, float z)
 	m_rb.SetPos(m_posGLM);
 	m_rb.SetAcc(m_accGLM);
 	m_rb.SetVel(m_velGLM);
-
+	m_rb.SetForce(m_forceGLM);
 
 	m_transform.SetIdentity();
 
@@ -100,12 +100,14 @@ void Player::Update()
 		//m_dirGLM = m_forwardGLM;
 		//m_pos.z -= 0.05f;
 		m_posGLM.z -= 0.05f;
+		//m_forceGLM += 0.01f;
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
 		//m_dirGLM = -m_forwardGLM;
 		//m_pos.z += 0.05f;
 		m_posGLM.z += 0.05f;
+		//m_forceGLM -= 0.01f;
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
@@ -156,14 +158,14 @@ void Player::Update()
 	m_rb.Update();
 
 
-	if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
-	{
-		m_pos.y += 0.05f;
-	}
-	else if (TheInput::Instance()->GetRightButtonState() == InputManager::DOWN)
-	{
-		m_pos.y -= 0.05f;
-	}
+	//if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
+	//{
+	//	m_pos.y += 0.05f;
+	//}
+	//else if (TheInput::Instance()->GetRightButtonState() == InputManager::DOWN)
+	//{
+	//	m_pos.y -= 0.05f;
+	//}
 
 
 

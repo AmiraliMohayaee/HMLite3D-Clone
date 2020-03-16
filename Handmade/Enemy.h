@@ -8,6 +8,8 @@
 #include "AABB.h"
 #include "SphereCollider.h"
 #include <glm.hpp>
+#include "Player.h"
+#include "PlayerShot.h"
 
 
 class Enemy : public GameObject
@@ -29,6 +31,10 @@ public:
 private:
 	Model m_model;
 
+	glm::vec3 m_acc;
+	glm::vec3 m_vel;
+
+	Player* playerPtr;
 };
 
 

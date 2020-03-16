@@ -43,6 +43,7 @@ public:
 		z = rhs.z;
 		return *this;
 	}
+
 	bool operator== (const Vec3& rhs) const
 	{
 		x == rhs.x;
@@ -100,9 +101,13 @@ public:
 		z *= rhs.z;
 		return *this;
 	}
-	Vec3& operator/ (const T& rhs) const
+	Vec3 operator/ (const T& rhs) const
 	{
-		return Vec3(x / rhs.x, y / rhs.y, z / rhs.z);
+		Vec3 result;
+		result.x / rhs;
+		result.y / rhs;
+		result.z / rhs;
+		return result;
 	}
 	Vec3& operator/= (const Vec3& rhs)
 	{

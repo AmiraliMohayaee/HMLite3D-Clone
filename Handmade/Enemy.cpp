@@ -5,6 +5,7 @@
 #include "Utility.h"
 
 
+
 Enemy::Enemy()
 {
 	m_pos = Vec3<float>(0.0f, 0.0f, 0.0f);
@@ -14,6 +15,8 @@ Enemy::Enemy(float x, float y, float z)
 {
 	m_pos = Vec3<float>(x, y, z);
 	m_posGLM = glm::vec3(x, y, z);
+	m_acc = glm::vec3(0.0f);
+	m_vel = glm::vec3(0.0f);
 
 	m_model.LoadModel("Assets/Models/EnemyShip.obj", "ENEMY");
 	m_model.LoadTexture("Assets/Textures/Enemy_Diffuse.png", "ENEMY");
@@ -24,6 +27,12 @@ Enemy::Enemy(float x, float y, float z)
 
 	m_sphereCollider.SetRadius(1.0f);
 	m_sphereCollider.SetScale(0.5f);
+
+	m_rb.SetPos(m_posGLM);
+	m_rb.SetAcc(m_acc);
+	m_rb.SetVel(m_vel);
+
+	playerPtr = new Player();
 }
 
 bool Enemy::Create()
@@ -39,6 +48,25 @@ void Enemy::Update()
 
 	m_sphereCollider.SetPos(m_posGLM);
 	m_sphereCollider.Update();
+	
+
+	while (m_isActive != false)
+	{
+		m_posGLM.x += 0.2f;
+
+
+		if (m_collider.IsColliding(playerPtr->GetSphereCollider()))
+		{
+			m_isAlive = false;
+		}
+
+		if (m_isAlive != true)
+		{
+			m_isActive = false;
+		}
+	}
+
+	m_rb.Update();
 }
 
 void Enemy::Draw()

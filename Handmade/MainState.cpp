@@ -55,7 +55,7 @@ bool MainState::OnEnter()
 
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i] = new Enemy(0.0f, (rand() % 2) + -1.0f, (rand() % -10) + -5.0f);;
+		m_enemies[i] = new Enemy((rand() % -5) + 5, 0.0f, (rand() % -10) + -5.0f);;
 		m_enemies[i]->SetTag("Baddies" + i);
 	}
 
@@ -66,18 +66,13 @@ bool MainState::OnEnter()
 
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i] = new Asteroid(0.0f, (rand() % 2) + -1.0f, (rand() % -10) + -5.0f);
+		m_asteroids[i] = new Asteroid((rand() % -2) + 2, 0.0f, (rand() % -10) + -5.0f);
 		m_asteroids[i]->SetTag("Asteroids" + i);
 	}
 
 
 	// To-Do: Add more
 
-	//m_asteroids[0] = new Asteroid(0.0f, 0.0f, -5.0f);	
-	//m_asteroids[0]->SetTag("Asteroids");
-	//m_asteroids[1] = new Asteroid(0.0f, -3.0f, -5.0f);
-	//m_asteroids[1]->SetTag("Asteroids2");
-	
 
 
 	// Spawning Skybox
