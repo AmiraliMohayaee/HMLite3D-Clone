@@ -212,12 +212,6 @@
     <ClInclude Include="Asteroid.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerShot.h">
-      <Filter>Header Files\GameObjects\Custom Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyShot.h">
-      <Filter>Header Files\GameObjects\Custom Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Moon.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
@@ -226,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="RigidBody.h">
       <Filter>Header Files\Components\Core\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelBound.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -343,12 +343,6 @@
     <ClCompile Include="Asteroid.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerShot.cpp">
-      <Filter>Source Files\GameObjects\Costum Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyShot.cpp">
-      <Filter>Source Files\GameObjects\Costum Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Moon.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
@@ -357,6 +351,12 @@
     </ClCompile>
     <ClCompile Include="RigidBody.cpp">
       <Filter>Source Files\Components\Core\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBound.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

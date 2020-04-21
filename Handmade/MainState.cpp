@@ -50,12 +50,9 @@ bool MainState::OnEnter()
 
 	srand(time(0));
 
-	//m_enemies[1] = new Enemy(-2.0f, 0.0f, -3.0f);
-	//m_enemies[1]->SetTag("Baddies2");
-
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i] = new Enemy((rand() % -5) + 5, 0.0f, (rand() % -10) + -5.0f);;
+		m_enemies[i] = new Enemy((rand() % -2) + 2, 0.0f, (rand() % -5) + -1.0f);
 		m_enemies[i]->SetTag("Baddies" + i);
 	}
 
@@ -63,10 +60,9 @@ bool MainState::OnEnter()
 	// Setting up seeds for randomizing asteroid pos
 	// based on current time as seed for the randomizer
 
-
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i] = new Asteroid((rand() % -2) + 2, 0.0f, (rand() % -10) + -5.0f);
+		m_asteroids[i] = new Asteroid((rand() % -2) + 2, 0.0f, (rand() % -5) + 0.0f);
 		m_asteroids[i]->SetTag("Asteroids" + i);
 	}
 
@@ -142,17 +138,34 @@ bool MainState::Update()
 	//	Utility::Log("Not Colliding");
 	//}
 
-	if (m_player->GetSphereCollider().IsSphereColliding
-		(m_enemies[0]->GetSphereCollider()))
+
+
+	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_player->OnCollision(m_enemies[0]);
-	}
-	else
-	{
-		Utility::Log("Not Colliding");
+		if (m_player->GetSphereCollider().IsSphereColliding
+		(m_enemies[i]->GetSphereCollider()))
+		{
+			m_player->OnCollision(m_enemies[i]);
+		}
+		else
+		{
+			Utility::Log("Not Colliding");
+		}
 	}
 
 
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		if (m_player->GetSphereCollider().IsSphereColliding
+		(m_asteroids[i]->GetSphereCollider()))
+		{
+			m_player->OnCollision(m_asteroids[i]);
+		}
+		else
+		{
+			Utility::Log("Not Colliding");
+		}
+	}
 
 	// To-Do: Output log info into files
 	//Utility::Log("Updating Main State");

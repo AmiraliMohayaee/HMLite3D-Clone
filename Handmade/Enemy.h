@@ -9,7 +9,7 @@
 #include "SphereCollider.h"
 #include <glm.hpp>
 #include "Player.h"
-#include "PlayerShot.h"
+#include "Laser.h"
 
 
 class Enemy : public GameObject
@@ -34,7 +34,7 @@ private:
 	glm::vec3 m_acc;
 	glm::vec3 m_vel;
 
-	Player* playerPtr;
+	//Player* playerPtr;
 };
 
 

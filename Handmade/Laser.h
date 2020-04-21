@@ -1,18 +1,18 @@
-#ifndef PLAYER_SHOT_H
-#define PLAYER_SHOT_H
+#ifndef LASER_H
+#define LASER_H
 
 
 #include "GameObject.h"
 #include "Model.h"
 
 
-class PlayerShot : public GameObject
+class Laser : public GameObject
 {
 public:
-	PlayerShot();
-	~PlayerShot();
+	Laser();
+	~Laser();
 
-	PlayerShot(float x, float y, float z);
+	Laser(float x, float y, float z);
 
 	virtual bool Create();
 	virtual void Update();
@@ -20,15 +20,21 @@ public:
 	virtual void Destroy();
 	virtual void OnCollision(GameObject* go);
 
+	void PlayerShotDraw();
+	void EnemyShotDraw();
+	void PlayerUpdate();
+	void EnemyUpdate();
+
 
 	const AABB& GetCollider() const;
 	const SphereCollider& GetSphereCollider() const;
 
-
+	
 private:
 	float m_vel;
 	
-	Model m_model;
+	Model m_playerLaser;
+	Model m_enemyLaser;
 };
 
 #endif

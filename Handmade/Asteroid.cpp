@@ -27,7 +27,7 @@ bool Asteroid::Create()
 
 void Asteroid::Update()
 {
-	m_posGLM = m_vel * m_posGLM;
+	m_rb.Update();
 
 	m_sphereCollider.SetPos(m_posGLM);
 	m_sphereCollider.Update();

@@ -143,7 +143,6 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyShot.h" />
     <ClInclude Include="HUDCamera.h" />
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="EndState.h" />
@@ -152,6 +151,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LevelBound.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="MainState.h" />
@@ -163,7 +163,7 @@
     <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerShot.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Singleton.h" />
@@ -190,7 +190,6 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyShot.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUDCamera.cpp" />
     <ClCompile Include="DebugManager.cpp" />
@@ -199,6 +198,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LevelBound.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainCamera.cpp" />
@@ -211,7 +211,7 @@
     <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerShot.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="Skybox.cpp" />

@@ -32,7 +32,7 @@ Enemy::Enemy(float x, float y, float z)
 	m_rb.SetAcc(m_acc);
 	m_rb.SetVel(m_vel);
 
-	playerPtr = new Player();
+	//playerPtr = new Player();
 }
 
 bool Enemy::Create()
@@ -49,22 +49,22 @@ void Enemy::Update()
 	m_sphereCollider.SetPos(m_posGLM);
 	m_sphereCollider.Update();
 	
+	// Checking collision with player on Enemy side
+	//while (m_isActive != false)
+	//{
+	//	m_posGLM.x += 0.2f;
 
-	while (m_isActive != false)
-	{
-		m_posGLM.x += 0.2f;
 
+	//	if (m_collider.IsColliding(playerPtr->GetSphereCollider()))
+	//	{
+	//		m_isAlive = false;
+	//	}
 
-		if (m_collider.IsColliding(playerPtr->GetSphereCollider()))
-		{
-			m_isAlive = false;
-		}
-
-		if (m_isAlive != true)
-		{
-			m_isActive = false;
-		}
-	}
+	//	if (m_isAlive != true)
+	//	{
+	//		m_isActive = false;
+	//	}
+	//}
 
 	m_rb.Update();
 }

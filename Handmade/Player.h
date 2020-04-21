@@ -10,8 +10,8 @@
 #include "Model.h"
 #include "Transformation.h"
 #include "AABB.h"
-#include "PlayerShot.h"
-#include "PlayerShot.h"
+#include "Laser.h"
+#include "Enemy.h"
 
 
 class Player : public GameObject
@@ -27,12 +27,14 @@ public:
 	virtual void OnCollision(GameObject* go);
 
 
+	//void CheckCollision(const Enemy& enemy);
+
 	const AABB& GetCollider() const;
 	const SphereCollider& GetSphereCollider() const;
 
 
 private:
-	PlayerShot* m_bullet;
+	Laser* m_bullet[10];
 
 	float m_vel;
 	float m_velCap;

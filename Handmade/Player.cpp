@@ -79,10 +79,14 @@ Player::Player(float x, float y, float z)
 	m_collider.SetPos(m_posGLM);
 	m_collider.SetDimension(1.0f, 1.0f, 1.0f);
 
+
 	m_sphereCollider.SetRadius(1.0f);
 	m_sphereCollider.SetScale(0.5f);
 
-	m_bullet = new PlayerShot();
+	for (size_t i = 0; i < 10; i++)
+	{
+		m_bullet[i] = new Laser();
+	}
 }
 
 bool Player::Create()
@@ -97,36 +101,36 @@ void Player::Update()
 
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		//m_dirGLM = m_forwardGLM;
-		//m_pos.z -= 0.05f;
+		m_rb.SetPos(0.0f, 0.0f, -0.05f);
 		m_posGLM.z -= 0.05f;
-		//m_forceGLM += 0.01f;
+		m_rb.AddForce(0.0f, 0.0f, -1.0f);
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
-		//m_dirGLM = -m_forwardGLM;
-		//m_pos.z += 0.05f;
 		m_posGLM.z += 0.05f;
-		//m_forceGLM -= 0.01f;
+		m_rb.SetPos(0.0f, 0.0f, +0.05f);
+		m_rb.AddForce(0.0f, 0.0f, 1.0f);
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
-		//m_dirGLM = -m_rightGLM;
-		//m_pos.x -= 0.05f;
 		m_posGLM.x -= 0.05f;
+		m_rb.SetPos(-0.05f, 0.0f, 0.0f);
 	}
 	else if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		//m_dirGLM = m_rightGLM;
-		//m_pos.x += 0.05f;
 		m_posGLM.x += 0.05f;
+		m_rb.SetPos(+0.05f, 0.0f, 0.0f);
 	}
 
 	if (keyState[SDL_SCANCODE_SPACE])
 	{
 		// Shoot Projectile
-		m_bullet->IsActive() = true;
-		m_bullet->Update();
+		m_bullet[0]->IsActive() = true;
+	}
+
+	for (size_t i = 0; i < 10; i++)
+	{
+		m_bullet[i]->Update();
 	}
 
 	if (keyState[SDL_SCANCODE_J])
@@ -155,7 +159,6 @@ void Player::Update()
 		m_rb.GetPos().z, "RigidBody Position:");
 	Utility::Log(m_rb.GetVel().x, m_rb.GetVel().y,
 		m_rb.GetVel().z, "RigidBody Velocity:");
-	m_rb.Update();
 
 
 	//if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
@@ -167,18 +170,18 @@ void Player::Update()
 	//	m_pos.y -= 0.05f;
 	//}
 
-
+	// To do: Add mouse input 
 
 	Utility::Log(m_posGLM.x, m_posGLM.y, m_posGLM.z, "Player's Pos");
 
 	//m_collider.GetPos(m_posGLM);
-	m_collider.Update();
+	//m_collider.Update();
 	//Utility::Log(m_collider., "Player Collider Pos");
 
 	m_sphereCollider.SetPos(m_posGLM);
 	m_sphereCollider.Update();
 
-
+	m_rb.Update();
 }
 
 
@@ -193,28 +196,31 @@ void Player::Draw()
 
 
 	glm::mat4 result;
-	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_posGLM.x, 0.0f + m_posGLM.y, 0.0f + m_posGLM.z));
-	glm::mat4 rot = glm::rotate(glm::mat4(), Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1));
-	result = trans * rot * scale;
+
+	m_transform.ZeroTranslate(x, y, z);
+
+	result = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f + m_posGLM.x, 0.0f + m_posGLM.y, 0.0f + m_posGLM.z));
+	result = glm::rotate(result, Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	result = glm::scale(result, glm::vec3(0.1, 0.1, 0.1));
+	//result = trans * rot * scale;
 	GameObject::SetMatrix(result);
 	// Required when loading costum objs
 	GameObject::SendToShader(false, true);
 	m_model.SetColor(1, 1, 1, 1);
 	m_model.Draw();
 
-	result = trans * rot;
+	//result = trans * rot;
 	GameObject::SetMatrix(result);
 
 #ifdef DEBUG
 
-	m_collider.DebugDraw();
-	//m_sphereCollider.DebugDraw();
+	//m_collider.DebugDraw();
+	m_sphereCollider.DebugDraw();
 
 #endif
 
 	// Drawing axis 
-	GameObject::Translate(m_posGLM.x, m_posGLM.y, m_posGLM.z);
+	GameObject::SetMatrix(result);
 	TheDebug::Instance()->DrawVector3D(m_up.x * 4, m_up.y * 4, m_up.z * 4, 
 		2.0f, 1.0f, 0.0f, 0.0f);
 	TheDebug::Instance()->DrawVector3D(m_right.x * 4, m_right.y * 4, m_right.z * 4,
@@ -226,13 +232,21 @@ void Player::Draw()
 
 void Player::Destroy()
 {
-	delete m_bullet;
+	for (size_t i = 0; i < 10; i++)
+	{
+		delete m_bullet[i];
+	}
 }
 
 void Player::OnCollision(GameObject* go)
 {
 	Utility::Log("Colliding with " + go->GetTag());
 }
+
+//void Player::CheckCollision(const Enemy& enemy)
+//{
+//
+//}
 
 const AABB& Player::GetCollider() const
 {
