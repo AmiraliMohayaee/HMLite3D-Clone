@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F5A4E4FB-4E66-4AEC-BCA4-3F90F37B265E}</ProjectGuid>
     <RootNamespace>Handmade</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Development Libraries\GLM\include;..\Development Libraries\GLEW\include;..\Development Libraries\SDL\include;..\Development Libraries\FMOD\include;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Development Libraries\GLM\include;..\Development Libraries\GLEW\include;..\Development Libraries\SDL\include;..\Development Libraries\FMOD\include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;..\Development Libraries\GLEW\lib;..\Development Libraries\SDL\lib;..\Development Libraries\FMOD\lib;</LibraryPath>
     <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
     <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
@@ -135,7 +135,9 @@
     <None Include="Shaders\Main.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Asteroid.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Buffer.h" />
@@ -149,28 +151,42 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LevelBound.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="MainState.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Moon.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="PipelineManager.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Laser.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="TestObject.h" />
+    <ClInclude Include="TestState.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Vec3.h" />
+    <ClInclude Include="Vec4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Buffer.cpp" />
@@ -184,23 +200,34 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LevelBound.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="MainState.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Moon.cpp" />
     <ClCompile Include="MyMath.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StartState.cpp" />
     <ClCompile Include="TestObject.cpp" />
+    <ClCompile Include="TestState.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

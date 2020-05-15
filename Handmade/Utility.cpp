@@ -44,6 +44,83 @@ namespace Utility
 		return result;
 	}
 
+	float Clamp(float val, float min, float max)
+	{
+		if (val > max)
+		{
+			val = max;
+		}
+		else if (val < min)
+		{
+			val = min;
+		}
+		return val;
+	}
+
+	const glm::vec3& Clamp(glm::vec3& vec, glm::vec3& min, glm::vec3& max)
+	{
+		if (vec.x > max.x)
+		{
+			vec.x = max.x;
+		}
+		else if (vec.y > max.y)
+		{
+			vec.y = max.y;
+		}
+		else if(vec.z > max.z)
+		{
+			vec.z = max.z;
+		}
+
+		if (vec.x < min.x)
+		{
+			vec.x = min.x;
+		}
+		else if (vec.y < min.y)
+		{
+			vec.y = min.y;
+		}
+		else if (vec.z < min.z)
+		{
+			vec.z = min.z;
+		}
+
+		return vec;
+	}
+
+	const Vec3<float> Clamp(Vec3<float>& vec, Vec3<float>& min, Vec3<float>& max)
+	{
+		if (vec.x > max.x)
+		{
+			vec.x = max.x;
+		}
+		else if (vec.y > max.y)
+		{
+			vec.y = max.y;
+		}
+		else if (vec.z > max.z)
+		{
+			vec.z = max.z;
+		}
+
+		if (vec.x < min.x)
+		{
+			vec.x = min.x;
+		}
+		else if (vec.y < min.y)
+		{
+			vec.y = min.y;
+		}
+		else if (vec.z < min.z)
+		{
+			vec.z = min.z;
+		}
+
+		return vec;
+	}
+
+
+
 	// Get the distance between two points by performing
 	// a pythagorem equation
 	float LineDistance(float a1, float b1, float a2, float b2)
@@ -55,9 +132,22 @@ namespace Utility
 	{
 		glm::vec3 result = start - dest;
 
-		return sqrt((result.x * result.x) +
+		float sqrtResult = sqrt((result.x * result.x) +
 			(result.y * result.y) +
 			(result.z * result.z));
+
+		return sqrtResult;
+	}
+
+	float LineDistance(const Vec3<float>& start, const Vec3<float> dest)
+	{
+		Vec3<float> result = start - dest;
+
+		float sqrtResult = sqrt((result.x * result.x) +
+			(result.y * result.y) +
+			(result.z * result.z));
+
+		return sqrtResult;
 	}
 
 	const Vec3<float>& Utility::CrossProduct(const Vec3<float>& vec1, const Vec3<float>& vec2)

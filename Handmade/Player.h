@@ -4,7 +4,14 @@
 #include "DebugManager.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "Matrix4x4.h"
 #include <glm.hpp>
+#include "Vec3.h"
+#include "Model.h"
+#include "Transform.h"
+#include "SphereCollider.h"
+#include "Laser.h"
+#include "Enemy.h"
 
 
 class Player : public GameObject
@@ -17,23 +24,32 @@ public:
 	virtual void Update();
 	virtual void Draw();
 	virtual void Destroy();
+	virtual void OnCollision(GameObject* go);
+
+	const SphereCollider& GetSphereCollider() const;
 
 
 private:
+	Laser* m_bullet;
+
 	float m_vel;
-
-	Vec3<float> m_drone;
-
-	Vec3<float> m_direction;
-
-	Vec3<float> m_up;
-	Vec3<float> m_forward;
-	Vec3<float> m_right;
-
+	float m_velCap;
 	float m_angle;
 
-	Vec3<float> m_rotationVec;
+	glm::vec3 m_velGLM;
+	glm::vec3 m_accGLM;
+	glm::vec3 m_forceGLM;
 
+	glm::vec3 m_dirGLM;
+	glm::vec3 m_upGLM;
+	glm::vec3 m_forwardGLM;
+	glm::vec3 m_rightGLM;
+	glm::vec3 m_rotVecGLM;
+
+
+	Model m_model;
+
+	SphereCollider m_sphereCollider;
 };
 
 

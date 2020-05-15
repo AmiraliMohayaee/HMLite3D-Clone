@@ -5,16 +5,23 @@
 
 const double PI = 3.14159265359;
 
-
 template <class T>
+	
 
 class Vec3
 {
 public:
 	T x, y, z;
 
-	Vec3() {}
-	Vec3(T xVal, T yVal, T zVal) : x(xVal), y(yVal), z(zVal) {}
+	Vec3() = default;
+
+	Vec3(T xVal, T yVal, T zVal)
+	{
+		x = xVal;
+		y = yVal;
+		z = zVal;
+	}
+
 	// Copy Ctor
 	Vec3(const Vec3& vec) : x(vec.x), y(vec.y), z(vec.z) {}
 
@@ -23,17 +30,20 @@ public:
 		// Setting to float by default 
 		// Might need to cast to double if 
 		// user intents to use doubles
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
+		x = 0;
+		y = 0;
+		z = 0;
 	}
-	Vec3& operator= (const T& rhs)
+
+
+	Vec3& operator= (const Vec3& rhs)
 	{
 		x = rhs.x;
 		y = rhs.y;
 		z = rhs.z;
 		return *this;
 	}
+
 	bool operator== (const Vec3& rhs) const
 	{
 		x == rhs.x;
@@ -52,7 +62,7 @@ public:
 		z += rhs.z;
 		return *this;
 	}
-	Vec3& operator+ (const Vec3& rhs) const
+	Vec3 operator+ (const Vec3& rhs) const
 	{
 		return Vec3(x + rhs.x, y + rhs.y, z + rhs.y);
 	}
@@ -63,14 +73,26 @@ public:
 		z -= rhs.z;
 		return *this;
 	}
-	Vec3& operator- () const
+	//Vec3& operator- () const
+	//{
+	//	return Vec3(-x, -y, -z);
+	//}
+	Vec3 operator- (const Vec3& rhs) const
 	{
-		return Vec3(-x, -y, -z);
+		return Vec3(x - rhs.x, y - rhs.y, z - rhs.z);
 	}
 	// Essential for Cross-Product
-	Vec3& operator* (const T& rhs) const
+	Vec3 operator* (T& rhs) const
 	{
-		return Vec3(x * rhs, y * rhs, z * rhs);
+		Vec3 result;
+		result.x * rhs;
+		result.y * rhs; 
+		result.z * rhs;
+		return result;
+	}
+	Vec3& operator* (const Vec3& rhs) const
+	{
+		return Vec3(x * rhs.x, y * rhs.y, z * rhs.z);
 	}
 	Vec3& operator*= (const Vec3& rhs)
 	{
@@ -79,9 +101,13 @@ public:
 		z *= rhs.z;
 		return *this;
 	}
-	Vec3& operator/ (const T& rhs) const
+	Vec3 operator/ (const T& rhs) const
 	{
-		return Vec3(x / rhs.x, y / rhs.y, z / rhs.z);
+		Vec3 result;
+		result.x / rhs;
+		result.y / rhs;
+		result.z / rhs;
+		return result;
 	}
 	Vec3& operator/= (const Vec3& rhs)
 	{
@@ -112,19 +138,6 @@ public:
 		return product;
 	}
 
-	T DegreeToRadian(T degree)
-	{
-		T result = (degree / 180.0) * PI;
-
-		return result;
-	}
-	T RadianToDegree(T radian)
-	{
-		T result = (radian / PI) * 180.0;
-
-		return result;
-	}
-
 	Vec3& Lerp(const Vec3& start, const Vec3& end, float delta)
 	{
 		if (Distance(start, end) < 0.02)
@@ -148,6 +161,10 @@ public:
 	}
 
 };
+
+typedef Vec3<float> Vec3f;
+typedef Vec3<int> Vec3i;
+
 
 
 #endif

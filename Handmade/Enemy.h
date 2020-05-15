@@ -4,7 +4,11 @@
 #include "GameObject.h"
 #include "DebugManager.h"
 #include "InputManager.h"
+#include "Model.h"
+#include "AABB.h"
 #include <glm.hpp>
+#include "Player.h"
+#include "Laser.h"
 
 
 class Enemy : public GameObject
@@ -13,20 +17,21 @@ public:
 	Enemy();
 	Enemy(float x, float y, float z);
 
-	virtual bool Create();
+	virtual bool Create() { return true;  }
 	virtual void Update();
 	virtual void Draw();
 	virtual void Destroy();
 
+	const AABB& GetCollider() const;
+
 
 private:
-	float m_xRot;
-	float m_yRot;
-	float m_zRot;
+	Model m_model;
 
-	float m_XAngle;
-	float m_YAngle;
-	float m_ZAngle;
+	glm::vec3 m_acc;
+	glm::vec3 m_vel;
+
+	AABB m_collider;
 };
 
 

@@ -1,25 +1,42 @@
 #include "DebugManager.h"
 #include "EndState.h"
-#include "StartState.h"	// Remove later
+#include "StartState.h"	
 #include "InputManager.h"
 #include "Game.h"
 #include "MainState.h"
 #include "PipelineManager.h"
 #include "ScreenManager.h"
 #include "Utility.h"
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <stdlib.h>
+#include <time.h>
+
 
 //------------------------------------------------------------------------------------------------------
 //constructor that assigns all default values
 //------------------------------------------------------------------------------------------------------
 MainState::MainState(GameState* state) : GameState(state)
 {
+	m_testText = nullptr;
 	m_HUD = nullptr;
 	m_HUDCamera = nullptr;
 	m_mainCamera = nullptr;
 
 	m_player = nullptr;
-	m_enemy = nullptr;
-	m_player = nullptr;
+	
+	// Setting up 
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		m_enemies[i] = nullptr;
+	}
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		m_asteroids[i] = nullptr;
+	}
+
+	m_skyBox = nullptr;
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -27,9 +44,43 @@ MainState::MainState(GameState* state) : GameState(state)
 //------------------------------------------------------------------------------------------------------
 bool MainState::OnEnter()
 {
-	m_player = new Player(2.0f, 0.0f, -2.0f);
-	m_enemy = new Enemy(3.0f, 2.0f, 0.0f);
-	m_planet = new Planet(1.0f, 1.0f, 1.0f);
+	m_testText = new TextBox(10, 10, 0, 100, "TEXT_1");
+	m_testText->SetText("Hello!");
+
+	m_scoreText = new TextBox(10, 600, 0, 50, "SCORETEXT");
+	//m_scoreText->SetText("Current Score is: " + std::to_string());
+
+	m_player = new Player(0.0f, 0.0f, 0.0f);
+	m_player->SetTag("Player");
+
+	srand(time(0));
+
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		m_enemies[i] = new Enemy(float(rand() % 4) + 4.0f, 0.0f, float(rand() % -5) - 10.0f);
+		m_enemies[i]->SetTag("Baddies_" + std::to_string(i));
+	}
+
+
+	// Setting up seeds for randomizing asteroid pos
+	// based on current time as seed for the randomizer
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		m_asteroids[i] = new Asteroid(float(rand() % -4) - 4.0f, 0.0f, float(rand() % -5) - 10.0f);
+		m_asteroids[i]->SetTag("Asteroids_" + std::to_string(i));
+	}
+
+
+	// To-Do: Add more
+
+
+
+	// Spawning Skybox
+	m_skyBox = new Skybox(0.0f, 0.0f, 0.0f);
+
+	// Spawning Planet 
+	m_planet = new Planet(1.0f, 1.0f, -15.0f);
 
 	//create the main camera to control the main view
 	m_mainCamera = new MainCamera();
@@ -49,7 +100,6 @@ bool MainState::OnEnter()
 //------------------------------------------------------------------------------------------------------
 bool MainState::Update()
 {
-
 	//store keyboard key states in a temp variable for processing below
 	const Uint8* keyState = TheInput::Instance()->GetKeyStates();
 
@@ -63,38 +113,60 @@ bool MainState::Update()
 		TheGame::Instance()->ChangeState(new EndState(this));
 	}
 
-	if (keyState[SDL_SCANCODE_SPACE])
+
+	m_player->Update();
+	
+	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_isActive = false;	// We'll keep things in memory 
-		TheGame::Instance()->ChangeState(new StartState(this));
+		if (m_enemies[i] != nullptr)
+		{
+			m_enemies[i]->Update();
+
+			// Testing Collisions
+			if (m_enemies[i]->GetCollider().IsColliding
+			(m_player->GetSphereCollider()))
+			{
+				m_player->OnCollision(m_enemies[i]);
+				//m_player->HealthDown(10);
+				//m_enemies[i]->IsAlive() = false;
+				//delete m_enemies[i];
+				//m_enemies[i] = nullptr;
+			}
+			else
+			{
+				Utility::Log("Not Colliding");
+			}
+		}
+	}
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		if (m_asteroids[i] != nullptr)
+		{
+			m_asteroids[i]->Update();
+
+			if (m_asteroids[i]->GetSphereCollider().IsSphereColliding
+			(m_player->GetSphereCollider()))
+			{
+				m_player->OnCollision(m_asteroids[i]);
+				//m_asteroids[i]->IsAlive() = false;
+				//delete m_asteroids[i];
+				//m_asteroids[i] = nullptr;
+			}
+			else
+			{
+				Utility::Log("Not Colliding");
+			}
+		}
 	}
 
 
-	m_player->Update();
-	m_enemy->Update();
 	m_planet->Update();
-
-
+	m_skyBox->Update();
 
 
 	// To-Do: Output log info into files
-	Utility::Log("Updating Main State");
-
-	double radian = 4.0;
-	double degree = 180.0;
-
-	//Utility::Log(Utility::DegToRad(degree), "Degree is");
-	//Utility::Log(Utility::RadToDeg(radian), "Rad is");
-	//Utility::Log(Utility::LineDistance(0, 0, 5, 3), "The Pythagorem results are ");
-
-	Utility::Log(m_player->GetPos().x, "Player's X Value is: ");
-	Utility::Log(m_player->GetPos().y, "Player's Y Value is: ");
-
-	// Checking vector distance between two GOs
-	//Utility::Log(Utility::LineDistance(m_player->GetPos(), m_enemy->GetPos()), 
-	//	"Distance between the player and enemy is: ");
-
-
+	//Utility::Log("Updating Main State");
 	
 	return true;
 }
@@ -104,7 +176,6 @@ bool MainState::Update()
 //------------------------------------------------------------------------------------------------------
 bool MainState::Draw()
 {
-
 	//first set up camera which sets the view accordingly
 	//make sure this is called BEFORE displaying the grid
 	m_mainCamera->Draw();
@@ -112,6 +183,7 @@ bool MainState::Draw()
 #ifdef GAME_3D
 
 	TheScreen::Instance()->Set3DScreen(60.0f, 0.1f, 1000.0f);
+
 
 #ifdef DEBUG
 
@@ -134,39 +206,44 @@ bool MainState::Draw()
 #endif
 
 #endif
+
+
 	m_player->Draw();
-	m_enemy->Draw();
+
+
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		if (m_enemies[i] != nullptr)
+		{
+			m_enemies[i]->Draw();
+		}
+	}
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		if (m_asteroids[i] != nullptr)
+		{
+			m_asteroids[i]->Draw();
+		}
+	}
+	
 	m_planet->Draw();
+	m_skyBox->Draw();
 
-
-	//GameObject::SetIdentity();
-
-	//static float xMove = 0.01f;
-	//static float zMove = 0.01f;
-
-	//xMove += 0.001f;
-	//zMove -= 0.001f;
-
-	//GameObject::Translate(xMove, 0.0f, zMove);
-	//GameObject::Rotate(45.0f, 0.0, 1.0, 0.0);
-	//TheDebug::Instance()->DrawCube3D(2.0f, 2.0f, 2.0f, 10.0f, 10.0f, 10.0f, 0.5f);
-
-	//GameObject::SetIdentity();	// Resetting the matrix to identity
-
-	//static float angle = 0;
-	//angle += 5.0f;
-
-	//GameObject::Rotate(angle, 0.0f, 1.0f, 1.0f);
-	//GameObject::Translate(2.0f, 0.0f, 0.0f);
-	//TheDebug::Instance()->DrawSphere3D(2.0f, 1.0f, 1.0f, 1.0f, 0.5f);
 
 
 
 #ifdef DEBUG
 
 	//set the 2D camera and render the heads-up display last
+
+	//m_HUD->Draw();
+
+	// Setting up an Ortho projection
+	// Move this out of Debug later
+	TheScreen::Instance()->Set2DScreen(ScreenManager::BOTTOM_LEFT);
 	m_HUDCamera->Draw();
-	m_HUD->Draw();
+	m_testText->Draw();
 
 #endif
 
@@ -185,5 +262,18 @@ void MainState::OnExit()
 	delete m_HUDCamera;
 	delete m_mainCamera;
 	delete m_player;
-	delete m_enemy;
+
+	for (size_t i = 0; i < maxEnemies; i++)
+	{
+		delete m_enemies[i];
+	}
+
+	for (size_t i = 0; i < maxAsteroids; i++)
+	{
+		delete m_asteroids[i];
+	}
+
+	delete m_skyBox;
+	delete m_testText;
+	delete m_scoreText;
 }

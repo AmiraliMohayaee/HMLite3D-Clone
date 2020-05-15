@@ -42,6 +42,9 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Planet.h"
+#include "Asteroid.h"
+#include "Skybox.h"
+#include "TextBox.h"
 
 
 class MainState : public GameState
@@ -59,15 +62,23 @@ public:
 	virtual bool Draw();
 	virtual void OnExit();
 
-private :
-
+private:
+    TextBox* m_testText;
+    TextBox* m_scoreText;
 	HUD* m_HUD;
 	HUDCamera* m_HUDCamera;
 	MainCamera* m_mainCamera;
 
+    static const int maxEnemies = 5;
+    static const int maxAsteroids = 5;
+
     Player* m_player;
-    Enemy* m_enemy;
+    Enemy* m_enemies[maxEnemies];
     Planet* m_planet;
+
+    Asteroid* m_asteroids[maxAsteroids];
+    Skybox* m_skyBox;
+
 };
 
 #endif

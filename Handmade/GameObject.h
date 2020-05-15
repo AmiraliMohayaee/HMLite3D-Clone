@@ -59,7 +59,14 @@
 #include <string>
 #include <vector>
 #include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include "Matrix4x4.h"
 #include "Vec3.h"
+#include "AABB.h"
+#include "SphereCollider.h"
+#include "RigidBody.h"
+#include "Transform.h"
+
 
 class GameObject 
 {
@@ -76,11 +83,17 @@ public:
 	static void Scale(GLfloat x, GLfloat y, GLfloat z);
 	static void ScaleUV(GLfloat x, GLfloat y);
 
+    static void SetMatrix(const glm::mat4& matrix);
+    static void SetMatrix(Mat4x4<float>& matrix);
+
+
+
 private:
 
 	static glm::mat3 s_normalMatrix;
 	static glm::mat4 s_textureMatrix;
 	static std::vector<glm::mat4> s_modelMatrix;
+    static std::vector<Mat4x4<float>> s_myModelMatrix;
 
 public :
 
@@ -100,12 +113,12 @@ public :
 
 	std::string GetTag();
 	unsigned int GetPriority();
-    const Vec3<float>& GetPos() const;
-    void SetPos(const Vec3<float>& pos);
+    //const Vec3f& GetPos(GameObject& go) const;
+    //const glm::vec3& GetPos() const;
+    //void SetPos(const Vec3f& pos);
+    //void SetPos(const glm::vec3& pos);
 	void SetTag(std::string tag);
 	void SetPriority(unsigned int priority);
-
-public:
 
 
 public:
@@ -114,9 +127,9 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	virtual void Destroy() = 0;
+    virtual void OnCollision(GameObject* go) { }
 
 protected :
-
 	bool m_isLit;
 	bool m_isAlive;
 	bool m_isActive;
@@ -126,8 +139,11 @@ protected :
 	std::string m_tag;
 	unsigned int m_priority;
 
-    Vec3<float> m_pos;
+    Transform m_transform;
 
+    glm::mat4 m_objMat;
+
+    RigidBody m_rb;
 };
 
 #endif

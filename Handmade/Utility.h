@@ -17,8 +17,12 @@ namespace Utility
 	float DegToRad(float degree);
 	float RadToDeg(float radian);
 
+	float Clamp(float val, float min, float max);
+	const glm::vec3& Clamp(glm::vec3& vec, glm::vec3& min, glm::vec3& max);
+	const Vec3<float> Clamp(Vec3<float>& vec, Vec3<float>& min, Vec3<float>& max);
 	float LineDistance(float a, float b, float a2, float b2);
-	float LineDistance(const glm::vec3& vec1, const glm::vec3& vec2);
+	float LineDistance(const glm::vec3& start, const glm::vec3& dest);
+	float LineDistance(const Vec3<float>& vec1, const Vec3<float> vec2);
 
 	const Vec3<float>& CrossProduct(const Vec3<float>& vec1, const Vec3<float>& vec2);
 

@@ -82,6 +82,12 @@ bool PipelineManager::SendUniformData(const std::string& uniform, const glm::vec
 	return true;
 
 }
+// Taking in costum Vec3 info
+bool PipelineManager::SendUniformData(const std::string& uniform, const Vec3<float>& vec3Data)
+{
+	glUniform3fv(glGetUniformLocation(m_shaderProgramID, uniform.c_str()), 1, &vec3Data.x);
+	return true;
+}
 //------------------------------------------------------------------------------------------------------
 //function that sends uniform data to shader (VEC4)
 //------------------------------------------------------------------------------------------------------
@@ -92,6 +98,11 @@ bool PipelineManager::SendUniformData(const std::string& uniform, const glm::vec
 	return true;
 
 }
+
+////// To-do: Create one for the Vec4
+
+
+
 //------------------------------------------------------------------------------------------------------
 //function that sends uniform data to shader (3x3 MATRIX)
 //------------------------------------------------------------------------------------------------------
@@ -116,6 +127,18 @@ bool PipelineManager::SendUniformData(const std::string& uniform,
 	return true;
 
 }
+
+// My Version
+bool PipelineManager::SendUniformData(const std::string& uniform,
+	const Mat4x4<float>& matrix4x4, bool transposed)
+{
+
+	glUniformMatrix4fv(glGetUniformLocation(m_shaderProgramID, uniform.c_str()), 1,
+		(GLboolean)transposed, &matrix4x4.mat[0]);
+	return true;
+
+}
+
 //------------------------------------------------------------------------------------------------------
 //function that sends attribute data to vertex shader (FLOAT)
 //------------------------------------------------------------------------------------------------------
