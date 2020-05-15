@@ -61,7 +61,7 @@ void GameObject::SendToShader(bool isLit, bool isTextured)
 
 	//send model matrix to vertex shader
 	ThePipeline::Instance()->SendUniformData("modelMatrix", s_modelMatrix.back());
-	ThePipeline::Instance()->SendUniformData("myModelMatrix", s_myModelMatrix.back());
+	//ThePipeline::Instance()->SendUniformData("myModelMatrix", s_myModelMatrix.back());
 
 	//send normal matrix to vertex shader (transposed)
 	ThePipeline::Instance()->SendUniformData("normMatrix", s_normalMatrix, true);
@@ -109,7 +109,7 @@ void GameObject::ScaleUV(GLfloat x, GLfloat y)
 	s_textureMatrix = glm::scale(s_textureMatrix, glm::vec3(x, y, 1.0f));
 
 }
-void GameObject::SetMatrix(glm::mat4& matrix)
+void GameObject::SetMatrix(const glm::mat4& matrix)
 {
 	s_modelMatrix.back() = matrix;
 }
@@ -132,16 +132,14 @@ GameObject::GameObject()
 	m_tag = "";
 	m_priority = 0;	
 
-	m_pos = Vec3f(0.0f, 0.0f, 0.0f);
-	m_posGLM = glm::vec3();
 
 	//add the initial model transformation into the vector so that
 	//there is always at least one transformation present and only  
 	//do this if vector is empty (the first game object to be created)
-	if (s_myModelMatrix.empty())
-	{
-		s_myModelMatrix.push_back(Mat4x4<float>(1.0f));
-	}
+	//if (s_myModelMatrix.empty())
+	//{
+	//	s_myModelMatrix.push_back(Mat4x4<float>(1.0f));
+	//}
 
 	if (s_modelMatrix.empty())
 	{
@@ -162,13 +160,17 @@ GameObject::GameObject(float x, float y, float z)
 	m_tag = "";
 	m_priority = 0;
 
-	m_pos = Vec3f(x, y, z);
-	m_posGLM = glm::vec3(x, y, z);
+	m_transform.SetPosition(x, y, z);
 
-	if (s_myModelMatrix.empty())
+	if (s_modelMatrix.empty())
 	{
-		s_myModelMatrix.push_back(Mat4x4<float>(1.0f));
+		s_modelMatrix.push_back(glm::mat4(1.0f));
 	}
+
+	//if (s_myModelMatrix.empty())
+	//{
+	//	s_myModelMatrix.push_back(Mat4x4<float>(1.0f));
+	//}
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -233,30 +235,6 @@ unsigned int GameObject::GetPriority()
 
 	return m_priority;
 
-}
-
-const Vec3f& GameObject::GetPos(GameObject& go) const
-{
-	return m_pos;
-}
-
-const glm::vec3& GameObject::GetPos() const
-{
-	return m_posGLM;
-}
-
-void GameObject::SetPos(const Vec3f& pos)
-{
-	m_pos.x = pos.x;
-	m_pos.y = pos.y;
-	m_pos.z = pos.z;
-}
-
-void GameObject::SetPos(const glm::vec3& pos)
-{
-	m_posGLM.x = pos.x;
-	m_posGLM.y = pos.y;
-	m_posGLM.z = pos.z;
 }
 
 //------------------------------------------------------------------------------------------------------

@@ -191,9 +191,6 @@
     <ClInclude Include="Vec3.h">
       <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
-    <ClInclude Include="Transformation.h">
-      <Filter>Header Files\Components\Core\MyMaths</Filter>
-    </ClInclude>
     <ClInclude Include="Vec4.h">
       <Filter>Header Files\Components\Core\MyMaths</Filter>
     </ClInclude>
@@ -224,7 +221,16 @@
     <ClInclude Include="Laser.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Components\Core\MyMaths</Filter>
+    </ClInclude>
     <ClInclude Include="LevelBound.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -325,9 +331,6 @@
     <ClCompile Include="TestObject.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Transformation.cpp">
-      <Filter>Source Files\Components\Core\Maths</Filter>
-    </ClCompile>
     <ClCompile Include="Matrix4x4.cpp">
       <Filter>Source Files\Components\Core\Maths</Filter>
     </ClCompile>
@@ -355,7 +358,16 @@
     <ClCompile Include="Laser.cpp">
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Components\Core\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
     <ClCompile Include="LevelBound.cpp">
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

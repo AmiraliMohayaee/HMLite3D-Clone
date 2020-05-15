@@ -38,41 +38,41 @@ void RigidBody::Update()
 	m_posGLM += ((oldVel + m_velGLM) * 0.5f) * deltaTime;
 }
 
-void RigidBody::SetVel(glm::vec3& vel)
+void RigidBody::SetVel(const glm::vec3& vel)
 {
 	m_velGLM = vel;
 }
 
-void RigidBody::VecUpdate()
-{
-	// Setting up Euler integration for the custom Vec3s
+//void RigidBody::VecUpdate()
+//{
+//	// Setting up Euler integration for the custom Vec3s
+//
+//	// Temp variable for storing velocity and  
+//	// pos variable to find the new pos of  
+//	// the object after integration
+//	Vec3f oldPos = m_pos;
+//	Vec3f oldVel = m_vel;
+//
+//	//if (m_mass > 0)
+//	//{
+//	//	m_acc = m_force / m_mass;
+//	//}
+//
+//	
+//	float deltaTime = TheGame::Instance()->GetElapsedTime() / 1000.0f;
+//
+//	// Setting up 
+//	m_vel += m_acc * deltaTime;
+//	// **********************************
+//	// TO-DO LATER
+//	// **********************************
+//	//m_pos += ((oldVel + m_vel) * 0.5f) * deltaTime;
+//}
 
-	// Temp variable for storing velocity and  
-	// pos variable to find the new pos of  
-	// the object after integration
-	Vec3f oldPos = m_pos;
-	Vec3f oldVel = m_vel;
-
-	//if (m_mass > 0)
-	//{
-	//	m_acc = m_force / m_mass;
-	//}
-
-	
-	float deltaTime = TheGame::Instance()->GetElapsedTime() / 1000.0f;
-
-	// Setting up 
-	m_vel += m_acc * deltaTime;
-	// **********************************
-	// TO-DO LATER
-	// **********************************
-	//m_pos += ((oldVel + m_vel) * 0.5f) * deltaTime;
-}
-
-void RigidBody::SetVel(Vec3f& vel)
-{
-	m_vel = vel;
-}
+//void RigidBody::SetVel(Vec3f& vel)
+//{
+//	m_vel = vel;
+//}
 
 void RigidBody::SetVel(float x, float y, float z)
 {
@@ -85,12 +85,12 @@ void RigidBody::SetVel(float x, float y, float z)
 	m_velGLM.z = z;
 }
 
-void RigidBody::SetPos(Vec3f& pos)
-{
-	m_pos = pos;
-}
+//void RigidBody::SetPos(Vec3f& pos)
+//{
+//	m_pos = pos;
+//}
 
-void RigidBody::SetPos(glm::vec3& pos)
+void RigidBody::SetPos(const glm::vec3& pos)
 {
 	m_posGLM = pos;
 }
@@ -106,22 +106,22 @@ void RigidBody::SetPos(float x, float y, float z)
 	m_posGLM.z = z;
 }
 
-void RigidBody::SetAcc(Vec3f& acc)
-{
-	m_acc = acc;
-}
+//void RigidBody::SetAcc(Vec3f& acc)
+//{
+//	m_acc = acc;
+//}
+//
+//void RigidBody::SetForce(Vec3f& force)
+//{
+//	m_force = force;
+//}
+//
+//void RigidBody::AddForce(Vec3f& addForce)
+//{
+//	m_force += addForce;
+//}
 
-void RigidBody::SetForce(Vec3f& force)
-{
-	m_force = force;
-}
-
-void RigidBody::AddForce(Vec3f& addForce)
-{
-	m_force += addForce;
-}
-
-void RigidBody::SetAcc(glm::vec3& acc)
+void RigidBody::SetAcc(const glm::vec3& acc)
 {
 	m_accGLM = acc;
 }
@@ -137,7 +137,7 @@ void RigidBody::SetAcc(float x, float y, float z)
 	m_accGLM.z = z;
 }
 
-void RigidBody::SetForce(glm::vec3& force)
+void RigidBody::SetForce(const glm::vec3& force)
 {
 	m_forceGLM = force;
 }
@@ -154,7 +154,7 @@ void RigidBody::SetMass(float mass)
 	m_mass = mass;
 }
 
-void RigidBody::AddForce(glm::vec3& addForce)
+void RigidBody::AddForce(const glm::vec3& addForce)
 {
 	m_forceGLM += addForce;
 }
@@ -166,25 +166,25 @@ void RigidBody::AddForce(float x, float y, float z)
 	m_forceGLM.z = z;
 }
 
-const Vec3f& RigidBody::GetVec3Vel()
-{
-	return m_vel;
-}
-
-const Vec3f& RigidBody::GetVec3Pos()
-{
-	return m_pos;
-}
-
-const Vec3f& RigidBody::GetVec3Acc()
-{
-	return m_acc;
-}
-
-const Vec3f& RigidBody::GetVec3Force()
-{
-	return m_force;
-}
+//const Vec3f& RigidBody::GetVec3Vel()
+//{
+//	return m_vel;
+//}
+//
+//const Vec3f& RigidBody::GetVec3Pos()
+//{
+//	return m_pos;
+//}
+//
+//const Vec3f& RigidBody::GetVec3Acc()
+//{
+//	return m_acc;
+//}
+//
+//const Vec3f& RigidBody::GetVec3Force()
+//{
+//	return m_force;
+//}
 
 const glm::vec3& RigidBody::GetVel()
 {

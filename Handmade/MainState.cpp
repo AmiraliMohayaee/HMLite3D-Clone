@@ -1,6 +1,6 @@
 #include "DebugManager.h"
 #include "EndState.h"
-#include "StartState.h"	// Remove later
+#include "StartState.h"	
 #include "InputManager.h"
 #include "Game.h"
 #include "MainState.h"
@@ -18,12 +18,14 @@
 //------------------------------------------------------------------------------------------------------
 MainState::MainState(GameState* state) : GameState(state)
 {
+	m_testText = nullptr;
 	m_HUD = nullptr;
 	m_HUDCamera = nullptr;
 	m_mainCamera = nullptr;
 
 	m_player = nullptr;
 	
+	// Setting up 
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
 		m_enemies[i] = nullptr;
@@ -35,9 +37,6 @@ MainState::MainState(GameState* state) : GameState(state)
 	}
 
 	m_skyBox = nullptr;
-
-	m_asteroidSeed = 0.0f;
-	m_enemySeed = 0.0f;
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -45,15 +44,21 @@ MainState::MainState(GameState* state) : GameState(state)
 //------------------------------------------------------------------------------------------------------
 bool MainState::OnEnter()
 {
-	m_player = new Player(0.0f, 0.0f, 1.0f);
+	m_testText = new TextBox(10, 10, 0, 100, "TEXT_1");
+	m_testText->SetText("Hello!");
+
+	m_scoreText = new TextBox(10, 600, 0, 50, "SCORETEXT");
+	//m_scoreText->SetText("Current Score is: " + std::to_string());
+
+	m_player = new Player(0.0f, 0.0f, 0.0f);
 	m_player->SetTag("Player");
 
 	srand(time(0));
 
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i] = new Enemy((rand() % -2) + 2, 0.0f, (rand() % -5) + -1.0f);
-		m_enemies[i]->SetTag("Baddies" + i);
+		m_enemies[i] = new Enemy(float(rand() % 4) + 4.0f, 0.0f, float(rand() % -5) - 10.0f);
+		m_enemies[i]->SetTag("Baddies_" + std::to_string(i));
 	}
 
 
@@ -62,8 +67,8 @@ bool MainState::OnEnter()
 
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i] = new Asteroid((rand() % -2) + 2, 0.0f, (rand() % -5) + 0.0f);
-		m_asteroids[i]->SetTag("Asteroids" + i);
+		m_asteroids[i] = new Asteroid(float(rand() % -4) - 4.0f, 0.0f, float(rand() % -5) - 10.0f);
+		m_asteroids[i]->SetTag("Asteroids_" + std::to_string(i));
 	}
 
 
@@ -95,7 +100,6 @@ bool MainState::OnEnter()
 //------------------------------------------------------------------------------------------------------
 bool MainState::Update()
 {
-
 	//store keyboard key states in a temp variable for processing below
 	const Uint8* keyState = TheInput::Instance()->GetKeyStates();
 
@@ -114,58 +118,52 @@ bool MainState::Update()
 	
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i]->Update();
+		if (m_enemies[i] != nullptr)
+		{
+			m_enemies[i]->Update();
+
+			// Testing Collisions
+			if (m_enemies[i]->GetCollider().IsColliding
+			(m_player->GetSphereCollider()))
+			{
+				m_player->OnCollision(m_enemies[i]);
+				//m_player->HealthDown(10);
+				//m_enemies[i]->IsAlive() = false;
+				//delete m_enemies[i];
+				//m_enemies[i] = nullptr;
+			}
+			else
+			{
+				Utility::Log("Not Colliding");
+			}
+		}
 	}
 
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i]->Update();
+		if (m_asteroids[i] != nullptr)
+		{
+			m_asteroids[i]->Update();
+
+			if (m_asteroids[i]->GetSphereCollider().IsSphereColliding
+			(m_player->GetSphereCollider()))
+			{
+				m_player->OnCollision(m_asteroids[i]);
+				//m_asteroids[i]->IsAlive() = false;
+				//delete m_asteroids[i];
+				//m_asteroids[i] = nullptr;
+			}
+			else
+			{
+				Utility::Log("Not Colliding");
+			}
+		}
 	}
 
 
 	m_planet->Update();
 	m_skyBox->Update();
 
-
-	// Testing Collisions
-	//if (m_player->GetCollider().IsColliding
-	//	(m_enemies[0]->GetCollider()))
-	//{
-	//	m_player->OnCollision(m_enemies[0]);
-	//}
-	//else
-	//{
-	//	Utility::Log("Not Colliding");
-	//}
-
-
-
-	for (size_t i = 0; i < maxEnemies; i++)
-	{
-		if (m_player->GetSphereCollider().IsSphereColliding
-		(m_enemies[i]->GetSphereCollider()))
-		{
-			m_player->OnCollision(m_enemies[i]);
-		}
-		else
-		{
-			Utility::Log("Not Colliding");
-		}
-	}
-
-
-	for (size_t i = 0; i < maxAsteroids; i++)
-	{
-		if (m_player->GetSphereCollider().IsSphereColliding
-		(m_asteroids[i]->GetSphereCollider()))
-		{
-			m_player->OnCollision(m_asteroids[i]);
-		}
-		else
-		{
-			Utility::Log("Not Colliding");
-		}
-	}
 
 	// To-Do: Output log info into files
 	//Utility::Log("Updating Main State");
@@ -208,17 +206,25 @@ bool MainState::Draw()
 #endif
 
 #endif
+
+
 	m_player->Draw();
 
 
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i]->Draw();
+		if (m_enemies[i] != nullptr)
+		{
+			m_enemies[i]->Draw();
+		}
 	}
 
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i]->Draw();
+		if (m_asteroids[i] != nullptr)
+		{
+			m_asteroids[i]->Draw();
+		}
 	}
 	
 	m_planet->Draw();
@@ -230,8 +236,14 @@ bool MainState::Draw()
 #ifdef DEBUG
 
 	//set the 2D camera and render the heads-up display last
+
+	//m_HUD->Draw();
+
+	// Setting up an Ortho projection
+	// Move this out of Debug later
+	TheScreen::Instance()->Set2DScreen(ScreenManager::BOTTOM_LEFT);
 	m_HUDCamera->Draw();
-	m_HUD->Draw();
+	m_testText->Draw();
 
 #endif
 
@@ -262,4 +274,6 @@ void MainState::OnExit()
 	}
 
 	delete m_skyBox;
+	delete m_testText;
+	delete m_scoreText;
 }

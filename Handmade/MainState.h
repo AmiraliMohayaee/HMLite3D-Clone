@@ -44,6 +44,7 @@
 #include "Planet.h"
 #include "Asteroid.h"
 #include "Skybox.h"
+#include "TextBox.h"
 
 
 class MainState : public GameState
@@ -61,9 +62,9 @@ public:
 	virtual bool Draw();
 	virtual void OnExit();
 
-private :
-    float m_asteroidSeed, m_enemySeed;
-
+private:
+    TextBox* m_testText;
+    TextBox* m_scoreText;
 	HUD* m_HUD;
 	HUDCamera* m_HUDCamera;
 	MainCamera* m_mainCamera;

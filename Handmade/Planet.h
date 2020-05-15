@@ -14,7 +14,7 @@ public:
 	Planet();
 	Planet(float x, float y, float z);
 
-	virtual bool Create();
+	virtual bool Create() { return false; }
 	virtual void Update();
 	virtual void Draw();
 	virtual void Destroy();

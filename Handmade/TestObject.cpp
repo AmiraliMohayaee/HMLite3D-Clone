@@ -4,19 +4,17 @@
 
 TestObject::TestObject()
 {
-	m_pos = Vec3f(0.0f, 0.0f, 0.0f);
-
+	
 }
 
 
 TestObject::TestObject(float x, float y, float z)
 {
-	m_pos.x = x;
-	m_pos.y = y;
-	m_pos.z = z;
-
 	m_rb.SetAcc(0.0f, 0.0f, 0.0f);
-	m_rb.SetPos(m_posGLM);
+	m_rb.SetPos(x, y, z);
+	m_rb.SetForce(0.0f, 0.0f, 0.0f);
+	m_rb.SetMass(0.0f);
+	m_rb.SetVel(0.0f, 0.0f, 0.0f);
 }
 
 bool TestObject::Create()

@@ -4,15 +4,16 @@
 
 #include "GameObject.h"
 #include "Model.h"
+#include "Audio.h"
 
 
 class Laser : public GameObject
 {
 public:
 	Laser();
-	~Laser();
+	virtual ~Laser();
 
-	Laser(float x, float y, float z);
+	Laser(const glm::vec3& pos, const glm::vec3& vel);
 
 	virtual bool Create();
 	virtual void Update();
@@ -27,14 +28,19 @@ public:
 
 
 	const AABB& GetCollider() const;
-	const SphereCollider& GetSphereCollider() const;
 
 	
 private:
-	float m_vel;
+	float m_followPos;
+
+	glm::mat4 m_matrix;
 	
 	Model m_playerLaser;
 	Model m_enemyLaser;
+
+	Audio m_sfx;
+
+	AABB m_collider;
 };
 
 #endif

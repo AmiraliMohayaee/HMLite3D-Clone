@@ -75,7 +75,7 @@ bool AABB::IsColliding(const AABB& secondBox) const
 	}
 }
 
-bool AABB::IsColliding(const SphereCollider& sphere)
+bool AABB::IsColliding(const SphereCollider& sphere) const
 {
 	// Getting dimentions of the are for checking collision
 	glm::vec3 halfDim = (m_dimention * m_scale) * 0.5f;

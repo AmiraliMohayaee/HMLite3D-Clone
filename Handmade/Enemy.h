@@ -6,7 +6,6 @@
 #include "InputManager.h"
 #include "Model.h"
 #include "AABB.h"
-#include "SphereCollider.h"
 #include <glm.hpp>
 #include "Player.h"
 #include "Laser.h"
@@ -18,14 +17,12 @@ public:
 	Enemy();
 	Enemy(float x, float y, float z);
 
-	virtual bool Create();
+	virtual bool Create() { return true;  }
 	virtual void Update();
 	virtual void Draw();
 	virtual void Destroy();
 
 	const AABB& GetCollider() const;
-	const SphereCollider& GetSphereCollider() const;
-
 
 
 private:
@@ -34,7 +31,7 @@ private:
 	glm::vec3 m_acc;
 	glm::vec3 m_vel;
 
-	//Player* playerPtr;
+	AABB m_collider;
 };
 
 

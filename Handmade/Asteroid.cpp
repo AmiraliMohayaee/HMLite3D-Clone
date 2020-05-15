@@ -1,23 +1,35 @@
 #include "Asteroid.h"
 #include "Utility.h"
+#include "Game.h"
 
 
 Asteroid::Asteroid(float x, float y, float z)
 {
-	m_pos = Vec3<float>(x, y, z);
-	m_posGLM = glm::vec3(x, y, z);
+	m_rb.SetPos(x, y, z);
+	m_transform.SetPosition(m_rb.GetPos());
+	m_rb.SetMass(3.0f);
+
+	m_rotAngle = 0.0f;
 
 	m_vel = 0.1f;
 
-	m_objMat = glm::mat4(1.0f);
+	static bool isAsteroidLoaded = false;
 
-	m_transformMat = glm::mat4(1.0f);
-	m_rotMat = glm::mat4(1.0f);
-	m_scaleMat = glm::mat4(1.0f);
+	if (!isAsteroidLoaded)
+	{
+		m_model.LoadModel("Assets/Models/Asteroid_1.obj", "ASTEROID");
+		m_model.LoadTexture("Assets/Textures/Asteroid_1_Diffuse.png", "ASTEROID");
+		isAsteroidLoaded = true;
+	}
+	else
+	{
+		m_model.SetBuffer("ASTEROID");
+		m_model.SetTexture("ASTEROID");
+	}
 
-
-	m_model.LoadModel("Assets/Models/Asteroid_1.obj", "ASTEROID");
-	m_model.LoadTexture("Assets/Textures/Asteroid_1_Diffuse.png", "ASTEROID");
+	m_sphereCollider.SetPos(m_rb.GetPos());
+	m_sphereCollider.SetRadius(1.0f);
+	m_sphereCollider.SetScale(1.0f);
 }
 
 bool Asteroid::Create()
@@ -27,29 +39,37 @@ bool Asteroid::Create()
 
 void Asteroid::Update()
 {
-	m_rb.Update();
+	m_rotAngle += 
+		(TheGame::Instance()->GetElapsedTime() / 1000.0f) * 20.0f;
 
-	m_sphereCollider.SetPos(m_posGLM);
+	m_transform.SetRotation(0.0f, m_rotAngle, 0.0f);
+
+	
+
+	m_rb.AddForce(0.0f, 0.0f, +0.5f);
+
+	//forceAdd++;
+
+	m_rb.Update();
+	m_transform.SetPosition(m_rb.GetPos());
+
+	m_sphereCollider.SetPos(m_rb.GetPos());
 	m_sphereCollider.Update();
 }
 
 void Asteroid::Draw()
 {
-	glm::mat4 result;
-	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z));
-	glm::mat4 rot = glm::rotate(glm::mat4(), Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1));
-	result = trans * rot * scale;
-	GameObject::SetMatrix(result);
+	m_transform.SetScale(0.1f, 0.1f, 0.1f);
+	GameObject::SetMatrix(m_transform.GetMatrix());
 
 	GameObject::SendToShader(false, true);
 	m_model.SetColor(1, 1, 1, 1);
 	m_model.Draw();
 
-	result = trans;
-	GameObject::SetMatrix(result);
+	m_transform.SetScale(1, 1, 1);
+	GameObject::SetMatrix(m_transform.GetMatrix());
+	GameObject::SendToShader(false, true);
 
-	//m_collider.DebugDraw();
 	m_sphereCollider.DebugDraw();
 }
 
@@ -61,11 +81,6 @@ void Asteroid::Destroy()
 void Asteroid::OnCollision(GameObject* go)
 {
 	Utility::Log("Colliding with " + go->GetTag());
-}
-
-const AABB& Asteroid::GetCollider() const
-{
-	return m_collider;
 }
 
 const SphereCollider& Asteroid::GetSphereCollider() const

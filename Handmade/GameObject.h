@@ -65,6 +65,7 @@
 #include "AABB.h"
 #include "SphereCollider.h"
 #include "RigidBody.h"
+#include "Transform.h"
 
 
 class GameObject 
@@ -82,7 +83,7 @@ public:
 	static void Scale(GLfloat x, GLfloat y, GLfloat z);
 	static void ScaleUV(GLfloat x, GLfloat y);
 
-    static void SetMatrix(glm::mat4& matrix);
+    static void SetMatrix(const glm::mat4& matrix);
     static void SetMatrix(Mat4x4<float>& matrix);
 
 
@@ -112,15 +113,12 @@ public :
 
 	std::string GetTag();
 	unsigned int GetPriority();
-    const Vec3f& GetPos(GameObject& go) const;
-    const glm::vec3& GetPos() const;
-    void SetPos(const Vec3f& pos);
-    void SetPos(const glm::vec3& pos);
+    //const Vec3f& GetPos(GameObject& go) const;
+    //const glm::vec3& GetPos() const;
+    //void SetPos(const Vec3f& pos);
+    //void SetPos(const glm::vec3& pos);
 	void SetTag(std::string tag);
 	void SetPriority(unsigned int priority);
-
-
-public:
 
 
 public:
@@ -141,12 +139,9 @@ protected :
 	std::string m_tag;
 	unsigned int m_priority;
 
-    Vec3f m_pos;
-    glm::vec3 m_posGLM;
-    glm::mat4 m_objMat;
+    Transform m_transform;
 
-    AABB m_collider;
-    SphereCollider m_sphereCollider;
+    glm::mat4 m_objMat;
 
     RigidBody m_rb;
 };

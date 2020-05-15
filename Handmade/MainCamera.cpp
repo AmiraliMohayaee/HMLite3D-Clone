@@ -88,8 +88,6 @@ void MainCamera::Update()
 		m_camera.MoveBackward();
 	}
 
-#endif
-
 	//if A is pressed move camera left
 	if (keyState[SDL_SCANCODE_A])
 	{
@@ -101,6 +99,17 @@ void MainCamera::Update()
 	{
 		m_camera.MoveRight();
 	}
+
+	if (keyState[SDL_SCANCODE_R])
+	{
+		m_camera.MoveUp();
+	}
+	else if (keyState[SDL_SCANCODE_F])
+	{
+		m_camera.MoveDown();
+	}
+
+#endif
 
 	//set camera rotation values based on mouse motion values
 	m_camera.RotateX((short)(TheInput::Instance()->GetMouseMotion().y));

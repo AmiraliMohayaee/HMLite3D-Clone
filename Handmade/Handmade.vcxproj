@@ -152,6 +152,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LevelBound.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="MainState.h" />
@@ -175,8 +176,9 @@
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestState.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Transformation.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />
@@ -199,6 +201,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LevelBound.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainCamera.cpp" />
@@ -222,8 +225,9 @@
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Transformation.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

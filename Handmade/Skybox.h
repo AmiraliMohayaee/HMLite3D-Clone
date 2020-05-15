@@ -3,7 +3,7 @@
 
 #include "GameObject.h"
 #include "Model.h"
-
+#include "Audio.h"
 
 class Skybox : public GameObject
 {
@@ -20,6 +20,9 @@ public:
 
 private:
 	Model m_model;
+	Audio m_music;
+
+	float m_rotAngle;
 };
 
 

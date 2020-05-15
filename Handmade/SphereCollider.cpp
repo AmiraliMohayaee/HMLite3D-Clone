@@ -16,7 +16,7 @@ SphereCollider::~SphereCollider()
 
 void SphereCollider::DebugDraw()
 {
-	TheDebug::Instance()->DrawSphere3D(m_radius, 1.0f, 0.0f, 0.0f, 0.5f);
+	TheDebug::Instance()->DrawSphere3D(m_radius, 2.0f, 0.0f, 0.0f, 0.5f);
 }
 
 void SphereCollider::Update()

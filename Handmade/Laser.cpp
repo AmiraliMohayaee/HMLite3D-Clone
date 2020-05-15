@@ -1,5 +1,6 @@
 #include "Laser.h"
 #include "Utility.h"
+#include "AudioManager.h"
 
 
 Laser::Laser()
@@ -12,22 +13,42 @@ Laser::~Laser()
 
 }
 
-Laser::Laser(float x, float y, float z)
+Laser::Laser(const glm::vec3& pos, const glm::vec3& dir)
 {
-	m_posGLM = glm::vec3(x, y, z);
+	m_rb.SetPos(pos);
+	m_transform.SetPosition(m_rb.GetPos());
+	m_rb.SetMass(1.0f);
 
-	m_vel = 0.1f;
+	m_followPos = 0;
 
-	m_playerLaser.LoadModel("Assets/Models/Laser_Player.obj", "PLAYERLASER");
-	m_playerLaser.LoadTexture("Assets/Textures/Laser_Player_Diffuse.png", "PLAYERLASER");
+	m_rb.SetVel(dir * 3.4f);
 
-	m_enemyLaser.LoadModel("Assets/Models/Laser_Enemy.obj", "ENEMYLASER");
-	m_enemyLaser.LoadTexture("Assets/Textures/Laser_Enemy_Diffuse.png", "ENEMYLASER");
+	static bool isLaserLoaded = false;
 
+	if (!isLaserLoaded)
+	{
+		m_playerLaser.LoadModel("Assets/Models/Laser_Player.obj", "PLAYERMODEL");
+		m_playerLaser.LoadTexture("Assets/Textures/Laser_Player_Diffuse.png", "PLAYERLASER");
 
-	m_collider.SetPos(m_posGLM);
-	m_collider.SetDimension(2.0f, 2.0f, 2.0f);
+		TheAudio::Instance()->LoadFromFile("Assets/Audio/Player_Laser.wav", AudioManager::SFX_AUDIO, "LASER");
+		m_sfx.SetAudioData("LASER", AudioManager::SFX_AUDIO);
+		isLaserLoaded = true;
+	}
+	else
+	{
+		m_playerLaser.SetBuffer("PLAYERMODEL");
+		m_playerLaser.SetTexture("PLAYERLASER");
+		m_sfx.SetAudioData("LASER", AudioManager::SFX_AUDIO);
+	}
+
+	m_collider.SetPos(m_rb.GetPos());
+	m_collider.SetDimension(2.0f, 2.0f, -5.0f);
+	m_collider.SetScale(1.0f, 1.0f, 1.0f);
+
+	m_sfx.Volume() = 0.5f;
+
 }
+
 
 bool Laser::Create()
 {
@@ -36,24 +57,35 @@ bool Laser::Create()
 
 void Laser::Update()
 {
-	m_rb.AddForce(0.0f, 0.0f, -1.0f);
+	m_rb.AddForce(0.0f, 0.0f, -2.0f);
+	
+	// If the projectile goes further than 100 units, it is killed off
+	if (m_rb.GetPos().z <= -15.0f)
+	{
+		m_isAlive = false;
+	}
 
-	//if (m_rb.GetPos())
-	//{
-
-	//}
 
 	m_rb.Update();
+	m_transform.SetPosition(m_rb.GetPos());
+
+	// Move forward in z-axis with the addition of the vel
+	//PlayerUpdate();
+
+	m_sfx.Play();
 }
 
 void Laser::Draw()
 {
-
+	PlayerShotDraw();
 }
 
 void Laser::Destroy()
 {
-
+	m_playerLaser.UnloadModel("PLAYERMODEL");
+	m_playerLaser.UnloadTexture("PLAYERLASER");
+	TheAudio::Instance()->UnloadFromMemory(AudioManager::SFX_AUDIO,
+		AudioManager::CUSTOM_AUDIO, "LASER");
 }
 
 void Laser::OnCollision(GameObject* go)
@@ -63,47 +95,38 @@ void Laser::OnCollision(GameObject* go)
 
 void Laser::PlayerShotDraw()
 {
+	m_transform.SetRotation(0.0f, 90.0f, 0.0f);
+	m_transform.SetScale(0.1f, 0.1f, 0.1f);
 
-	glm::mat4 result;
-	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z));
-	glm::mat4 rot = glm::rotate(glm::mat4(), Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1));
-	result = trans * rot * scale;
-	GameObject::SetMatrix(result);
+	GameObject::SetMatrix(m_transform.GetMatrix());
 	// Required when loading costum objs
 	GameObject::SendToShader(false, true);
 	m_playerLaser.SetColor(1, 1, 1, 1);
 	m_playerLaser.Draw();
 
-	result = trans * rot;
-	GameObject::SetMatrix(result);
-
+#ifdef DEBUG
 	m_collider.DebugDraw();
+#endif
 }
 
 void Laser::EnemyShotDraw()
 {
-
-	glm::mat4 result;
-	glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(0.5f + m_pos.x, 0.0f + m_pos.y, 0.0f + m_pos.z));
-	glm::mat4 rot = glm::rotate(glm::mat4(), Utility::DegToRad(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1));
-	result = trans * rot * scale;
-	GameObject::SetMatrix(result);
+	GameObject::SetMatrix(m_transform.GetMatrix());
 	// Required when loading costum objs
 	GameObject::SendToShader(false, true);
 	m_enemyLaser.SetColor(1, 1, 1, 1);
 	m_enemyLaser.Draw();
 
-	result = trans * rot;
-	GameObject::SetMatrix(result);
+	GameObject::SetMatrix(m_transform.GetMatrix());
 
 	m_collider.DebugDraw();
 }
 
 void Laser::PlayerUpdate()
 {
+	m_followPos--;
 
+	m_rb.AddForce(0.0f, 0.0f, m_followPos);
 }
 
 void Laser::EnemyUpdate()
@@ -114,9 +137,4 @@ void Laser::EnemyUpdate()
 const AABB& Laser::GetCollider() const
 {
 	return m_collider;
-}
-
-const SphereCollider& Laser::GetSphereCollider() const
-{
-	return m_sphereCollider;
 }

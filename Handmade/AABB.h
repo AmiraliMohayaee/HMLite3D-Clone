@@ -1,7 +1,7 @@
 #ifndef AABB_H
 #define AABB_H
 
-#include "Vec3.h"
+
 #include "SphereCollider.h"
 #include <glm.hpp>
 
@@ -22,7 +22,7 @@ public:
 	void SetDimension(float width, float height, float depth);
 
 	bool IsColliding(const AABB& secondBox) const;
-	bool IsColliding(const SphereCollider& sphere);
+	bool IsColliding(const SphereCollider& sphere) const;
 
 
 private:
