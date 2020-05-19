@@ -42,8 +42,8 @@ Laser::Laser(const glm::vec3& pos, const glm::vec3& dir)
 	}
 
 	m_collider.SetPos(m_rb.GetPos());
-	m_collider.SetDimension(2.0f, 2.0f, -5.0f);
-	m_collider.SetScale(1.0f, 1.0f, 1.0f);
+	m_collider.SetDimension(20.0f, 5.0f, 5.0f);
+	m_collider.SetScale(20.0f, 5.0f, 5.0f);
 
 	m_sfx.Volume() = 0.5f;
 

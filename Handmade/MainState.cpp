@@ -57,7 +57,7 @@ bool MainState::OnEnter()
 
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i] = new Enemy(float(rand() % 4) + 4.0f, 0.0f, float(rand() % -5) - 10.0f);
+		m_enemies[i] = new Enemy(float(rand() % 4) + 5.0f, 0.0f, float(rand() % -5) - 15.0f);
 		m_enemies[i]->SetTag("Baddies_" + std::to_string(i));
 	}
 
@@ -67,7 +67,7 @@ bool MainState::OnEnter()
 
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i] = new Asteroid(float(rand() % -4) - 4.0f, 0.0f, float(rand() % -5) - 10.0f);
+		m_asteroids[i] = new Asteroid(float(rand() % -4) - 5.0f, 0.0f, float(rand() % -5) - 15.0f);
 		m_asteroids[i]->SetTag("Asteroids_" + std::to_string(i));
 	}
 

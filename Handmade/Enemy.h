@@ -28,8 +28,7 @@ public:
 private:
 	Model m_model;
 
-	glm::vec3 m_acc;
-	glm::vec3 m_vel;
+	glm::vec3 m_startPos;
 
 	AABB m_collider;
 };

@@ -56,19 +56,23 @@ void Player::Update()
 
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		m_rb.AddForce(0.0f, 0.0f, -1.0f);
+		m_rb.AddForce(0.0f, 0.0f, -2.0f);
 	}
 	else if (keyState[SDL_SCANCODE_DOWN])
 	{
-		m_rb.AddForce(0.0f, 0.0f, 1.0f);
+		m_rb.AddForce(0.0f, 0.0f, 2.0f);
 	}
 	else if (keyState[SDL_SCANCODE_LEFT])
 	{
-		m_rb.AddForce(-1.0f, 0.0f, 0.0f);
+		m_rb.AddForce(-2.0f, 0.0f, 0.0f);
 	}
 	else if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		m_rb.AddForce(1.0f, 0.0f, 0.0f);
+		m_rb.AddForce(2.0f, 0.0f, 0.0f);
+	}
+	else
+	{
+		// Resetting any matrix or rigidbody change
 	}
 
 	if (keyState[SDL_SCANCODE_SPACE])
@@ -78,6 +82,12 @@ void Player::Update()
 		{
 			m_bullet = new Laser(m_transform.GetPos(), m_forwardGLM);
 		}
+	}
+
+	if (keyState[SDL_SCANCODE_LSHIFT])
+	{
+		m_rb.SetForce(0.0f, 0.0f, 0.0f);
+		m_rb.SetVel(0.0f, 0.0f, 0.0f);
 	}
 
 	if (m_bullet != nullptr)
@@ -186,9 +196,10 @@ void Player::Draw()
 
 }
 
-
 void Player::Destroy()
 {
+	m_model.UnloadModel("PLAYER");
+	m_model.UnloadTexture("PLAYER");
 	delete m_bullet;
 }
 

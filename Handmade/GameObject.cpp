@@ -15,7 +15,7 @@ std::vector<Mat4x4<float>> GameObject::s_myModelMatrix;
 void GameObject::SetIdentity()
 {
 	s_modelMatrix.back() = glm::mat4(1.0f);
-	s_myModelMatrix.back() = Mat4x4<float>(1.0f);
+	//s_myModelMatrix.back() = Mat4x4<float>(1.0f);
 }
 //------------------------------------------------------------------------------------------------------
 //static function that adds a new transformation to the matrix stack
@@ -23,7 +23,7 @@ void GameObject::SetIdentity()
 void GameObject::PushMatrix()
 {
 	s_modelMatrix.push_back(s_modelMatrix.back());
-	s_myModelMatrix.push_back(s_myModelMatrix.back());
+	//s_myModelMatrix.push_back(s_myModelMatrix.back());
 }
 //------------------------------------------------------------------------------------------------------
 //static function that removes last transformation from matrix stack
@@ -38,10 +38,10 @@ void GameObject::PopMatrix()
 
 	//only remove transformation if there are multiple ones available
 	//there always needs to be at least one transformation present!
-	if (s_myModelMatrix.size() > 1)
-	{
-		s_myModelMatrix.pop_back();
-	}
+	//if (s_myModelMatrix.size() > 1)
+	//{
+	//	s_myModelMatrix.pop_back();
+	//}
 
 }
 //------------------------------------------------------------------------------------------------------

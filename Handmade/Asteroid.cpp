@@ -9,6 +9,9 @@ Asteroid::Asteroid(float x, float y, float z)
 	m_transform.SetPosition(m_rb.GetPos());
 	m_rb.SetMass(3.0f);
 
+	// Storing the starting position of the object 
+	m_startPos = m_rb.GetPos();
+
 	m_rotAngle = 0.0f;
 
 	m_vel = 0.1f;
@@ -28,8 +31,8 @@ Asteroid::Asteroid(float x, float y, float z)
 	}
 
 	m_sphereCollider.SetPos(m_rb.GetPos());
-	m_sphereCollider.SetRadius(1.0f);
-	m_sphereCollider.SetScale(1.0f);
+	m_sphereCollider.SetRadius(0.5f);
+	m_sphereCollider.SetScale(0.5f);
 }
 
 bool Asteroid::Create()
@@ -48,7 +51,11 @@ void Asteroid::Update()
 
 	m_rb.AddForce(0.0f, 0.0f, +0.5f);
 
-	//forceAdd++;
+	// Resetting the pos back to starting pos
+	if (m_rb.GetPos().z >= 3)
+	{
+		m_rb.SetPos(m_startPos);
+	}
 
 	m_rb.Update();
 	m_transform.SetPosition(m_rb.GetPos());
@@ -70,7 +77,9 @@ void Asteroid::Draw()
 	GameObject::SetMatrix(m_transform.GetMatrix());
 	GameObject::SendToShader(false, true);
 
+#ifdef DEBUG
 	m_sphereCollider.DebugDraw();
+#endif
 }
 
 void Asteroid::Destroy()

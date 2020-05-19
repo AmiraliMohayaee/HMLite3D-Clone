@@ -5,7 +5,6 @@
 #include "Utility.h"
 
 
-
 Enemy::Enemy()
 {
 
@@ -16,6 +15,8 @@ Enemy::Enemy(float x, float y, float z)
  	m_rb.SetPos(x, y, z);
 	m_rb.SetMass(3.0f);
 	m_transform.SetPosition(m_rb.GetPos());
+
+	m_startPos = m_rb.GetPos();
 
 	static bool isEnemyLoaded = false;
 
@@ -32,8 +33,8 @@ Enemy::Enemy(float x, float y, float z)
 	}
 
 	m_collider.SetPos(m_rb.GetPos());
-	m_collider.SetDimension(0.5f, 0.5f, 0.5f);
-	m_collider.SetScale(1.0f, 1.0f, 1.0f);
+	m_collider.SetDimension(1.5f, 1.5f, 1.5f);
+	m_collider.SetScale(1.5f, 1.5f, 1.5f);
 
 	//m_sphereCollider.SetRadius(1.0f);
 	//m_sphereCollider.SetScale(0.5f);
@@ -46,6 +47,11 @@ void Enemy::Update()
 
 	m_rb.Update();
 	m_transform.SetPosition(m_rb.GetPos());
+
+	if (m_rb.GetPos().z >= 3)
+	{
+		m_rb.SetPos(m_startPos);
+	}
 
 	m_collider.SetPos(m_rb.GetPos());
 	m_collider.Update();
@@ -64,13 +70,16 @@ void Enemy::Draw()
 	GameObject::SetMatrix(m_transform.GetMatrix());
 	GameObject::SendToShader(false, true);
 
+#ifdef DEBUG
 	m_collider.DebugDraw();
 	//m_sphereCollider.DebugDraw();
+#endif
 }
 
 void Enemy::Destroy()
 {
-
+	m_model.UnloadModel("ENEMY");
+	m_model.UnloadTexture("ENEMY");
 }
 
 const AABB& Enemy::GetCollider() const

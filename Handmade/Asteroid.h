@@ -32,6 +32,8 @@ private:
 	Model m_model;
 
 	SphereCollider m_sphereCollider;
+
+	glm::vec3 m_startPos;
 };
 
 
