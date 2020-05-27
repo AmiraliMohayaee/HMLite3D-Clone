@@ -45,6 +45,8 @@
 #include "Asteroid.h"
 #include "Skybox.h"
 #include "TextBox.h"
+#include "Life.h"
+#include "Explosion.h"
 
 
 class MainState : public GameState
@@ -63,8 +65,13 @@ public:
 	virtual void OnExit();
 
 private:
+    bool m_isExploCreated;
+
     TextBox* m_testText;
     TextBox* m_scoreText;
+    Life* m_life;
+    Explosion* m_explosion;
+
 	HUD* m_HUD;
 	HUDCamera* m_HUDCamera;
 	MainCamera* m_mainCamera;
@@ -75,7 +82,6 @@ private:
     Player* m_player;
     Enemy* m_enemies[maxEnemies];
     Planet* m_planet;
-
     Asteroid* m_asteroids[maxAsteroids];
     Skybox* m_skyBox;
 

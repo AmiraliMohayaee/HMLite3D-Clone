@@ -7,10 +7,9 @@
 #include "PipelineManager.h"
 #include "ScreenManager.h"
 #include "Utility.h"
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
 #include <stdlib.h>
 #include <time.h>
+#include <string>
 
 
 //------------------------------------------------------------------------------------------------------
@@ -18,7 +17,10 @@
 //------------------------------------------------------------------------------------------------------
 MainState::MainState(GameState* state) : GameState(state)
 {
+	m_life = nullptr;
+	m_scoreText = nullptr;
 	m_testText = nullptr;
+	m_explosion = nullptr;
 	m_HUD = nullptr;
 	m_HUDCamera = nullptr;
 	m_mainCamera = nullptr;
@@ -37,6 +39,8 @@ MainState::MainState(GameState* state) : GameState(state)
 	}
 
 	m_skyBox = nullptr;
+
+	m_isExploCreated = false;
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -44,20 +48,24 @@ MainState::MainState(GameState* state) : GameState(state)
 //------------------------------------------------------------------------------------------------------
 bool MainState::OnEnter()
 {
-	m_testText = new TextBox(10, 10, 0, 100, "TEXT_1");
-	m_testText->SetText("Hello!");
+	m_testText = new TextBox(10, 10, 0, 30, "TEXT_1");
+	m_testText->SetText("Avoid obstacles and go as far as you can");
 
-	m_scoreText = new TextBox(10, 600, 0, 50, "SCORETEXT");
-	//m_scoreText->SetText("Current Score is: " + std::to_string());
+	m_scoreText = new TextBox(10, 600, 0, 30, "SCORETEXT");
+
 
 	m_player = new Player(0.0f, 0.0f, 0.0f);
 	m_player->SetTag("Player");
+
+	// Setting health values for on screen hud element
+	m_player->SetLife(100);
+
 
 	srand(time(0));
 
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i] = new Enemy(float(rand() % 4) + 5.0f, 0.0f, float(rand() % -5) - 15.0f);
+		m_enemies[i] = new Enemy(float(rand() % 20) - 10.0f, 0.0f, float(rand() % -5) - 20.0f);
 		m_enemies[i]->SetTag("Baddies_" + std::to_string(i));
 	}
 
@@ -67,14 +75,15 @@ bool MainState::OnEnter()
 
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i] = new Asteroid(float(rand() % -4) - 5.0f, 0.0f, float(rand() % -5) - 15.0f);
+		m_asteroids[i] = new Asteroid(float(rand() % 20) - 10.0f, 0.0f, float(rand() % -5) - 20.0f);
 		m_asteroids[i]->SetTag("Asteroids_" + std::to_string(i));
 	}
 
 
 	// To-Do: Add more
 
-
+	m_life = new Life();
+	m_life->SetHealthVal(m_player->GetLife());
 
 	// Spawning Skybox
 	m_skyBox = new Skybox(0.0f, 0.0f, 0.0f);
@@ -102,9 +111,11 @@ bool MainState::Update()
 {
 	//store keyboard key states in a temp variable for processing below
 	const Uint8* keyState = TheInput::Instance()->GetKeyStates();
-
+	
 	//update main camera
 	m_mainCamera->Update();
+
+	static int count = 0;
 
 	//if ESCAPE key was pressed, return flag to end game 
 	if (keyState[SDL_SCANCODE_ESCAPE])
@@ -112,7 +123,12 @@ bool MainState::Update()
 		m_isActive = m_isAlive = false;
 		TheGame::Instance()->ChangeState(new EndState(this));
 	}
-
+	else if (keyState[SDL_SCANCODE_LALT] && !m_isExploCreated)
+	{
+  		m_explosion = new Explosion(100.0f, 100.0f, 0.0f, 
+			"EXPLOSION" + std::to_string(count++));
+		m_isExploCreated = true;
+	}
 
 	m_player->Update();
 	
@@ -126,11 +142,20 @@ bool MainState::Update()
 			if (m_enemies[i]->GetCollider().IsColliding
 			(m_player->GetSphereCollider()))
 			{
+				// When colliding with an enemy, lose
+				// player life and destroy the enemy
 				m_player->OnCollision(m_enemies[i]);
-				//m_player->HealthDown(10);
-				//m_enemies[i]->IsAlive() = false;
-				//delete m_enemies[i];
-				//m_enemies[i] = nullptr;
+				m_player->LifeLoss(10);
+				// Explosion
+				if (!m_isExploCreated)
+				{
+					m_explosion = new Explosion(100.0f, 100.0f, 0.0f,
+						"EXPLOSION" + std::to_string(count++));
+					m_isExploCreated = true;
+				}
+				m_enemies[i]->IsAlive() = false;
+				delete m_enemies[i];
+				m_enemies[i] = nullptr;
 			}
 			else
 			{
@@ -149,9 +174,18 @@ bool MainState::Update()
 			(m_player->GetSphereCollider()))
 			{
 				m_player->OnCollision(m_asteroids[i]);
-				//m_asteroids[i]->IsAlive() = false;
-				//delete m_asteroids[i];
-				//m_asteroids[i] = nullptr;
+				m_player->LifeLoss(10);
+
+				if (!m_isExploCreated)
+				{
+					m_explosion = new Explosion(100.0f, 100.0f, 0.0f,
+						"EXPLOSION" + std::to_string(count++));
+					m_isExploCreated = true;
+				}
+
+				m_asteroids[i]->IsAlive() = false;
+				delete m_asteroids[i];
+				m_asteroids[i] = nullptr;
 			}
 			else
 			{
@@ -163,6 +197,29 @@ bool MainState::Update()
 
 	m_planet->Update();
 	m_skyBox->Update();
+
+	if (m_isExploCreated)
+	{
+		m_explosion->Update();
+
+		if (!m_explosion->IsAlive())
+		{
+			delete m_explosion;
+			m_explosion = nullptr;
+			m_isExploCreated = false;
+		}
+	}
+
+	//=============================================
+	// Temporary float for testing
+	float score = 0;
+	score++;
+
+	m_scoreText->SetText("Current Score is: " + std::to_string(score));
+	m_scoreText->Update();
+	m_life->SetHealthVal(m_player->GetLife());
+	m_life->Update();
+	//=============================================
 
 
 	// To-Do: Output log info into files
@@ -246,6 +303,13 @@ bool MainState::Draw()
 	m_testText->Draw();
 
 #endif
+	m_scoreText->Draw();
+	m_life->Draw();
+
+	if (m_isExploCreated == true)
+	{
+		m_explosion->Draw();
+	}
 
 	return true;
 
@@ -255,7 +319,6 @@ bool MainState::Draw()
 //------------------------------------------------------------------------------------------------------
 void MainState::OnExit()
 {
-
 	//destroy the HUD, camera and grid objects
 	m_HUD->Destroy();
 	delete m_HUD;
@@ -276,4 +339,6 @@ void MainState::OnExit()
 	delete m_skyBox;
 	delete m_testText;
 	delete m_scoreText;
+	delete m_explosion;
+	delete m_life;
 }

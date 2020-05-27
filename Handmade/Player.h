@@ -1,17 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "DebugManager.h"
 #include "GameObject.h"
-#include "InputManager.h"
-#include "Matrix4x4.h"
 #include <glm.hpp>
-#include "Vec3.h"
 #include "Model.h"
 #include "Transform.h"
 #include "SphereCollider.h"
 #include "Laser.h"
 #include "Enemy.h"
+#include "Explosion.h"
+#include "Life.h"
 
 
 class Player : public GameObject
@@ -19,6 +17,10 @@ class Player : public GameObject
 public:
 	Player();
 	Player(float x, float y, float z);
+
+	void SetLife(unsigned int life);
+	const int GetLife();
+	void LifeLoss(int lifeLoss);
 
 	virtual bool Create();
 	virtual void Update();
@@ -31,6 +33,10 @@ public:
 
 private:
 	Laser* m_bullet;
+	Explosion* m_explosion;
+	Life* m_life;
+
+	int m_health;
 
 	float m_vel;
 	float m_velCap;

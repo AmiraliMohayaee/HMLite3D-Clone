@@ -143,6 +143,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="HUDCamera.h" />
     <ClInclude Include="DebugManager.h" />
     <ClInclude Include="EndState.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUDCamera.cpp" />
     <ClCompile Include="DebugManager.cpp" />

@@ -5,6 +5,8 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include "Transform.h"
+#include "DebugManager.h"
+#include "InputManager.h"
 
 
 Player::Player()
@@ -14,27 +16,19 @@ Player::Player()
 
 Player::Player(float x, float y, float z)
 {
+	m_health = 100;
+
 	m_rb.SetPos(x, y, z);
 	m_transform.SetPosition(m_rb.GetPos());
 
-	m_vel = 0.01f;
-	m_velCap = 0.0f;
-
-	m_angle = 0.0f;
 
 	// Direction Vectors
-	m_dirGLM = glm::vec3(0.0f);
-
 	m_upGLM = glm::vec3(0.0f, 1.0f, 0.0f);
 	m_forwardGLM = glm::vec3(0.0f, 0.0f, -1.0f);
 	m_rightGLM = glm::vec3(1.0f, 0.0f, 0.0f);
-	m_rotVecGLM = glm::vec3(0.0f);
 
-	m_rb.SetPos(m_transform.GetPos());
-	m_rb.SetAcc(m_accGLM);
-	m_rb.SetVel(m_velGLM);
-	m_rb.SetMass(1.0f);
-	m_rb.SetForce(m_forceGLM);
+
+	m_rb.SetMass(0.1f);
 
 	//m_transform.SetIdentity();
 
@@ -43,6 +37,21 @@ Player::Player(float x, float y, float z)
 
 	m_sphereCollider.SetRadius(0.5f);
 	m_sphereCollider.SetScale(0.5f);
+}
+
+void Player::SetLife(unsigned int life)
+{
+	life = m_health;
+}
+
+const int Player::GetLife()
+{
+	return m_health;
+}
+
+void Player::LifeLoss(int lifeLoss)
+{
+	lifeLoss -= m_health;
 }
 
 bool Player::Create()
@@ -100,8 +109,6 @@ void Player::Update()
 			m_bullet = nullptr;
 		}
 	}
-	
-
 
 	if (keyState[SDL_SCANCODE_J])
 	{
@@ -120,12 +127,6 @@ void Player::Update()
 		m_angle += 5.0f;
 	}
 
-
-	// Set vel cap
-	//if (m_rb.GetForce().x >= 1.0f || m_rb.GetForce().z >= 1.0f)
-	//{
-	//	m_rb.SetForce(0.0f, 0.0f, 0.0f);
-	//}
 	
 	Utility::Log(m_rb.GetAcc().x, m_rb.GetAcc().y, 
 		m_rb.GetAcc().z, "RigidBody Accelleration:");
@@ -135,6 +136,7 @@ void Player::Update()
 		m_rb.GetVel().z, "RigidBody Velocity:");
 
 
+	// To do: Add mouse input for later
 	//if (TheInput::Instance()->GetLeftButtonState() == InputManager::DOWN)
 	//{
 	//	m_pos.y += 0.05f;
@@ -144,7 +146,16 @@ void Player::Update()
 	//	m_pos.y -= 0.05f;
 	//}
 
-	// To do: Add mouse input 
+	// Position Capping by preventing player from moving
+	// passed a certain bounds, but still allowing for it
+	// to retain force to move around. It's best to limit instead
+	// of just grinding the spaceship to a halt
+	if (m_rb.GetPos().x < -5.0f || m_rb.GetPos().x > 5.0f
+		|| m_rb.GetPos().z < -5.0f || m_rb.GetPos().z > 0.5f)
+	{
+		m_rb.SetVel(0.0f, 0.0f, 0.0f);
+	}
+
 
 	Utility::Log(m_rb.GetPos().x, m_rb.GetPos().y, m_rb.GetPos().z,
 		"Player's Pos");
@@ -163,6 +174,11 @@ void Player::Draw()
 	if (m_bullet != nullptr)
 	{
 		m_bullet->PlayerShotDraw();
+	}
+
+	if (m_explosion != nullptr)
+	{
+		m_explosion->Draw();
 	}
 
 	m_transform.SetRotation(0.0f, 180.0f, 0.0f);
@@ -201,11 +217,19 @@ void Player::Destroy()
 	m_model.UnloadModel("PLAYER");
 	m_model.UnloadTexture("PLAYER");
 	delete m_bullet;
+	delete m_explosion;
+	delete m_life;
 }
 
 void Player::OnCollision(GameObject* go)
 {
 	Utility::Log("Colliding with " + go->GetTag());
+
+	//if (m_explosion == nullptr)
+	//{
+	//	m_explosion = new Explosion(m_transform.GetPos().x, m_transform.GetPos().y,
+	//		m_transform.GetPos().z, "EXPLOSION");
+	//}
 }
 
 const SphereCollider& Player::GetSphereCollider() const

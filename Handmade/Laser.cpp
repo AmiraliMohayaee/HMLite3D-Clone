@@ -57,7 +57,7 @@ bool Laser::Create()
 
 void Laser::Update()
 {
-	m_rb.AddForce(0.0f, 0.0f, -2.0f);
+	m_rb.AddForce(0.0f, 0.0f, -8.0f);
 	
 	// If the projectile goes further than 100 units, it is killed off
 	if (m_rb.GetPos().z <= -15.0f)

@@ -9,6 +9,7 @@
 #include <glm.hpp>
 #include "Player.h"
 #include "Laser.h"
+#include "SphereCollider.h"
 
 
 class Enemy : public GameObject
@@ -31,6 +32,7 @@ private:
 	glm::vec3 m_startPos;
 
 	AABB m_collider;
+	SphereCollider m_sphereCollider;
 };
 
 

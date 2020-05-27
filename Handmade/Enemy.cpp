@@ -36,6 +36,7 @@ Enemy::Enemy(float x, float y, float z)
 	m_collider.SetDimension(1.5f, 1.5f, 1.5f);
 	m_collider.SetScale(1.5f, 1.5f, 1.5f);
 
+
 	//m_sphereCollider.SetRadius(1.0f);
 	//m_sphereCollider.SetScale(0.5f);
 }
@@ -47,6 +48,8 @@ void Enemy::Update()
 
 	m_rb.Update();
 	m_transform.SetPosition(m_rb.GetPos());
+
+	//m_rb.SetPos(m_player->GetPosition());
 
 	if (m_rb.GetPos().z >= 3)
 	{
