@@ -69,6 +69,9 @@ private:
 
     TextBox* m_testText;
     TextBox* m_scoreText;
+    TextBox* m_lifeDisplay;
+    TextBox* m_instructions1;
+    TextBox* m_instructions2;
     Life* m_life;
     Explosion* m_explosion;
 
@@ -85,6 +88,7 @@ private:
     Asteroid* m_asteroids[maxAsteroids];
     Skybox* m_skyBox;
 
+    Laser* m_laser;
 };
 
 #endif

@@ -23,7 +23,8 @@ public:
 	virtual void Draw();
 	virtual void Destroy();
 
-	const AABB& GetCollider() const;
+	const SphereCollider& GetSphereCollider() const;
+
 
 
 private:
@@ -31,7 +32,6 @@ private:
 
 	glm::vec3 m_startPos;
 
-	AABB m_collider;
 	SphereCollider m_sphereCollider;
 };
 

@@ -95,10 +95,10 @@ bool AABB::IsColliding(const SphereCollider& sphere) const
 
 	if (sphere.GetRadius() >= edgeDist)
 	{
-		return false;
+		return true;
 	}
 	else
 	{
-		return true;
+		return false;
 	}
 }

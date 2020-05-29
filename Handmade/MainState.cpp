@@ -1,5 +1,6 @@
 #include "DebugManager.h"
 #include "EndState.h"
+#include "WinState.h"
 #include "StartState.h"	
 #include "InputManager.h"
 #include "Game.h"
@@ -20,12 +21,17 @@ MainState::MainState(GameState* state) : GameState(state)
 	m_life = nullptr;
 	m_scoreText = nullptr;
 	m_testText = nullptr;
+	m_lifeDisplay = nullptr;
+	m_instructions1 = nullptr;
+	m_instructions2 = nullptr;
+
 	m_explosion = nullptr;
 	m_HUD = nullptr;
 	m_HUDCamera = nullptr;
 	m_mainCamera = nullptr;
 
 	m_player = nullptr;
+	m_laser = nullptr;
 	
 	// Setting up 
 	for (size_t i = 0; i < maxEnemies; i++)
@@ -49,9 +55,11 @@ MainState::MainState(GameState* state) : GameState(state)
 bool MainState::OnEnter()
 {
 	m_testText = new TextBox(10, 10, 0, 30, "TEXT_1");
-	m_testText->SetText("Avoid obstacles and go as far as you can");
+	m_testText->SetText("Avoid obstacles and go as far as you can.");
+
 
 	m_scoreText = new TextBox(10, 600, 0, 30, "SCORETEXT");
+	m_lifeDisplay = new TextBox(10, 650, 0, 30, "LIFETEXT");
 
 
 	m_player = new Player(0.0f, 0.0f, 0.0f);
@@ -60,12 +68,13 @@ bool MainState::OnEnter()
 	// Setting health values for on screen hud element
 	m_player->SetLife(100);
 
+	
 
 	srand(time(0));
 
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
-		m_enemies[i] = new Enemy(float(rand() % 20) - 10.0f, 0.0f, float(rand() % -5) - 20.0f);
+		m_enemies[i] = new Enemy(float(rand() % 12) - 6.0f, 0.0f, float(rand() % -5) - 20.0f);
 		m_enemies[i]->SetTag("Baddies_" + std::to_string(i));
 	}
 
@@ -75,7 +84,7 @@ bool MainState::OnEnter()
 
 	for (size_t i = 0; i < maxAsteroids; i++)
 	{
-		m_asteroids[i] = new Asteroid(float(rand() % 20) - 10.0f, 0.0f, float(rand() % -5) - 20.0f);
+		m_asteroids[i] = new Asteroid(float(rand() % 12) - 6.0f, 0.0f, float(rand() % -5) - 20.0f);
 		m_asteroids[i]->SetTag("Asteroids_" + std::to_string(i));
 	}
 
@@ -112,6 +121,8 @@ bool MainState::Update()
 	//store keyboard key states in a temp variable for processing below
 	const Uint8* keyState = TheInput::Instance()->GetKeyStates();
 	
+	
+
 	//update main camera
 	m_mainCamera->Update();
 
@@ -123,14 +134,14 @@ bool MainState::Update()
 		m_isActive = m_isAlive = false;
 		TheGame::Instance()->ChangeState(new EndState(this));
 	}
-	else if (keyState[SDL_SCANCODE_LALT] && !m_isExploCreated)
-	{
-  		m_explosion = new Explosion(100.0f, 100.0f, 0.0f, 
-			"EXPLOSION" + std::to_string(count++));
-		m_isExploCreated = true;
-	}
+	//else if (keyState[SDL_SCANCODE_LALT] && !m_isExploCreated)
+	//{
+ // 		m_explosion = new Explosion(100.0f, 100.0f, 0.0f, 
+	//		"EXPLOSION" + std::to_string(count++));
+	//	m_isExploCreated = true;
+	//}
 
-	m_player->Update();
+
 	
 	for (size_t i = 0; i < maxEnemies; i++)
 	{
@@ -139,29 +150,48 @@ bool MainState::Update()
 			m_enemies[i]->Update();
 
 			// Testing Collisions
-			if (m_enemies[i]->GetCollider().IsColliding
+			if (m_enemies[i]->GetSphereCollider().IsSphereColliding
 			(m_player->GetSphereCollider()))
 			{
 				// When colliding with an enemy, lose
 				// player life and destroy the enemy
 				m_player->OnCollision(m_enemies[i]);
-				m_player->LifeLoss(10);
+				m_player->LifeLoss(20);
 				// Explosion
 				if (!m_isExploCreated)
 				{
-					m_explosion = new Explosion(100.0f, 100.0f, 0.0f,
+					m_explosion = new Explosion(10.0f, 650.0f, 0.0f,
 						"EXPLOSION" + std::to_string(count++));
 					m_isExploCreated = true;
 				}
+
 				m_enemies[i]->IsAlive() = false;
 				delete m_enemies[i];
 				m_enemies[i] = nullptr;
+	
 			}
 			else
 			{
 				Utility::Log("Not Colliding");
 			}
 		}
+
+		//if (m_laser == nullptr)
+		//{
+		//	m_laser = m_player->GetBullet();
+		//}
+
+		//if (m_laser != nullptr)
+		//{
+
+		//	if (m_enemies[i]->GetSphereCollider().IsSphereColliding
+		//	(m_laser->GetSphereCollider()))
+		//	{
+		//		m_enemies[i]->IsAlive() = false;
+		//		delete m_enemies[i];
+		//		m_enemies[i] = nullptr;
+		//	}
+		//}
 	}
 
 	for (size_t i = 0; i < maxAsteroids; i++)
@@ -171,14 +201,15 @@ bool MainState::Update()
 			m_asteroids[i]->Update();
 
 			if (m_asteroids[i]->GetSphereCollider().IsSphereColliding
-			(m_player->GetSphereCollider()))
+			(m_player->GetSphereCollider()) /*|| m_asteroids[i]->GetSphereCollider().
+				IsSphereColliding(m_laser->GetSphereCollider())*/)
 			{
 				m_player->OnCollision(m_asteroids[i]);
-				m_player->LifeLoss(10);
+				m_player->LifeLoss(20);
 
 				if (!m_isExploCreated)
 				{
-					m_explosion = new Explosion(100.0f, 100.0f, 0.0f,
+					m_explosion = new Explosion(10.0f, 650.0f, 0.0f,
 						"EXPLOSION" + std::to_string(count++));
 					m_isExploCreated = true;
 				}
@@ -192,6 +223,22 @@ bool MainState::Update()
 				Utility::Log("Not Colliding");
 			}
 		}
+	}
+
+	m_player->SetScore(10);
+	m_player->Update();
+
+
+	// Setting the win or loss states
+	if (m_player->GetScore() > 10000)
+	{
+		m_isActive = m_isAlive = false;
+		TheGame::Instance()->ChangeState(new WinState(this));
+	}
+	else if (m_player->GetLife() == 0)
+	{
+		m_isActive = m_isAlive = false;
+		TheGame::Instance()->ChangeState(new EndState(this));
 	}
 
 
@@ -211,19 +258,16 @@ bool MainState::Update()
 	}
 
 	//=============================================
-	// Temporary float for testing
-	float score = 0;
-	score++;
+	// Adding score per frame
 
-	m_scoreText->SetText("Current Score is: " + std::to_string(score));
+	m_lifeDisplay->SetText("Current Health is :" + std::to_string(m_player->GetLife()));
+	m_lifeDisplay->Update();
+	m_scoreText->SetText("Current Score is: " + std::to_string(m_player->GetScore()));
 	m_scoreText->Update();
 	m_life->SetHealthVal(m_player->GetLife());
 	m_life->Update();
 	//=============================================
 
-
-	// To-Do: Output log info into files
-	//Utility::Log("Updating Main State");
 	
 	return true;
 }
@@ -289,6 +333,7 @@ bool MainState::Draw()
 
 
 
+	TheScreen::Instance()->Set2DScreen(ScreenManager::BOTTOM_LEFT);
 
 #ifdef DEBUG
 
@@ -298,11 +343,11 @@ bool MainState::Draw()
 
 	// Setting up an Ortho projection
 	// Move this out of Debug later
-	TheScreen::Instance()->Set2DScreen(ScreenManager::BOTTOM_LEFT);
-	m_HUDCamera->Draw();
-	m_testText->Draw();
 
 #endif
+	m_HUDCamera->Draw();
+	m_testText->Draw();
+	m_lifeDisplay->Draw();
 	m_scoreText->Draw();
 	m_life->Draw();
 
@@ -341,4 +386,5 @@ void MainState::OnExit()
 	delete m_scoreText;
 	delete m_explosion;
 	delete m_life;
+	delete m_lifeDisplay;
 }

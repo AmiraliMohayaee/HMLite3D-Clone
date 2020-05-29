@@ -31,8 +31,8 @@ Asteroid::Asteroid(float x, float y, float z)
 	}
 
 	m_sphereCollider.SetPos(m_rb.GetPos());
-	m_sphereCollider.SetRadius(0.5f);
-	m_sphereCollider.SetScale(0.5f);
+	m_sphereCollider.SetRadius(1.0f);
+	m_sphereCollider.SetScale(1.0f);
 }
 
 bool Asteroid::Create()

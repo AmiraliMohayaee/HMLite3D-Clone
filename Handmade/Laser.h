@@ -27,7 +27,8 @@ public:
 	void EnemyUpdate();
 
 
-	const AABB& GetCollider() const;
+	//const AABB& GetCollider() const;
+	const SphereCollider& GetSphereCollider() const;
 
 	
 private:
@@ -40,7 +41,8 @@ private:
 
 	Audio m_sfx;
 
-	AABB m_collider;
+	//AABB m_collider;
+	SphereCollider m_sphereCollider;
 };
 
 #endif

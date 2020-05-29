@@ -183,6 +183,7 @@
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Vec3.h" />
     <ClInclude Include="Vec4.h" />
+    <ClInclude Include="WinState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
@@ -231,6 +232,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="WinState.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

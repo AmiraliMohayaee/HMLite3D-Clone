@@ -22,8 +22,10 @@ Skybox::Skybox(float x, float y, float z)
 	m_music.SetAudioData("SKYBOXAUD", AudioManager::MUSIC_AUDIO);
 	m_music.Volume() = 0.4f;
 
-	//m_music.Play();
-	//m_music.SetLoopCount(Audio::ENDLESS_LOOP);
+#ifdef RELEASE
+	m_music.Play();
+	m_music.SetLoopCount(Audio::ENDLESS_LOOP);
+#endif
 }
 
 bool Skybox::Create()
@@ -50,11 +52,11 @@ void Skybox::Draw()
 
 void Skybox::Destroy()
 {
+	m_music.Stop();
 	m_model.UnloadModel("SKYBOX");
 	m_model.UnloadTexture("SKYBOX");
 	TheAudio::Instance()->UnloadFromMemory(AudioManager::MUSIC_AUDIO,
 		AudioManager::CUSTOM_AUDIO, "SKYBOXAUD");
-	m_music.Stop();
 }
 
 void Skybox::OnCollision(GameObject* go)

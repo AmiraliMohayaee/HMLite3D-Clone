@@ -41,9 +41,9 @@ Laser::Laser(const glm::vec3& pos, const glm::vec3& dir)
 		m_sfx.SetAudioData("LASER", AudioManager::SFX_AUDIO);
 	}
 
-	m_collider.SetPos(m_rb.GetPos());
-	m_collider.SetDimension(20.0f, 5.0f, 5.0f);
-	m_collider.SetScale(20.0f, 5.0f, 5.0f);
+	m_sphereCollider.SetPos(m_rb.GetPos());
+	m_sphereCollider.SetRadius(1.0f);
+	m_sphereCollider.SetScale(1.0f);
 
 	m_sfx.Volume() = 0.5f;
 
@@ -65,7 +65,6 @@ void Laser::Update()
 		m_isAlive = false;
 	}
 
-
 	m_rb.Update();
 	m_transform.SetPosition(m_rb.GetPos());
 
@@ -73,6 +72,9 @@ void Laser::Update()
 	//PlayerUpdate();
 
 	m_sfx.Play();
+
+	m_sphereCollider.SetPos(m_rb.GetPos());
+	m_sphereCollider.Update();
 }
 
 void Laser::Draw()
@@ -105,7 +107,7 @@ void Laser::PlayerShotDraw()
 	m_playerLaser.Draw();
 
 #ifdef DEBUG
-	m_collider.DebugDraw();
+	m_sphereCollider.DebugDraw();
 #endif
 }
 
@@ -119,7 +121,7 @@ void Laser::EnemyShotDraw()
 
 	GameObject::SetMatrix(m_transform.GetMatrix());
 
-	m_collider.DebugDraw();
+	m_sphereCollider.DebugDraw();
 }
 
 void Laser::PlayerUpdate()
@@ -134,7 +136,7 @@ void Laser::EnemyUpdate()
 
 }
 
-const AABB& Laser::GetCollider() const
+const SphereCollider& Laser::GetSphereCollider() const
 {
-	return m_collider;
+	return m_sphereCollider;
 }

@@ -17,6 +17,7 @@ Player::Player()
 Player::Player(float x, float y, float z)
 {
 	m_health = 100;
+	m_score = 0;
 
 	m_rb.SetPos(x, y, z);
 	m_transform.SetPosition(m_rb.GetPos());
@@ -35,13 +36,13 @@ Player::Player(float x, float y, float z)
  	m_model.LoadModel("Assets/Models/Spaceship.obj", "SPACESHIP");
 	m_model.LoadTexture("Assets/Textures/Spaceship_Diffuse.png", "SPACESHIP");
 
-	m_sphereCollider.SetRadius(0.5f);
-	m_sphereCollider.SetScale(0.5f);
+	m_sphereCollider.SetRadius(1.0f);
+	m_sphereCollider.SetScale(1.0f);
 }
 
 void Player::SetLife(unsigned int life)
 {
-	life = m_health;
+	 m_health = life;
 }
 
 const int Player::GetLife()
@@ -51,7 +52,39 @@ const int Player::GetLife()
 
 void Player::LifeLoss(int lifeLoss)
 {
-	lifeLoss -= m_health;
+	m_health -= lifeLoss;
+}
+
+void Player::SetScore(int score)
+{
+	m_score += score;
+}
+
+const int Player::GetScore()
+{
+	return m_score;
+}
+
+const SphereCollider& Player::GetLaserCollision() const
+{
+	return m_bullet->GetSphereCollider();
+}
+
+//const Laser& Player::GetBullet() const 
+//{
+//	return m_bullet;
+//}
+
+bool Player::IsLaserColliding(const SphereCollider& other) const
+{
+	if (other.IsSphereColliding(m_bullet->GetSphereCollider()))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool Player::Create()
@@ -150,7 +183,7 @@ void Player::Update()
 	// passed a certain bounds, but still allowing for it
 	// to retain force to move around. It's best to limit instead
 	// of just grinding the spaceship to a halt
-	if (m_rb.GetPos().x < -5.0f || m_rb.GetPos().x > 5.0f
+	if (m_rb.GetPos().x < -6.0f || m_rb.GetPos().x > 6.0f
 		|| m_rb.GetPos().z < -5.0f || m_rb.GetPos().z > 0.5f)
 	{
 		m_rb.SetVel(0.0f, 0.0f, 0.0f);
@@ -224,12 +257,6 @@ void Player::Destroy()
 void Player::OnCollision(GameObject* go)
 {
 	Utility::Log("Colliding with " + go->GetTag());
-
-	//if (m_explosion == nullptr)
-	//{
-	//	m_explosion = new Explosion(m_transform.GetPos().x, m_transform.GetPos().y,
-	//		m_transform.GetPos().z, "EXPLOSION");
-	//}
 }
 
 const SphereCollider& Player::GetSphereCollider() const

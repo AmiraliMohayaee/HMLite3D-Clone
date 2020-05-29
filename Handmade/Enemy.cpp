@@ -32,13 +32,13 @@ Enemy::Enemy(float x, float y, float z)
 		m_model.SetTexture("ENEMY");
 	}
 
-	m_collider.SetPos(m_rb.GetPos());
-	m_collider.SetDimension(1.5f, 1.5f, 1.5f);
-	m_collider.SetScale(1.5f, 1.5f, 1.5f);
+	//m_collider.SetPos(m_rb.GetPos());
+	//m_collider.SetDimension(1.5f, 1.5f, 1.5f);
+	//m_collider.SetScale(1.5f, 1.5f, 1.5f);
 
-
-	//m_sphereCollider.SetRadius(1.0f);
-	//m_sphereCollider.SetScale(0.5f);
+	m_sphereCollider.SetPos(m_rb.GetPos());
+	m_sphereCollider.SetRadius(1.0f);
+	m_sphereCollider.SetScale(1.0f);
 }
 
 void Enemy::Update()
@@ -56,8 +56,8 @@ void Enemy::Update()
 		m_rb.SetPos(m_startPos);
 	}
 
-	m_collider.SetPos(m_rb.GetPos());
-	m_collider.Update();
+	m_sphereCollider.SetPos(m_rb.GetPos());
+	m_sphereCollider.Update();
 }
 
 void Enemy::Draw()
@@ -74,8 +74,8 @@ void Enemy::Draw()
 	GameObject::SendToShader(false, true);
 
 #ifdef DEBUG
-	m_collider.DebugDraw();
-	//m_sphereCollider.DebugDraw();
+	//m_collider.DebugDraw();
+	m_sphereCollider.DebugDraw();
 #endif
 }
 
@@ -85,7 +85,7 @@ void Enemy::Destroy()
 	m_model.UnloadTexture("ENEMY");
 }
 
-const AABB& Enemy::GetCollider() const
+const SphereCollider& Enemy::GetSphereCollider() const
 {
-	return m_collider;
+	return m_sphereCollider;
 }

@@ -230,11 +230,14 @@
     <ClInclude Include="TextBox.h">
       <Filter>Header Files\GameObjects\Custom Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Life.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Explosion.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>Header Files\GameObjects\Custom Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="WinState.h">
+      <Filter>Header Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -371,10 +374,13 @@
       <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
     <ClCompile Include="Life.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
     </ClCompile>
     <ClCompile Include="Explosion.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjects\Costum Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="WinState.cpp">
+      <Filter>Source Files\GameStates</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

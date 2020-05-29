@@ -5,6 +5,7 @@
 #include <glm.hpp>
 #include "Model.h"
 #include "Transform.h"
+#include "AABB.h"
 #include "SphereCollider.h"
 #include "Laser.h"
 #include "Enemy.h"
@@ -18,9 +19,19 @@ public:
 	Player();
 	Player(float x, float y, float z);
 
+	// For the lifebar 
 	void SetLife(unsigned int life);
 	const int GetLife();
 	void LifeLoss(int lifeLoss);
+
+	// For Player Score
+	void SetScore(int score);
+	const int GetScore();
+
+	// Getting Laser's collision bounds
+	const SphereCollider& GetLaserCollision() const;
+	const Laser GetBullet() const;
+	bool IsLaserColliding(const SphereCollider& other) const;
 
 	virtual bool Create();
 	virtual void Update();
@@ -37,6 +48,7 @@ private:
 	Life* m_life;
 
 	int m_health;
+	int m_score;
 
 	float m_vel;
 	float m_velCap;
