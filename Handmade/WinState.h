@@ -23,7 +23,6 @@ private:
 	HUDCamera* m_HUDCamera;
 	SplashScreen* m_splashScreen_1;
 	SplashScreen* m_splashScreen_2;
-	SplashScreen* m_splashScreen_3;
 
 };
 

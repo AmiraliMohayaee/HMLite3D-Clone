@@ -72,6 +72,7 @@ private:
     TextBox* m_lifeDisplay;
     TextBox* m_instructions1;
     TextBox* m_instructions2;
+    TextBox* m_instructions3;
     Life* m_life;
     Explosion* m_explosion;
 

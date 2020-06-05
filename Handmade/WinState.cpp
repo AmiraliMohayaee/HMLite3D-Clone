@@ -1,5 +1,6 @@
 #include "WinState.h"
 #include "PipelineManager.h"
+#include "DebugManager.h"
 
 
 WinState::WinState(GameState* state) : GameState(state)
@@ -12,17 +13,21 @@ WinState::WinState(GameState* state) : GameState(state)
 bool WinState::OnEnter()
 {
 	m_HUDCamera = new HUDCamera();
-	m_splashScreen_1 = new SplashScreen("Assets\\Sprites\\Win.png");
+	
+	m_splashScreen_1 = new SplashScreen("Assets/Sprites/Games.png");
+	m_splashScreen_2 = new SplashScreen("Assets/Sprites/SAE.png");
+	
 	m_splashScreen_1->Create();
-
-	m_splashScreen_2 = new SplashScreen("Assets\\Sprites\\Games.png");
 	m_splashScreen_2->Create();
+
+	m_splashScreen_2->IsActive() = false;
 
 	return true;
 }
 
 bool WinState::Update()
 {
+	// Exiting the state if in Debug
 #ifdef DEBUG
 
 	m_isActive = m_isAlive = false;
@@ -36,14 +41,18 @@ bool WinState::Update()
 	{
 		m_splashScreen_1->Update();
 	}
-	else if (m_splashScreen_2->IsActive())
+	else 
+	{
+		m_splashScreen_2->IsActive() = true;
+	}
+
+
+	if (m_splashScreen_2->IsActive())
 	{
 		m_splashScreen_2->Update();
+		m_isActive = m_isAlive = m_splashScreen_2->IsActive();
 	}
-	else
-	{
 
-	}
 
 
 #endif
@@ -56,9 +65,17 @@ bool WinState::Draw()
 {
 #ifdef RELEASE
 
-	m_HUDCamera->Draw();
-	m_splashScreen_1->Draw();
-	m_splashScreen_1->Draw();
+	if (m_splashScreen_1->IsActive())
+	{
+		m_HUDCamera->Draw();
+		m_splashScreen_1->Draw();
+	}
+
+	if (m_splashScreen_2->IsActive())
+	{
+		m_HUDCamera->Draw();
+		m_splashScreen_2->Draw();
+	}
 
 #endif
 
@@ -73,6 +90,7 @@ void WinState::OnExit()
 	TheDebug::Instance()->DestroyDebugObjects();
 
 #endif
+
 
 	ThePipeline::Instance()->DetachShaders();
 	ThePipeline::Instance()->DestroyShaders();

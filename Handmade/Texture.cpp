@@ -78,6 +78,8 @@ bool Texture::Load(const std::string& filename, const std::string& textureID)
 		return false;
 	}
 
+	std::cout << "LOLWTFHAPPENED?" << std::endl;
+
 	//use SDL image pointer to aquire raw image data 
 	//from image and assign that data to the variables
 	pixels = (unsigned char*)textureData->pixels;

@@ -70,10 +70,27 @@ const SphereCollider& Player::GetLaserCollision() const
 	return m_bullet->GetSphereCollider();
 }
 
+const Laser Player::GetBullet() const
+{
+	return *m_bullet;
+}
+
 //const Laser& Player::GetBullet() const 
 //{
 //	return m_bullet;
 //}
+
+bool Player::IsLaserCreated() const
+{
+	if (m_bullet != nullptr)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 bool Player::IsLaserColliding(const SphereCollider& other) const
 {
@@ -244,6 +261,8 @@ void Player::Draw()
 #endif
 
 }
+
+
 
 void Player::Destroy()
 {

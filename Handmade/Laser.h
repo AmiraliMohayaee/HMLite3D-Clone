@@ -30,6 +30,10 @@ public:
 	//const AABB& GetCollider() const;
 	const SphereCollider& GetSphereCollider() const;
 
+
+	enum HEALTH {
+		GREAT, GOOD, NOTGOOD, HALF,
+		HALFBAD, BAD, REALBAD, DEAD };
 	
 private:
 	float m_followPos;

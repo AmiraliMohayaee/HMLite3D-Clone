@@ -19,11 +19,13 @@
 MainState::MainState(GameState* state) : GameState(state)
 {
 	m_life = nullptr;
+	m_laser = nullptr;
 	m_scoreText = nullptr;
 	m_testText = nullptr;
 	m_lifeDisplay = nullptr;
 	m_instructions1 = nullptr;
 	m_instructions2 = nullptr;
+	m_instructions3 = nullptr;
 
 	m_explosion = nullptr;
 	m_HUD = nullptr;
@@ -31,7 +33,6 @@ MainState::MainState(GameState* state) : GameState(state)
 	m_mainCamera = nullptr;
 
 	m_player = nullptr;
-	m_laser = nullptr;
 	
 	// Setting up 
 	for (size_t i = 0; i < maxEnemies; i++)
@@ -54,20 +55,30 @@ MainState::MainState(GameState* state) : GameState(state)
 //------------------------------------------------------------------------------------------------------
 bool MainState::OnEnter()
 {
+	////////////////////////////
+	// Setting up Text Boxes
 	m_testText = new TextBox(10, 10, 0, 30, "TEXT_1");
 	m_testText->SetText("Avoid obstacles and go as far as you can.");
 
+	m_instructions1 = new TextBox(10, 30, 0, 30, "INSTRUC_1");
+	m_instructions1->SetText("Use the arrow keys to move.");
 
-	m_scoreText = new TextBox(10, 600, 0, 30, "SCORETEXT");
+	m_instructions2 = new TextBox(10, 60, 0, 30, "INSTRUC_2");
+	m_instructions2->SetText("Press Left Shift to break");
+
+	m_instructions3 = new TextBox(10, 120, 0, 30, "INSTRUCT_3");
+	m_instructions3->SetText("Reach a score of 10K to pass the stage");
+
+	m_scoreText = new TextBox(10, 700, 0, 30, "SCORETEXT");
 	m_lifeDisplay = new TextBox(10, 650, 0, 30, "LIFETEXT");
-
+	////////////////////////////
 
 	m_player = new Player(0.0f, 0.0f, 0.0f);
 	m_player->SetTag("Player");
 
 	// Setting health values for on screen hud element
 	m_player->SetLife(100);
-
+	//m_laser = m_player->GetBullet();
 	
 
 	srand(time(0));
@@ -88,8 +99,6 @@ bool MainState::OnEnter()
 		m_asteroids[i]->SetTag("Asteroids_" + std::to_string(i));
 	}
 
-
-	// To-Do: Add more
 
 	m_life = new Life();
 	m_life->SetHealthVal(m_player->GetLife());
@@ -121,7 +130,6 @@ bool MainState::Update()
 	//store keyboard key states in a temp variable for processing below
 	const Uint8* keyState = TheInput::Instance()->GetKeyStates();
 	
-	
 
 	//update main camera
 	m_mainCamera->Update();
@@ -134,13 +142,6 @@ bool MainState::Update()
 		m_isActive = m_isAlive = false;
 		TheGame::Instance()->ChangeState(new EndState(this));
 	}
-	//else if (keyState[SDL_SCANCODE_LALT] && !m_isExploCreated)
-	//{
- // 		m_explosion = new Explosion(100.0f, 100.0f, 0.0f, 
-	//		"EXPLOSION" + std::to_string(count++));
-	//	m_isExploCreated = true;
-	//}
-
 
 	
 	for (size_t i = 0; i < maxEnemies; i++)
@@ -170,28 +171,25 @@ bool MainState::Update()
 				m_enemies[i] = nullptr;
 	
 			}
+			else if (m_player->IsLaserCreated())
+			{
+				if (m_enemies[i]->GetSphereCollider().IsSphereColliding
+				(m_player->GetLaserCollision()))
+				{
+					m_enemies[i]->IsAlive() = false;
+					delete m_enemies[i];
+					m_enemies[i] = nullptr;
+
+					// Delete the bullet later
+
+				}
+			}
+				
 			else
 			{
 				Utility::Log("Not Colliding");
 			}
 		}
-
-		//if (m_laser == nullptr)
-		//{
-		//	m_laser = m_player->GetBullet();
-		//}
-
-		//if (m_laser != nullptr)
-		//{
-
-		//	if (m_enemies[i]->GetSphereCollider().IsSphereColliding
-		//	(m_laser->GetSphereCollider()))
-		//	{
-		//		m_enemies[i]->IsAlive() = false;
-		//		delete m_enemies[i];
-		//		m_enemies[i] = nullptr;
-		//	}
-		//}
 	}
 
 	for (size_t i = 0; i < maxAsteroids; i++)
@@ -201,8 +199,7 @@ bool MainState::Update()
 			m_asteroids[i]->Update();
 
 			if (m_asteroids[i]->GetSphereCollider().IsSphereColliding
-			(m_player->GetSphereCollider()) /*|| m_asteroids[i]->GetSphereCollider().
-				IsSphereColliding(m_laser->GetSphereCollider())*/)
+			(m_player->GetSphereCollider()))
 			{
 				m_player->OnCollision(m_asteroids[i]);
 				m_player->LifeLoss(20);
@@ -225,6 +222,7 @@ bool MainState::Update()
 		}
 	}
 
+	// Constantly incrementing score 
 	m_player->SetScore(10);
 	m_player->Update();
 
@@ -235,7 +233,9 @@ bool MainState::Update()
 		m_isActive = m_isAlive = false;
 		TheGame::Instance()->ChangeState(new WinState(this));
 	}
-	else if (m_player->GetLife() == 0)
+	// If player dies or gets a high score 
+	// go to the next state
+	if (m_player->GetLife() == 0)
 	{
 		m_isActive = m_isAlive = false;
 		TheGame::Instance()->ChangeState(new EndState(this));
@@ -266,6 +266,9 @@ bool MainState::Update()
 	m_scoreText->Update();
 	m_life->SetHealthVal(m_player->GetLife());
 	m_life->Update();
+	m_instructions1->Update();
+	m_instructions2->Update();
+	m_instructions3->Update();
 	//=============================================
 
 	
@@ -350,6 +353,9 @@ bool MainState::Draw()
 	m_lifeDisplay->Draw();
 	m_scoreText->Draw();
 	m_life->Draw();
+	m_instructions1->Draw();
+	m_instructions2->Draw();
+	m_instructions3->Draw();
 
 	if (m_isExploCreated == true)
 	{
@@ -387,4 +393,7 @@ void MainState::OnExit()
 	delete m_explosion;
 	delete m_life;
 	delete m_lifeDisplay;
+	delete m_instructions1;
+	delete m_instructions2;
+	delete m_instructions3;
 }

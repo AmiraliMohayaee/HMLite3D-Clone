@@ -31,6 +31,8 @@ public:
 	// Getting Laser's collision bounds
 	const SphereCollider& GetLaserCollision() const;
 	const Laser GetBullet() const;
+
+	bool IsLaserCreated() const;
 	bool IsLaserColliding(const SphereCollider& other) const;
 
 	virtual bool Create();

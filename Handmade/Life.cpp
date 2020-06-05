@@ -1,5 +1,6 @@
 #include "Life.h"
 #include "ScreenManager.h"
+#include "Utility.h"
 
 Life::Life()
 {
@@ -19,9 +20,13 @@ void Life::Update()
 {
 	//CheckLife();
 
-	enum HEALTH { GREAT, GOOD, NOTGOOD, HALF, 
-		HALFBAD, BAD, REALBAD, DEAD };
 
+	enum HEALTH {
+		GREAT, GOOD, NOTGOOD, HALF,
+		HALFBAD, BAD, REALBAD, DEAD
+	};
+
+	// Needs some further bug fixing
 	switch (GREAT)
 	{
 	case GREAT:
@@ -48,6 +53,7 @@ void Life::Update()
 		if (m_healthVal < 50 && m_healthVal > 35)
 		{
 			m_sprite.SetTextureCell(4, 0);
+			Utility::Log("Player at half life");
 		}
 	case BAD:
 		if (m_healthVal < 35 && m_healthVal > 25)
@@ -66,8 +72,8 @@ void Life::Update()
 		}
 	}
 
-	m_sprite.Update();
 
+	m_sprite.Update();
 }
 
 void Life::Draw()
