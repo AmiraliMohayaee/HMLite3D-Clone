@@ -160,7 +160,4 @@ namespace Utility
 			return result;
 		}
 	}
-
-
-
 }
